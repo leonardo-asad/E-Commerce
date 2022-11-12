@@ -44,8 +44,33 @@ const createUser = (request, response) => {
   );
 };
 
+const updateUser = (request, response) => {
+  const id = request.params.id;
+  const { username, password } = request.body;
+
+  pool.query("UPDATE users SET username = $1, password = $2 WHERE id = $3", [username, password, id], (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).send(`User modified with ID: ${id}`);
+  })
+}
+
+const deleteUser = (request, response) => {
+  const id = parseInt(request.params.id);
+
+  pool.query("DELETE FROM users WHERE id = $1", [id], (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(204).send(`User deleted with ID: ${id}`);
+  });
+};
+
 module.exports = {
   getUsers,
   getUserById,
   createUser,
+  updateUser,
+  deleteUser,
 }
