@@ -25,7 +25,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req, res) => {res.send('Welcome to the E-Commerce App!')})
+app.get('/', (req, res) => {
+  if (req.user) {
+    res.send(`Welcome ${req.user.username}!`)
+  } else {
+    res.send('Welcome to the E-Commerce App!')
+  }
+});
 
 // Users Router
 app.use('/users', usersRouter);
