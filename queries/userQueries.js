@@ -83,6 +83,27 @@ const deleteUser = (request, response, next) => {
   });
 };
 
+const verifyUser = (username, password, cb) => {
+  pool.query("SELECT * FROM users WHERE username = $1", [username], async (error, results) => {
+    if (error) {
+      return cb(error);
+    }
+    if (results.rows.length === 0) {
+      return cb(null, false, {message: "Incorrect Username or Password"});
+    }
+    const user = results.rows[0];
+    try {
+      const matchedPasword = await bcrypt.compare(password, user.password);
+      if (!matchedPasword) {
+        return cb(null, false, {message: "Incorrect Username or Password"})
+      }
+      return cb(null, user);
+    } catch (error) {
+      return cb(error);
+    }
+  });
+};
+
 module.exports = {
   getUsers,
   getUserById,
@@ -90,4 +111,5 @@ module.exports = {
   updateUser,
   deleteUser,
   checkUserId,
+  verifyUser,
 }

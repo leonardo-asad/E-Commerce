@@ -1,7 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-const usersRouter = require('./routes/users')
+const session = require('express-session');
+const usersRouter = require('./routes/users');
+const passport = require('passport');
 
 const port = 3000;
 
@@ -10,9 +13,25 @@ const app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
-app.get('/', (req, res, next) => {
-  res.send('Welcome to the E-Commerce App!');
-})
+require('./config/passport');
+
+app.use(session({
+  secret: process.env.SECRET,
+  cookie: {maxAge: 86400000, sameSite: 'strict'},
+  saveUninitialized: false,
+  resave: false
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/',
+  (req, res, next) => {
+    console.log(req.user);
+    next();
+  },
+  (req, res, next) => {res.send('Welcome to the E-Commerce App!');}
+  )
 
 // Users Router
 app.use('/users', usersRouter);
