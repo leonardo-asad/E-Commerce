@@ -31,8 +31,8 @@ usersRouter.post('/register', async (request, response, next) => {
 usersRouter.post('/login',
   passport.authenticate('local'),
   (request, response) => {
-    console.log(request.user);
     response.send(`User Authenticated`);
+    console.log(request.user);
   }
 );
 

@@ -25,13 +25,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/',
-  (req, res, next) => {
-    console.log(req.user);
-    next();
-  },
-  (req, res, next) => {res.send('Welcome to the E-Commerce App!');}
-  )
+app.get('/', (req, res) => {res.send('Welcome to the E-Commerce App!')})
 
 // Users Router
 app.use('/users', usersRouter);
