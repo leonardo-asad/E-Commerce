@@ -1,11 +1,25 @@
 const usersRouter = require('express').Router();
-const db = require('../queries');
+const bcrypt = require('bcrypt');
+const db = require('../queries/userQueries');
 
 usersRouter.param('id', db.checkUserId);
 
 usersRouter.get('/', db.getUsers);
 usersRouter.get('/:id', db.getUserById);
-usersRouter.post('/', db.createUser);
+usersRouter.post('/register', async (request, response, next) => {
+    const { username, password } = request.body;
+
+    if (!username || !password) {
+      return response.status(400).send("Username or Password not Provided");
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    request.newUser = { username: username, password: hashedPassword };
+    next();
+  },
+  db.createUser
+  );
 usersRouter.put('/:id', db.updateUser);
 usersRouter.delete('/:id', db.deleteUser);
 

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const bcrypt = require('bcrypt');
 
 const Pool = require('pg').Pool;
 const pool = new Pool({
@@ -45,7 +46,7 @@ const checkUserId = (request, response, next, id) => {
 }
 
 const createUser = (request, response, next) => {
-  const {username, password} = request.body;
+  const {username, password} = request.newUser;
 
   pool.query(
     "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *",

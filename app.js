@@ -19,7 +19,6 @@ app.use('/users', usersRouter);
 
 // Database Error Handler
 app.use((error, request, response, next) => {
-  console.log(error.prototype.cause)
   if (error.code === "23505") {
     if (error.constraint === "unique_username") {
       response.status(400).send("The username already exists");
