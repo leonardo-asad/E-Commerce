@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require('passport');
 const usersRouter = require('./routes/users');
 const productRouter = require('./routes/product');
+const cartRouter = require('./routes/cart');
 
 const port = 3000;
 
@@ -37,14 +38,18 @@ app.get('/', (req, res) => {
 // Users Router
 app.use('/users', usersRouter);
 app.use('/product', productRouter);
+app.use('/cart', cartRouter);
 
 // Database Error Handler
 app.use((error, request, response, next) => {
+  //console.log(error)
   if (error.code === "23505") {
     if (error.constraint === "unique_username") {
       response.status(400).send("The username already exists");
     } else if (error.constraint === "unique_name") {
       response.status(400).send("The name of the publishing already exists. Please choose other.");
+    } else if (error.constraint === "cart_user_id_key") {
+      response.status(400).send("The user can not have more than one cart");
     } else {
       response.status(400).send("Duplicate value violates unique constraint");
     }

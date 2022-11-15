@@ -32,9 +32,8 @@ const checkUserId = (request, response, next, id) => {
     }
     request.id = id;
     next();
-  })
-
-}
+  });
+};
 
 const createUser = (request, response, next) => {
   const {username, password} = request.newUser;
