@@ -1,14 +1,5 @@
-require('dotenv').config();
+const pool = require('./dbConfig').pool;
 const bcrypt = require('bcrypt');
-
-const Pool = require('pg').Pool;
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'ecommerceapp',
-  password: process.env.PASSWORD,
-  port: 5432,
-});
 
 const getUsers = (request, response, next) => {
   pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
@@ -62,7 +53,7 @@ const createUser = (request, response, next) => {
 
 const updateUser = (request, response, next) => {
   const id = parseInt(request.id);
-  const { username, password } = request.body;
+  const { username, password } = request.updatedUser;
 
   pool.query("UPDATE users SET username = $1, password = $2 WHERE id = $3", [username, password, id], (error, results) => {
     if (error) {
