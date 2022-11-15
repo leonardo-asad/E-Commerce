@@ -1,6 +1,10 @@
 const pool = require('./dbConfig').pool;
 
 const getProducts = (request, response, next) => {
+  if (request.query.hasOwnProperty('category')) {
+    request.category = request.query.category;
+    return next();
+  }
   pool.query("SELECT * FROM product ORDER BY id ASC", (error, results) => {
     if (error) {
       return next(error);
@@ -8,6 +12,24 @@ const getProducts = (request, response, next) => {
     response.status(200).json(results.rows);
   });
 };
+
+const getProductsByCategory = (request, response, next) => {
+  pool.query(
+    `
+    SELECT *
+    FROM product
+    JOIN products_categories
+    ON
+      product.name = products_categories.product_name
+    WHERE category_name = $1;
+    `,
+    [request.category],
+    (error, results) => {
+      if (error) {return next(error);}
+      response.status(200).json(results.rows);
+    }
+    )
+}
 
 const getProductById = (request, response, next) => {
   const id = parseInt(request.id);
@@ -79,4 +101,5 @@ module.exports = {
   checkProductId,
   createProduct,
   associateCategory,
+  getProductsByCategory,
 }

@@ -4,7 +4,7 @@ const db = require('../queries/productQueries');
 
 productRouter.param('id', db.checkProductId);
 
-productRouter.get('/', db.getProducts);
+productRouter.get('/', db.getProducts, db.getProductsByCategory);
 
 productRouter.get('/:id', db.getProductById);
 
