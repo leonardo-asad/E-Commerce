@@ -1,13 +1,33 @@
 const cartRouter = require('express').Router();
-const db = require('../queries/cartQueries');
+const dbCart = require('../queries/cartQueries');
+const dbOrder = require('../queries/order');
+const dbProduct = require('../queries/productQueries');
 const userPermissions = require('../permissions/userPermissions');
 
-cartRouter.param('id', db.verifyCartId);
+cartRouter.param('id', dbCart.verifyCartId);
 
-cartRouter.get('/:id', db.getProductsByCartId);
+cartRouter.get('/:id', dbCart.getProductsByCartId, (request, response) => {
+  response.status(200).json(request.products);
+});
 
-cartRouter.post('/', userPermissions.isLoggedIn, db.createCart);
+cartRouter.post('/', userPermissions.isLoggedIn, dbCart.createCart);
 
-cartRouter.post('/:id', userPermissions.isLoggedIn, db.addProductToCart);
+cartRouter.post('/:id', userPermissions.isLoggedIn, dbCart.addProductToCart);
+
+cartRouter.post('/:id/checkout',
+  userPermissions.isLoggedIn,
+  dbCart.verifyStock,
+  dbCart.getProductsByCartId,
+  dbCart.getCartPrice,
+  dbOrder.createOrder,
+  dbCart.emptyCart,
+  dbProduct.updateProductStock,
+  (request, response) => {
+    response.json({
+      message: "Operation executed successfully!",
+      purchases: request.products,
+      totalDue: request.totalPay
+    });
+  });
 
 module.exports = cartRouter;

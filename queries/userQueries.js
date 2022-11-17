@@ -59,8 +59,8 @@ const updateUser = (request, response, next) => {
       return next(error);
     }
     response.status(200).send(`User modified with ID: ${id}`);
-  })
-}
+  });
+};
 
 const deleteUser = (request, response, next) => {
   const id = parseInt(request.id);

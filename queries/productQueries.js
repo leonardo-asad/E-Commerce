@@ -5,7 +5,7 @@ const getProducts = (request, response, next) => {
     request.category = request.query.category;
     return next();
   }
-  pool.query("SELECT * FROM product ORDER BY id ASC", (error, results) => {
+  pool.query("SELECT * FROM product WHERE active = TRUE ORDER BY id ASC", (error, results) => {
     if (error) {
       return next(error);
     }
@@ -21,15 +21,15 @@ const getProductsByCategory = (request, response, next) => {
     JOIN products_categories
     ON
       product.name = products_categories.product_name
-    WHERE category_name = $1;
+    WHERE category_name = $1 AND active = TRUE;
     `,
     [request.category],
     (error, results) => {
       if (error) {return next(error);}
       response.status(200).json(results.rows);
     }
-    )
-}
+  );
+};
 
 const getProductById = (request, response, next) => {
   const id = parseInt(request.id);
@@ -95,6 +95,27 @@ const associateCategory = async (request, response, next) => {
   response.status(201).send(`New Product with ID: ${newProduct.id} associated with categories: ${categories}`);
 };
 
+const updateProductStock = async (request, response, next) => {
+  const products = request.products;
+
+  await products.forEach(product => {
+    pool.query(
+      `
+      UPDATE product
+      SET quantity = quantity -1
+      WHERE id = $1;
+      `,
+      [product.id],
+      (error, results) => {
+        if (error) {
+          return response.status(500).send("Error During DB query: Update Product Stock.");
+        };
+      });
+  });
+  console.log("Stock Updated Successfully");
+  next();
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -102,4 +123,5 @@ module.exports = {
   createProduct,
   associateCategory,
   getProductsByCategory,
+  updateProductStock,
 }
