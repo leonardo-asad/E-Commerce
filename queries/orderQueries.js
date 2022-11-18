@@ -1,5 +1,21 @@
 const pool = require('./dbConfig').pool;
 
+const getUserOrders = (request, response, next) => {
+  pool.query(
+    `
+    SELECT product.name, product.description, users_orders.quantity, users_orders.price, users_orders.date
+    FROM users_orders
+    JOIN product
+      ON users_orders.product_id = product.id
+    WHERE users_orders.user_id = $1;
+    `,
+    [request.user.id],
+    (error, results) => {
+      if (error) {return next(error);}
+      response.status(200).json(results.rows);
+    });
+};
+
 const createOrder = async (request, response, next) => {
   const products = request.products;
 
@@ -9,7 +25,7 @@ const createOrder = async (request, response, next) => {
       INSERT INTO users_orders (quantity, price, date, user_id, product_id)
       VALUES ($1, $2, $3, $4, $5)
       `,
-      [product.quantity_order, product.price, new Date(), request.user.id, product.id],
+      [product.quantity_order, product.price, new Date(), request.user.id, product.product_id],
       (error, results) => {
         if (error) {
           return response.status(500).send("Error During DB query: Create Order.");
@@ -22,4 +38,5 @@ const createOrder = async (request, response, next) => {
 
 module.exports = {
   createOrder,
+  getUserOrders,
 }

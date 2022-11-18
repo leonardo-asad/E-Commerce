@@ -102,10 +102,10 @@ const updateProductStock = async (request, response, next) => {
     pool.query(
       `
       UPDATE product
-      SET quantity = quantity -1
-      WHERE id = $1;
+      SET quantity = quantity -$1
+      WHERE id = $2;
       `,
-      [product.id],
+      [product.quantity_order, product.product_id],
       (error, results) => {
         if (error) {
           return response.status(500).send("Error During DB query: Update Product Stock.");

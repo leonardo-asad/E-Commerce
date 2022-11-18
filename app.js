@@ -7,6 +7,8 @@ const passport = require('passport');
 const usersRouter = require('./routes/users');
 const productRouter = require('./routes/product');
 const cartRouter = require('./routes/cart');
+const cartsProductsRouter = require('./routes/cartsProducts');
+const orderRouter = require('./routes/order');
 
 const port = 3000;
 
@@ -39,6 +41,8 @@ app.get('/', (req, res) => {
 app.use('/users', usersRouter);
 app.use('/product', productRouter);
 app.use('/cart', cartRouter);
+app.use('/cartsProducts', cartsProductsRouter);
+app.use('/order', orderRouter);
 
 // Database Error Handler
 app.use((error, request, response, next) => {
