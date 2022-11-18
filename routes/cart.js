@@ -1,19 +1,52 @@
 const cartRouter = require('express').Router();
 const dbCart = require('../queries/cartQueries');
+const dbCartsProducts = require('../queries/cartsProductsQueries');
 const dbOrder = require('../queries/orderQueries');
 const dbProduct = require('../queries/productQueries');
 const userPermissions = require('../permissions/userPermissions');
 
-cartRouter.param('id', dbCart.verifyCartId);
+cartRouter.param('cartId', dbCart.verifyCartId);
 
-cartRouter.get('/:id', dbCart.getProductsByCartId, (request, response) => {
-  response.status(200).json(request.products);
+// Get Cart Products By Cart Id. Only authenticated Users are allowed to see their own Carts.
+cartRouter.get('/:cartId',
+  userPermissions.isLoggedIn,
+  dbCart.isUserCart,
+  dbCart.getProductsByCartId,
+  (request, response) => {
+    response.status(200).json(request.products);
 });
 
-cartRouter.post('/', userPermissions.isLoggedIn, dbCart.createCart);
-
-cartRouter.post('/:id/checkout',
+// Create Cart
+cartRouter.post('/',
   userPermissions.isLoggedIn,
+  dbCart.createCart
+  );
+
+// Add Product to Cart
+cartRouter.post('/:cartId',
+  userPermissions.isLoggedIn,
+  dbCart.isUserCart,
+  dbCartsProducts.addProductToCart
+);
+
+// Update Product in Cart
+cartRouter.put('/:cartId/:productId',
+  userPermissions.isLoggedIn,
+  dbCart.isUserCart,
+  dbCartsProducts.updateCartItem
+);
+
+// Remove Product in Cart
+cartRouter.delete('/:cartId/:productId',
+  userPermissions.isLoggedIn,
+  dbCart.isUserCart,
+  dbCartsProducts.removeProductFromCart
+);
+
+// Checkout - Verify Stock, Get Total Due and Order Details, Create Order, Update Product Stock
+cartRouter.post('/:cartId/checkout',
+  userPermissions.isLoggedIn,
+  dbCart.isUserCart,
   dbCart.verifyStock,
   dbCart.getProductsByCartId,
   dbCart.getCartPrice,

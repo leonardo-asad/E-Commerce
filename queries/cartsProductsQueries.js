@@ -1,17 +1,17 @@
 const pool = require('./dbConfig').pool;
 
 const updateCartItem = (request, response, next) => {
-  const id = parseInt(request.params.id);
+  const product_id = parseInt(request.params.productId);
   const { quantity } = request.body;
 
   pool.query(
     `
     UPDATE carts_products
     SET quantity = $1
-    WHERE id = $2
+    WHERE cart_id = $2 AND product_id = $3
     RETURNING *
     `,
-    [quantity, id],
+    [quantity, request.cartId, product_id],
     (error, results) => {
       if (error) {return next(error);}
       return response.send(
@@ -25,22 +25,23 @@ const updateCartItem = (request, response, next) => {
 };
 
 const removeProductFromCart = (request, response, next) => {
-  const id = parseInt(request.params.id);
+  const product_id = parseInt(request.params.productId);
 
   pool.query(
     `
     DELETE FROM carts_products
-    WHERE id = $1
+    WHERE cart_id = $1 AND product_id = $2
     `,
-    [id],
+    [request.cartId, product_id],
     (error, results) => {
       if (error) {return next(error);}
-      response.status(204).send(`Id: ${id} deleted successfully`);
+      response.status(204).send(`Product Id: ${product_id} deleted successfully`);
     });
 };
 
 const addProductToCart = (request, response, next) => {
-  const { cartId, productId, quantity } = request.body;
+  const cartId = request.cartId;
+  const { productId, quantity } = request.body;
 
   pool.query("INSERT INTO carts_products (cart_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *",
   [cartId, productId, quantity],

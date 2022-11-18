@@ -1,8 +1,8 @@
 const pool = require('./dbConfig').pool;
 
-const verifyCartId = (request, response, next, id) => {
+const verifyCartId = (request, response, next, cartId) => {
   pool.query("SELECT * FROM cart WHERE id = $1",
-  [id],
+  [cartId],
   (error, results) => {
     if (error) {
       return response.status(500).send("Error During DB query: Verify Cart Id.");
@@ -10,13 +10,36 @@ const verifyCartId = (request, response, next, id) => {
     if (results.rows.length === 0) {
       return response.send("Non-Existent Cart");
     };
-    request.id = results.rows[0].id;
+    request.cartId = results.rows[0].id;
     next();
   });
 };
 
+const isUserCart = (request, response, next) => {
+  const cartId = request.cartId;
+
+  pool.query(
+    `
+    SELECT users.id
+    FROM users
+    JOIN cart
+      ON users.id = cart.user_id
+    WHERE cart.id = $1;
+    `,
+    [cartId],
+    (error, results) => {
+      if (error) {
+        return response.status(500).send("Error During DB query: Verify Is User Cart.");
+      }
+      if (results.rows[0].id !== request.user.id) {
+        return response.status(401).send("Unauthorized");
+      }
+      next();
+    });
+};
+
 const getProductsByCartId = (request, response, next) => {
-  const id = parseInt(request.id);
+  const id = request.cartId;
 
   pool.query(
   `
@@ -61,7 +84,7 @@ const createCart = (request, response, next) => {
 };
 
 const emptyCart = (request, response, next) => {
-  const id = parseInt(request.id);
+  const id = parseInt(request.cartId);
 
   pool.query(
     `
@@ -80,7 +103,7 @@ const emptyCart = (request, response, next) => {
 };
 
 const getCartPrice = (request, response, next) => {
-  const id = parseInt(request.id);
+  const id = parseInt(request.cartId);
 
   pool.query(
     `
@@ -101,7 +124,7 @@ const getCartPrice = (request, response, next) => {
 };
 
 const verifyStock = (request, response, next) => {
-  const id = parseInt(request.id);
+  const id = parseInt(request.cartId);
 
   pool.query(
     `
@@ -143,4 +166,5 @@ module.exports = {
   verifyStock,
   getCartPrice,
   emptyCart,
+  isUserCart,
 };
