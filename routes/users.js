@@ -10,6 +10,7 @@ usersRouter.get('/', userPermissions.isLoggedIn, db.getUsers);
 
 usersRouter.get('/:id', userPermissions.isLoggedIn, db.getUserById);
 
+// Update User Profile
 usersRouter.put(
   '/:id',
   userPermissions.isLoggedIn,

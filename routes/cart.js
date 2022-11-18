@@ -7,7 +7,9 @@ const userPermissions = require('../permissions/userPermissions');
 
 cartRouter.param('cartId', dbCart.verifyCartId);
 
-// Get Cart Products By Cart Id. Only authenticated Users are allowed to see their own Carts.
+// Apply to all Routes: Only authenticated Users are allowed to see their own Carts.
+
+// Get Cart Products By Cart Id.
 cartRouter.get('/:cartId',
   userPermissions.isLoggedIn,
   dbCart.isUserCart,
