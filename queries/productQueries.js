@@ -16,12 +16,13 @@ const getProducts = (request, response, next) => {
 const getProductsByCategory = (request, response, next) => {
   pool.query(
     `
-    SELECT *
+    SELECT product.*
     FROM product
     JOIN products_categories
     ON
       product.name = products_categories.product_name
-    WHERE category_name = $1 AND active = TRUE;
+    WHERE category_name = $1 AND active = TRUE
+    ORDER BY product.id ASC;
     `,
     [request.category],
     (error, results) => {
@@ -70,15 +71,14 @@ const createProduct = (request, response, next) => {
     [name, description || "NULL", url_image || "NULL", parseInt(quantity), parseFloat(price), new Date(), request.user.id],
     (error, newProduct) => {
       if (error) {
-        return next(error);
+        return response.status(500).send("Error During DB query: Insert New Product");
       }
       request.newProduct = {
         newProduct: newProduct.rows[0],
         categories: categories
       }
       next();
-    }
-  );
+    });
 };
 
 const associateCategory = async (request, response, next) => {

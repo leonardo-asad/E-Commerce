@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const session = require('express-session');
 const passport = require('passport');
+var swaggerJSDoc = require('swagger-jsdoc');
+const pathToSwaggerUi = require('swagger-ui-dist').absolutePath()
+
 const usersRouter = require('./routes/users');
 const productRouter = require('./routes/product');
 const cartRouter = require('./routes/cart');
@@ -12,6 +15,40 @@ const orderRouter = require('./routes/order');
 const port = 3000;
 
 const app = express();
+
+app.use(express.static(pathToSwaggerUi));
+
+// swagger definition
+var swaggerDefinition = {
+    info: {
+      title: 'E-Commerce API',
+      version: '1.0.0',
+      description: 'E-Commerce RESTful API'
+    },
+    host: `localhost:${port}`,
+    schemes: ['http'],
+    basePath: '/',
+    components: {
+      securitySchemes: {
+        cookieAuth: {
+          type: 'ApiKey',
+          in: 'cookie',
+          name: 'connect.sid'
+        }
+      }
+    }
+};
+
+// options for the swagger docs
+var options = {
+  // import swaggerDefinitions
+  swaggerDefinition: swaggerDefinition,
+  // path to the API docs
+  apis: ['./routes/*.js'],
+};
+
+// initialize swagger-jsdoc
+var swaggerSpec = swaggerJSDoc(options);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -34,6 +71,11 @@ app.get('/', (req, res) => {
   } else {
     res.send('Welcome to the E-Commerce App!')
   }
+});
+
+app.get('/swagger.json', (request, response) => {
+  response.setHeader('Content-Type', 'application/json');
+  response.send(swaggerSpec);
 });
 
 // Users Router

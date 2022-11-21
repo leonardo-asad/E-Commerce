@@ -4,6 +4,17 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const db = require('../queries/userQueries');
 
+/**
+ * @swagger
+ * definitions:
+ *   User:
+ *    properties:
+ *      username:
+ *        type: string
+ *      password:
+ *        type: string
+ */
+
 usersRouter.param('id', db.checkUserId);
 
 usersRouter.get('/', userPermissions.isLoggedIn, db.getUsers);
@@ -63,7 +74,27 @@ usersRouter.post('/register', async (request, response, next) => {
   db.createUser
   );
 
-// Log In
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     security: []
+ *     tags:
+ *       - Authentication
+ *     description: Logs in and returns the authentication cookie.
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: user
+ *         description: A JSON object containing the username and password.
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/User'
+ *     responses:
+ *       200:
+ *         description: Successfully Authenticated
+ */
 usersRouter.post('/login',
   passport.authenticate('local'),
   (request, response) => {
