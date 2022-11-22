@@ -1,16 +1,24 @@
 const pool = require('./dbConfig').pool;
 
 const getProducts = (request, response, next) => {
+  if (!request.query.hasOwnProperty('active')) {
+    return response.status(400).send("Missing Query Parameter: active")
+  }
+
   if (request.query.hasOwnProperty('category')) {
     request.category = request.query.category;
+    request.active = request.query.active;
     return next();
   }
-  pool.query("SELECT * FROM product WHERE active = TRUE ORDER BY id ASC", (error, results) => {
-    if (error) {
-      return next(error);
-    }
-    response.status(200).json(results.rows);
-  });
+
+  pool.query("SELECT * FROM product WHERE active = $1 ORDER BY id ASC",
+    [request.query.active],
+    (error, results) => {
+      if (error) {
+        return next(error);
+      }
+      response.status(200).json(results.rows);
+    });
 };
 
 const getProductsByCategory = (request, response, next) => {
@@ -21,10 +29,10 @@ const getProductsByCategory = (request, response, next) => {
     JOIN products_categories
     ON
       product.name = products_categories.product_name
-    WHERE category_name = $1 AND active = TRUE
+    WHERE category_name = $1 AND active = $2
     ORDER BY product.id ASC;
     `,
-    [request.category],
+    [request.category, request.active],
     (error, results) => {
       if (error) {return next(error);}
       response.status(200).json(results.rows);

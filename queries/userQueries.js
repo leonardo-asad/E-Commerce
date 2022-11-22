@@ -2,7 +2,7 @@ const pool = require('./dbConfig').pool;
 const bcrypt = require('bcrypt');
 
 const getUsers = (request, response, next) => {
-  pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
+  pool.query("SELECT id, username FROM users ORDER BY id ASC", (error, results) => {
     if (error) {
       return next(error);
     }
@@ -14,7 +14,7 @@ const getUsers = (request, response, next) => {
 const getUserById = (request, response, next) => {
   const id = parseInt(request.id);
 
-  pool.query("SELECT * FROM users WHERE id = $1", [id], (error, results) => {
+  pool.query("SELECT id, username FROM users WHERE id = $1", [id], (error, results) => {
     if (error) {
       return next(error);
     }

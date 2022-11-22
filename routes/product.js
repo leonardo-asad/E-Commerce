@@ -8,6 +8,7 @@ productRouter.param('id', db.checkProductId);
  * @swagger
  * definitions:
  *   Product:
+ *     type: object
  *     properties:
  *       id:
  *         type: integer
@@ -30,7 +31,9 @@ productRouter.param('id', db.checkProductId);
  *         type: boolean
  *       user_id:
  *         type: integer
-  *   NewProduct:
+ *
+ *   NewProduct:
+ *     type: object
  *     properties:
  *       name:
  *         type: string
@@ -56,10 +59,13 @@ productRouter.param('id', db.checkProductId);
  *   get:
  *     tags:
  *       - Product
- *     description: Return all Products
- *     produces:
- *       - application/json
+ *     summary: Return all Products
  *     parameters:
+ *       - name: active
+ *         description: Filter only active publications
+ *         in: query
+ *         required: true
+ *         type: boolean
  *       - name: category
  *         description: Filter products by category
  *         in: query
@@ -68,9 +74,10 @@ productRouter.param('id', db.checkProductId);
  *     responses:
  *       200:
  *         description: An array of products
- *         schema:
- *           type: object
- *           $ref: '#/definitions/Product'
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/definitions/Product'
  */
 productRouter.get('/', db.getProducts, db.getProductsByCategory);
 
@@ -80,20 +87,24 @@ productRouter.get('/', db.getProducts, db.getProductsByCategory);
  *   get:
  *     tags:
  *       - Product
- *     description: Returns a single product
- *     produces:
- *       - application/json
+ *     summary: Returns a single product
  *     parameters:
  *       - name: id
- *         description: Product's id
+ *         description: Product id
  *         in: path
  *         required: true
  *         type: integer
  *     responses:
  *       200:
  *         description: A single product
- *         schema:
- *           $ref: '#/definitions/Product'
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/definitions/Product'
+ *       500:
+ *         description: Server error
+ *       400:
+ *         description: Bad Request
  */
 productRouter.get('/:id', db.getProductById);
 
@@ -105,19 +116,23 @@ productRouter.get('/:id', db.getProductById);
  *       - cookieAuth: []
  *     tags:
  *       - Product
- *     description: Creates a new product
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: product
- *         description: Product object
- *         in: body
- *         required: true
- *         schema:
- *           $ref: '#/definitions/NewProduct'
+ *     summary: Creates a new product
+ *     requestBody:
+ *       description: New Product object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/definitions/NewProduct'
  *     responses:
  *       201:
  *         description: Successfully created
+ *       401:
+ *         description: Unauthorized. Log In Required.
+ *       500:
+ *         description: Error during DB query.
+ *       400:
+ *         description: Bad Request. The name of the product already exists.
  */
 productRouter.post('/', userPermissions.isLoggedIn, db.createProduct, db.associateCategory);
 

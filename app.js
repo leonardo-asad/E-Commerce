@@ -20,6 +20,7 @@ app.use(express.static(pathToSwaggerUi));
 
 // swagger definition
 var swaggerDefinition = {
+    openapi: '3.0.0',
     info: {
       title: 'E-Commerce API',
       version: '1.0.0',
@@ -28,15 +29,13 @@ var swaggerDefinition = {
     host: `localhost:${port}`,
     schemes: ['http'],
     basePath: '/',
-    components: {
-      securitySchemes: {
-        cookieAuth: {
-          type: 'ApiKey',
-          in: 'cookie',
-          name: 'connect.sid'
-        }
+    securitySchemes: {
+      cookieAuth: {
+        type: 'apiKey',
+        in: 'cookie',
+        name: 'connect.sid'
       }
-    }
+    },
 };
 
 // options for the swagger docs
