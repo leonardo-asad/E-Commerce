@@ -8,7 +8,7 @@ const verifyCartId = (request, response, next, cartId) => {
       return response.status(500).send("Error During DB query: Verify Cart Id.");
     };
     if (results.rows.length === 0) {
-      return response.send("Non-Existent Cart");
+      return response.status(400).send("Non-Existent Cart");
     };
     request.cartId = results.rows[0].id;
     next();

@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const db = require('../queries/userQueries');
 
+usersRouter.param('id', db.checkUserId);
+
 /**
  * @swagger
  * definitions:
@@ -23,8 +25,6 @@ const db = require('../queries/userQueries');
  *       username:
  *         type: string
  */
-
-usersRouter.param('id', db.checkUserId);
 
 /**
  * @swagger
@@ -120,8 +120,6 @@ usersRouter.put(
   },
   db.updateUser
   );
-
-// Authenticate Users Routes
 
 /**
  * @swagger
