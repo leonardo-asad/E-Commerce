@@ -3,7 +3,7 @@ const pool = require('./dbConfig').pool;
 const getUserOrders = (request, response, next) => {
   pool.query(
     `
-    SELECT product.name, product.description, users_orders.quantity, users_orders.price, users_orders.date
+    SELECT users_orders.id as order_id, product.name, product.description, users_orders.quantity, users_orders.price, users_orders.date
     FROM users_orders
     JOIN product
       ON users_orders.product_id = product.id
@@ -21,7 +21,7 @@ const getUserOrderByOrderId = (request, response, next) => {
 
   pool.query(
     `
-    SELECT product.name, product.description, users_orders.quantity, users_orders.price, users_orders.date
+    SELECT users_orders.id as order_id, product.name, product.description, users_orders.quantity, users_orders.price, users_orders.date
     FROM users_orders
     JOIN product
       ON users_orders.product_id = product.id

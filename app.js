@@ -24,7 +24,7 @@ var swaggerDefinition = {
     info: {
       title: 'E-Commerce API',
       version: '1.0.0',
-      description: 'E-Commerce RESTful API'
+      description: 'E-commerce application REST API that allows users to perform various CRUD operations such as registering an account, browsing products for sale, etc.'
     },
     host: `localhost:${port}`,
     schemes: ['http'],
