@@ -8,8 +8,7 @@ passport.use(new LocalStrategy(db.verifyUser));
 passport.serializeUser((user, cb) => {
   return cb(null, {
     id: user.id,
-    username: user.username,
-    cash: user.cash
+    username: user.username
   });
 });
 

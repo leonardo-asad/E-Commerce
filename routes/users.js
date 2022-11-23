@@ -6,98 +6,10 @@ const db = require('../queries/userQueries');
 
 usersRouter.param('id', db.checkUserId);
 
-/**
- * @swagger
- * definitions:
- *   User:
- *     type: object
- *     properties:
- *       username:
- *         type: string
- *       password:
- *         type: string
- *
- *   UserWithoutPassword:
- *     type: object
- *     properties:
- *       id:
- *         type: integer
- *       username:
- *         type: string
- */
-
-/**
- * @swagger
- * /users:
- *   get:
- *     tags:
- *       - User
- *     summary: Return all users
- *     responses:
- *       200:
- *         description: An array of Users
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/definitions/UserWithoutPassword'
- */
 usersRouter.get('/', db.getUsers);
 
-/**
- * @swagger
- * /users/{id}:
- *   get:
- *     tags:
- *       - User
- *     summary: Returns a single User by ID
- *     parameters:
- *       - name: id
- *         description: User id
- *         in: path
- *         required: true
- *         type: integer
- *     responses:
- *       200:
- *         description: User Object
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/definitions/UserWithoutPassword'
- */
 usersRouter.get('/:id', db.getUserById);
 
-/**
- * @swagger
- * /users/{id}:
- *   put:
- *     security:
- *       - cookieAuth: []
- *     tags:
- *       - User
- *     summary: Update User properties
- *     parameters:
- *       - name: id
- *         description: User id
- *         in: path
- *         required: true
- *         type: integer
- *     requestBody:
- *       description: Updated User object
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/definitions/User'
- *     responses:
- *       200:
- *         description: User updated successfully.
- *       400:
- *         description: Bad Request. Updated Username or Password not provided.
- *       401:
- *         description: Unauthorized.
- *       500:
- *         description: Server Failure Bcrypt.
- */
 usersRouter.put(
   '/:id',
   userPermissions.isLoggedIn,
@@ -121,26 +33,6 @@ usersRouter.put(
   db.updateUser
   );
 
-/**
- * @swagger
- * /users/register:
- *   post:
- *     tags:
- *       - Authentication
- *     summary: Register a new User Account.
- *     requestBody:
- *       description: A JSON object containing the username and password.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/definitions/User'
- *     responses:
- *       201:
- *         description: Successfully Registered
- *       400:
- *         description: Bad Request
- */
 usersRouter.post('/register', async (request, response, next) => {
     const { username, password } = request.body;
 
@@ -160,27 +52,6 @@ usersRouter.post('/register', async (request, response, next) => {
   db.createUser
   );
 
-/**
- * @swagger
- * /users/login:
- *   post:
- *     security: []
- *     tags:
- *       - Authentication
- *     summary: Logs in and returns the authentication cookie.
- *     requestBody:
- *       description: A JSON object containing the username and password.
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/definitions/User'
- *     responses:
- *       200:
- *         description: Successfully Authenticated
- *       400:
- *         description: Bad Request
- */
 usersRouter.post('/login',
   passport.authenticate('local'),
   (request, response) => {
@@ -189,17 +60,6 @@ usersRouter.post('/login',
   }
 );
 
-/**
- * @swagger
- * /users/logout:
- *   post:
- *     tags:
- *       - Authentication
- *     summary: Log Out User
- *     responses:
- *       200:
- *         description: Successfully Logged Out
- */
 usersRouter.post('/logout', (request, response, next) => {
   request.logout(error => {
     if (error) { return next(error); }

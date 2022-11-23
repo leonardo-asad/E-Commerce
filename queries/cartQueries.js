@@ -107,7 +107,7 @@ const getCartPrice = (request, response, next) => {
 
   pool.query(
     `
-    SELECT SUM(price) as total_price
+    SELECT SUM(product.price*carts_products.quantity) as total_price
     FROM carts_products
     JOIN product
       ON carts_products.product_id = product.id

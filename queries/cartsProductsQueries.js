@@ -14,6 +14,9 @@ const updateCartItem = (request, response, next) => {
     [quantity, request.cartId, product_id],
     (error, results) => {
       if (error) {return next(error);}
+      if (results.rows.length === 0) {
+        return response.status(400).send("Doesn't found a valid record to update")
+      };
       return response.send(
         `Order Updated successfilly.
         Cart Id: ${results.rows[0].cart_id}.
