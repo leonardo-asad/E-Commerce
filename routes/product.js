@@ -1,6 +1,6 @@
 const productRouter = require('express').Router();
 const userPermissions = require('../permissions/userPermissions');
-const db = require('../queries/productQueries');
+const db = require('../db/productQueries');
 
 productRouter.param('id', db.checkProductId);
 

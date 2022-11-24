@@ -13,12 +13,6 @@ host: localhost:3000
 basePath: "/"
 
 components:
-  securitySchemes:
-    cookieAuth:
-      type: apiKey
-      in: cookie
-      name: connect.sid
-
   schemas:
     User:
       properties:
@@ -148,8 +142,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserWithoutPassword'
     put:
-      security:
-      - cookieAuth: []
       tags:
         - User
       summary: Update User properties
@@ -194,7 +186,6 @@ paths:
           description: Bad Request
   /users/login:
     post:
-      security: []
       tags:
         - Authentication
       summary: Logs in and returns the authentication cookie.
@@ -242,8 +233,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Product'
     post:
-      security:
-        - cookieAuth: []
       tags:
         - Product
       summary: Creates a new product
@@ -303,8 +292,6 @@ paths:
     post:
       tags:
         - Cart
-      security:
-        - cookieAuth: []
       summary: Create a Cart
       description: >
         Only authenticated Users.
@@ -318,8 +305,6 @@ paths:
     get:
       tags:
         - Cart
-      security:
-        - cookieAuth: []
       summary: Get all Products in User's cart.
       description: >
         Only authenticated are allowed to use this endpoint.
@@ -335,8 +320,6 @@ paths:
     post:
       tags:
         - Cart
-      security:
-        - cookieAuth: []
       summary: Add Product to User's Cart
       description: >
         Only authenticated Users are allowed.
@@ -358,8 +341,6 @@ paths:
     put:
       tags:
         - Cart
-      security:
-        - cookieAuth: []
       summary: Update Item Quantity
       description: >
         Only authenticated Users are allowed.
@@ -389,8 +370,6 @@ paths:
     delete:
       tags:
         - Cart
-      security:
-        - cookieAuth: []
       summary: Delete Product from Cart
       description: >
         Only authenticated Users are allowed.
@@ -411,8 +390,6 @@ paths:
     post:
       tags:
         - Cart
-      security:
-        - cookieAuth: []
       summary: Verify Stock, Get Order Details, Create Order, Update Product Stock
       description: >
         Only authenticated Users are allowed.
@@ -429,8 +406,6 @@ paths:
     get:
       tags:
         - Order
-      security:
-        - cookieAuth: []
       summary: Get All Orders
       description: >
         Only Authenticated Users
@@ -448,8 +423,6 @@ paths:
     get:
       tags:
         - Order
-      security:
-        - cookieAuth: []
       summary: Get a single Order by Id
       description: >
         Only Authenticated Users

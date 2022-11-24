@@ -1,8 +1,8 @@
 const cartRouter = require('express').Router();
-const dbCart = require('../queries/cartQueries');
-const dbCartsProducts = require('../queries/cartsProductsQueries');
-const dbOrder = require('../queries/orderQueries');
-const dbProduct = require('../queries/productQueries');
+const dbCart = require('../db/cartQueries');
+const dbCartsProducts = require('../db/cartsProductsQueries');
+const dbOrder = require('../db/orderQueries');
+const dbProduct = require('../db/productQueries');
 const userPermissions = require('../permissions/userPermissions');
 
 // Create Cart

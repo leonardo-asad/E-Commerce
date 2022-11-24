@@ -1,5 +1,5 @@
 const orderRouter = require('express').Router();
-const db = require('../queries/orderQueries')
+const db = require('../db/orderQueries')
 const userPermissions = require('../permissions/userPermissions')
 
 // Get All User Orders

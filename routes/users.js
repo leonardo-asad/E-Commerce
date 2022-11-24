@@ -2,7 +2,7 @@ const usersRouter = require('express').Router();
 const userPermissions = require('../permissions/userPermissions');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const db = require('../queries/userQueries');
+const db = require('../db/userQueries');
 
 usersRouter.param('id', db.checkUserId);
 
