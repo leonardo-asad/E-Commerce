@@ -1,6 +1,6 @@
 const isLoggedIn = (request, response, next) => {
   if (!request.user) {
-    return response.status(401).send("Unauthorized");
+    return response.status(401).send("User Unauthenticated");
   }
   next();
 };

@@ -1,45 +1,26 @@
 const pool = require('./dbConfig').pool;
 
-const verifyCartId = (request, response, next, cartId) => {
-  pool.query("SELECT * FROM cart WHERE id = $1",
-  [cartId],
-  (error, results) => {
-    if (error) {
-      return response.status(500).send("Error During DB query: Verify Cart Id.");
-    };
-    if (results.rows.length === 0) {
-      return response.status(400).send("Non-Existent Cart");
-    };
-    request.cartId = results.rows[0].id;
-    next();
-  });
-};
-
-const isUserCart = (request, response, next) => {
-  const cartId = request.cartId;
+const getCartId = (request, response, next) => {
+  const userId = request.user.id;
 
   pool.query(
     `
-    SELECT users.id
-    FROM users
-    JOIN cart
-      ON users.id = cart.user_id
-    WHERE cart.id = $1;
+    SELECT id
+    FROM cart
+    WHERE user_id = $1;
     `,
-    [cartId],
+    [userId],
     (error, results) => {
-      if (error) {
-        return response.status(500).send("Error During DB query: Verify Is User Cart.");
-      }
-      if (results.rows[0].id !== request.user.id) {
-        return response.status(401).send("Unauthorized");
-      }
+      if (error) {return response.status(500).send("Error During DB query: get Cart Id");}
+      if (results.rows.length === 0) {return response.send("Non-Existent Cart")}
+      request.cartId = results.rows[0].id;
       next();
-    });
+    }
+  );
 };
 
 const getProductsByCartId = (request, response, next) => {
-  const id = request.cartId;
+  const cartId = request.cartId;
 
   pool.query(
   `
@@ -59,7 +40,7 @@ const getProductsByCartId = (request, response, next) => {
   WHERE cart.id = $1
   AND product.active = TRUE;
   `,
-  [id],
+  [cartId],
   (error, results) => {
     if (error) {
       return response.status(500).send("Error During DB query: Get Products By Cart Id");
@@ -103,7 +84,7 @@ const emptyCart = (request, response, next) => {
 };
 
 const getCartPrice = (request, response, next) => {
-  const id = parseInt(request.cartId);
+  const cartId = parseInt(request.cartId);
 
   pool.query(
     `
@@ -113,7 +94,7 @@ const getCartPrice = (request, response, next) => {
       ON carts_products.product_id = product.id
     WHERE cart_id = $1 AND active = TRUE;
     `,
-    [id],
+    [cartId],
     (error, results) => {
       if (error) {
         return response.status(500).send("Error During DB query: Get Cart Price.");
@@ -124,7 +105,7 @@ const getCartPrice = (request, response, next) => {
 };
 
 const verifyStock = (request, response, next) => {
-  const id = parseInt(request.cartId);
+  const cartId = parseInt(request.cartId);
 
   pool.query(
     `
@@ -144,7 +125,7 @@ const verifyStock = (request, response, next) => {
       AND carts_products.quantity > product.quantity
       AND product.active = TRUE;
     `,
-    [id],
+    [cartId],
     (error, results) => {
       if (error) {
         return response.status(500).send("Error During DB query: Verify Stock.");
@@ -160,11 +141,10 @@ const verifyStock = (request, response, next) => {
 }
 
 module.exports = {
-  verifyCartId,
   getProductsByCartId,
   createCart,
   verifyStock,
   getCartPrice,
   emptyCart,
-  isUserCart,
+  getCartId,
 };

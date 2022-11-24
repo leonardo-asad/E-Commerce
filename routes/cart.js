@@ -5,43 +5,46 @@ const dbOrder = require('../queries/orderQueries');
 const dbProduct = require('../queries/productQueries');
 const userPermissions = require('../permissions/userPermissions');
 
-cartRouter.param('cartId', dbCart.verifyCartId);
-
+// Create Cart
 cartRouter.post('/',
 userPermissions.isLoggedIn,
 dbCart.createCart
 );
 
-cartRouter.get('/:cartId',
+// Get Products of User's Cart
+cartRouter.get('/mine',
   userPermissions.isLoggedIn,
-  dbCart.isUserCart,
+  dbCart.getCartId,
   dbCart.getProductsByCartId,
   (request, response) => {
     response.status(200).json(request.products);
 });
 
-cartRouter.post('/:cartId',
+// Add Products to User's Cart
+cartRouter.post('/mine',
   userPermissions.isLoggedIn,
-  dbCart.isUserCart,
+  dbCart.getCartId,
   dbCartsProducts.addProductToCart
 );
 
-cartRouter.put('/:cartId/:productId',
+// Update Cart Item
+cartRouter.put('/mine/:productId',
   userPermissions.isLoggedIn,
-  dbCart.isUserCart,
+  dbCart.getCartId,
   dbCartsProducts.updateCartItem
 );
 
-// Remove Product in Cart
-cartRouter.delete('/:cartId/:productId',
+// Remove Product from Cart
+cartRouter.delete('/mine/:productId',
   userPermissions.isLoggedIn,
-  dbCart.isUserCart,
+  dbCart.getCartId,
   dbCartsProducts.removeProductFromCart
 );
 
-cartRouter.post('/:cartId/checkout',
+// Verify Stock, Get Order Details, Create Order, Update Product Stock
+cartRouter.post('/mine/checkout',
   userPermissions.isLoggedIn,
-  dbCart.isUserCart,
+  dbCart.getCartId,
   dbCart.verifyStock,
   dbCart.getProductsByCartId,
   dbCart.getCartPrice,

@@ -13,6 +13,7 @@ const usersRouter = require('./routes/users');
 const productRouter = require('./routes/product');
 const cartRouter = require('./routes/cart');
 const orderRouter = require('./routes/order');
+const categoryRouter = require('./routes/category');
 
 const port = process.env.PORT;
 
@@ -51,6 +52,7 @@ app.use('/users', usersRouter);
 app.use('/product', productRouter);
 app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
+app.use('/category', categoryRouter);
 
 // Database Error Handler
 app.use((error, request, response, next) => {

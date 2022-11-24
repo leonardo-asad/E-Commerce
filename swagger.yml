@@ -253,7 +253,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/definitions/NewProduct'
+              $ref: '#/components/schemas/NewProduct'
       responses:
         201:
           description: Successfully created
@@ -285,6 +285,20 @@ paths:
           description: Server error
         400:
           description: Bad Request
+  /category:
+    get:
+      tags:
+        - Categories
+      summary: Get all Categories
+      responses:
+        200:
+          description: An Array with all Categories
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
   /cart:
     post:
       tags:
@@ -300,22 +314,15 @@ paths:
           description: Cart Created Successfully
         400:
           description: User's Cart has been previously created.
-  /cart/{cartId}:
+  /cart/mine:
     get:
       tags:
         - Cart
       security:
         - cookieAuth: []
-      summary: Get all Products in cart.
+      summary: Get all Products in User's cart.
       description: >
-        Only **Logged Users** are allowed to use this endpoint.
-        Only User's **Own Cart** is allowed.
-      parameters:
-        - name: cartId
-          in: path
-          description: cart ID
-          required: true
-          type: integer
+        Only authenticated are allowed to use this endpoint.
       responses:
         200:
           description: Successful operation
@@ -325,23 +332,14 @@ paths:
                 $ref: '#/components/schemas/CartItem'
         401:
           description: Unauthorized
-        400:
-          description: Bad Request, Non-existent cart.
     post:
       tags:
         - Cart
       security:
         - cookieAuth: []
-      summary: Add Product to Cart
+      summary: Add Product to User's Cart
       description: >
-        Only authenticated Users allowed.
-        Only User's cart is allowed
-      parameters:
-        - name: cartId
-          description: Cart Id
-          in: path
-          required: true
-          type: integer
+        Only authenticated Users are allowed.
       requestBody:
         description: An object with the product ID and quantity intended to buy
         required: true
@@ -356,7 +354,7 @@ paths:
           description: Bad request.
         401:
           description: Unauthorized.
-  /cart/{cartId}/{productId}:
+  /cart/mine/{productId}:
     put:
       tags:
         - Cart
@@ -364,21 +362,15 @@ paths:
         - cookieAuth: []
       summary: Update Item Quantity
       description: >
-        Only authenticated Users allowed.
-        Only User's cart is allowed
+        Only authenticated Users are allowed.
       parameters:
-        - name: cartId
-          description: Cart Id
-          in: path
-          required: true
-          type: integer
         - name: productId
           description: Product Id
           in: path
           required: true
           type: integer
       requestBody:
-        description: An object with the updated quantity
+        description: An object with the new quantity
         required: true
         content:
           application/json:
@@ -401,14 +393,8 @@ paths:
         - cookieAuth: []
       summary: Delete Product from Cart
       description: >
-        Only authenticated Users allowed.
-        Only User's cart is allowed
+        Only authenticated Users are allowed.
       parameters:
-        - name: cartId
-          description: Cart Id
-          in: path
-          required: true
-          type: integer
         - name: productId
           description: Product Id
           in: path
@@ -421,7 +407,7 @@ paths:
           description: Bad request.
         401:
           description: Unauthorized.
-  /cart/{cartId}/checkout:
+  /cart/mine/checkout:
     post:
       tags:
         - Cart
@@ -429,14 +415,7 @@ paths:
         - cookieAuth: []
       summary: Verify Stock, Get Order Details, Create Order, Update Product Stock
       description: >
-        Only authenticated Users allowed.
-        Only User's cart is allowed
-      parameters:
-        - name: cartId
-          description: Cart Id
-          in: path
-          required: true
-          type: integer
+        Only authenticated Users are allowed.
       responses:
         200:
           description: Purchase procesed successfully.
@@ -446,7 +425,7 @@ paths:
           description: Unauthorized.
         500:
           description: Server Error.
-  /order:
+  /order/mine:
     get:
       tags:
         - Order
@@ -465,7 +444,7 @@ paths:
                 $ref: '#/components/schemas/Order'
         401:
           description: Unauthorized
-  /order/{id}:
+  /order/mine/{id}:
     get:
       tags:
         - Order
