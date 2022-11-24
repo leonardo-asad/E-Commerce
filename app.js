@@ -59,9 +59,9 @@ app.use((error, request, response, next) => {
     if (error.constraint === "unique_username") {
       response.status(400).send("The username already exists");
     } else if (error.constraint === "unique_name") {
-      response.status(400).send("The name of the publishing already exists. Please choose other.");
+      response.status(400).send("The name of the product already exists. Please choose other.");
     } else if (error.constraint === "cart_user_id_key") {
-      response.status(400).send("The user can not have more than one cart");
+      response.status(400).send("Users can not have more than one cart");
     } else {
       response.status(400).send("Duplicate value violates unique constraint");
     }
