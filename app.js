@@ -1,13 +1,13 @@
 require('dotenv').config();
+const fs = require('fs');
 const express = require('express');
-const bodyParser = require('body-parser');
 const logger = require('morgan');
 const session = require('express-session');
+const path = require('path');
+const bodyParser = require('body-parser');
 const passport = require('passport');
 const swaggerUi = require('swagger-ui-express');
 const yaml = require('js-yaml');
-const fs = require('fs');
-const path = require('path');
 
 const usersRouter = require('./routes/users');
 const productRouter = require('./routes/product');
