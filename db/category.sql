@@ -16,4 +16,4 @@ VALUES
   ('Music & instruments'),
   ('Pets & animals'),
   ('Sports'),
-  ('Toys & models')
+  ('Toys & models');

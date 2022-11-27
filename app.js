@@ -15,7 +15,7 @@ const cartRouter = require('./routes/cart');
 const orderRouter = require('./routes/order');
 const categoryRouter = require('./routes/category');
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -72,6 +72,6 @@ app.use((error, request, response, next) => {
   }
 })
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`E-commerce app listening port ${port}`);
 })

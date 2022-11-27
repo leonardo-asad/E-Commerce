@@ -1,7 +1,7 @@
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username varchar(20) NOT NULL,
-  password text NOT NULL,
+  password text NOT NULL
 );
 
 CREATE TABLE cart (
@@ -11,7 +11,7 @@ CREATE TABLE cart (
 
 CREATE TABLE product (
   id SERIAL PRIMARY KEY,
-  name varchar(40) NOT NULL,
+  name varchar(40) UNIQUE NOT NULL,
   description text,
   url_image varchar(80),
   quantity integer NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE users_orders (
 );
 
 CREATE TABLE category (
-  name varchar(20) PRIMARY KEY
+  name varchar(40) PRIMARY KEY
 );
 
 CREATE TABLE products_categories (
