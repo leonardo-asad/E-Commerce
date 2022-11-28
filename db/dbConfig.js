@@ -4,11 +4,11 @@ const { Pool } = require('pg');
 
 if (process.env.DATABASE_ENV === "local_development") {
   const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'ecommerceapp',
-    password: process.env.PASSWORD,
-    port: 5432,
+    user: process.env.DATABASE_USER,
+    host: process.env.DATASE_HOST,
+    database: process.env.DATABASE_NAME,
+    password: process.env.DATABASE_PASSWORD,
+    port: process.env.DATABASE_PORT,
   });
 
   module.exports = {
