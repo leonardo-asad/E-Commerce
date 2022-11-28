@@ -12,3 +12,5 @@ found in "db/category.sql"
 4) Run npm install inside directory
 5) Run npm start inside the directory. 
 6) Open "localhost:3000" in your web Browser and start using the app.
+# TODO
+Build Front End and Connect with the API
