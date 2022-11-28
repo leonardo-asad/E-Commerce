@@ -1,5 +1,7 @@
 # E-Commerce REST API
 E-commerce application REST API that allows users to perform various CRUD operations such as registering an account, browsing products for sale, etc.
+# Status
+The project is deployed at: https://e-commerce-api.fly.dev/docs/
 # Technologies Used
 Node, Express, PostgreSQL, OpenAPI, and Swagger
 # Instalation Instruction
