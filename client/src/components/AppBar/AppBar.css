@@ -1,0 +1,10 @@
+.AppBar {
+  background-color: #C44B4F !important;
+}
+
+.WebsiteName {
+  flex-grow: 1;
+  color: white;
+  text-decoration: none;
+
+}

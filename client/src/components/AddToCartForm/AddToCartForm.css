@@ -1,0 +1,9 @@
+.Button {
+  border-radius: 30px !important;
+  background-color: #C44B4F;
+  color: white;
+}
+
+.Button:hover {
+  background-color: #4D0011;
+}

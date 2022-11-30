@@ -1,0 +1,9 @@
+.PrimaryButton {
+  border-radius: 30px !important;
+  background-color: #C44B4F;
+  color: white;
+}
+
+.PrimaryButton:hover {
+  background-color: #4D0011;
+}
