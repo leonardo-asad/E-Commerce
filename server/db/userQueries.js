@@ -45,9 +45,11 @@ const createUser = (request, response, next) => {
       if (error) {
         return next(error);
       }
-      response.status(201).send(`User added with ID: ${results.rows[0].id}`);
-    }
-  );
+      response.status(201).json({
+        id: results.rows[0].id,
+        username: results.rows[0].username
+      });
+    });
 };
 
 const updateUser = (request, response, next) => {

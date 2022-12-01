@@ -8,6 +8,14 @@ usersRouter.param('id', db.checkUserId);
 
 usersRouter.get('/', db.getUsers);
 
+usersRouter.get(
+  '/checkUserStatus',
+  userPermissions.isLoggedIn,
+  (request, response) => {
+  response.status(200).send(request.user);
+}
+);
+
 usersRouter.get('/:id', db.getUserById);
 
 usersRouter.put(
@@ -55,8 +63,10 @@ usersRouter.post('/register', async (request, response, next) => {
 usersRouter.post('/login',
   passport.authenticate('local'),
   (request, response) => {
-    response.send(`User Authenticated`);
-    console.log(request.user);
+    response.status(200).json({
+      id: request.user.id,
+      username: request.user.username
+    });
   }
 );
 
