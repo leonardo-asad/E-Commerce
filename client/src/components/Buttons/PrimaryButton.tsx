@@ -8,6 +8,11 @@ interface Props {
 
 export default function PrimaryButton({ text }: Props) {
   return (
-    <Button className="PrimaryButton">{text}</Button>
+    <Button
+    className="PrimaryButton"
+    type="submit"
+    >
+      {text}
+    </Button>
   )
 }

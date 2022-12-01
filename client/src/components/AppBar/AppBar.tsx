@@ -23,7 +23,13 @@ export default function ButtonAppBar() {
           >
             E-Commerce
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button
+          color="inherit"
+          component={Link}
+          to="/auth/login"
+          >
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

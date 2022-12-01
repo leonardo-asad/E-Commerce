@@ -46,7 +46,9 @@ export default function ProductDetails() {
           {product.price}
         </Typography>
         <Divider />
-          <AddToCartForm />
+          <AddToCartForm
+          quantity={product.quantity}
+          />
       </Grid>
     </Grid>
   )

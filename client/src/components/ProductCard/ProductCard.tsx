@@ -24,7 +24,7 @@ export default function ProductCard({id, name, image, price}: Props) {
         component="img"
         image={image}
         alt="Product Image"
-        height="400"
+        height="200"
         />
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
