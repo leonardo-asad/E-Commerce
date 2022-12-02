@@ -15,7 +15,7 @@ const cartRouter = require('./routes/cart');
 const orderRouter = require('./routes/order');
 const categoryRouter = require('./routes/category');
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 const app = express();
 
