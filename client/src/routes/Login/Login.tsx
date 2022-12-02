@@ -7,14 +7,23 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import PrimaryButton from '../../components/Buttons/PrimaryButton';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { loginUser } from '../../store/userSlice/userSlice';
+import * as Types from '../../types/types';
+import { useNavigate } from 'react-router-dom';
 
 import './Login.css'
 
 export default function Login() {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     "username": "",
     "password": ""
   })
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -23,9 +32,15 @@ export default function Login() {
     });
   };
 
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(formData)
+  const handleLogin = async (formData: Types.UserCredentials) => {
+    try {
+      const response = await dispatch(loginUser(formData));
+      if (response.type === '/auth/login/fulfilled') {
+        navigate('/')
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 
@@ -37,7 +52,10 @@ export default function Login() {
     }}
     noValidate
     autoComplete="off"
-    onSubmit={handleLogin}
+    onSubmit={async (event: React.FormEvent) => {
+      event.preventDefault();
+      await handleLogin(formData);
+    }}
     >
       <Grid
       container

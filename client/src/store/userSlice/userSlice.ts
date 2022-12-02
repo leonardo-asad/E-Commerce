@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkUserStatus, login, signup } from "../../apis/auth";
 import * as Types from '../../types/types'
+import { RootState } from "../store";
 
 export const checkLoggedin = createAsyncThunk(
   '/auth/checkUserStatus',
@@ -63,8 +64,6 @@ const initialState = {
   error: null
 };
 
-
-
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
@@ -81,5 +80,8 @@ const userSlice = createSlice({
       })
   }
 })
+
+export const selectIsLoggedIn = (state: RootState) => state.user.isLoggedIn;
+export const selectUser = (state: RootState) => state.user.user;
 
 export default userSlice.reducer;

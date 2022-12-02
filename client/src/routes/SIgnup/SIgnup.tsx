@@ -7,8 +7,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import PrimaryButton from '../../components/Buttons/PrimaryButton';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../../store/userSlice/userSlice';
+import * as Types from '../../types/types'
+import { AppDispatch } from '../../store/store';
 
 export default function Signup() {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     "username": "",
     "password": ""
@@ -21,9 +29,15 @@ export default function Signup() {
     });
   };
 
-  const handleSignup = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(formData)
+  const handleSignUp = async (formData: Types.UserCredentials) => {
+    try {
+      const response = await dispatch(registerUser(formData));
+      if (response.type === '/auth/register/fulfilled') {
+        navigate('/auth/login')
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -34,7 +48,10 @@ export default function Signup() {
     }}
     noValidate
     autoComplete="off"
-    onSubmit={handleSignup}
+    onSubmit={async (event: React.FormEvent) => {
+      event.preventDefault();
+      await handleSignUp(formData);
+    }}
     >
       <Grid
       container
