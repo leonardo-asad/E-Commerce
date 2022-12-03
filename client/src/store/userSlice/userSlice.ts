@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { checkUserStatus, login, signup } from "../../apis/auth";
+import { checkUserStatus, login, logout, signup } from "../../apis/auth";
 import * as Types from '../../types/types'
 import { RootState } from "../store";
 
@@ -27,6 +27,24 @@ export const loginUser = createAsyncThunk(
   async (credentials: Types.UserCredentials, { rejectWithValue }) => {
     try {
       const response = await login(credentials)
+      if (response.status === 200) {
+        const data = await response.data;
+        return data;
+      } else {
+        const data = await response.data;
+        rejectWithValue(data);
+      }
+    } catch (err: any) {
+      throw err;
+    }
+  }
+)
+
+export const logOutUser = createAsyncThunk(
+  '/auth/logout',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await logout();
       if (response.status === 200) {
         const data = await response.data;
         return data;
@@ -78,8 +96,12 @@ const userSlice = createSlice({
         state.isLoggedIn = true;
         state.user = action.payload;
       })
+      .addCase(logOutUser.fulfilled, (state, action) => {
+        state.isLoggedIn = false;
+        state.user = {};
+      })
   }
-})
+});
 
 export const selectIsLoggedIn = (state: RootState) => state.user.isLoggedIn;
 export const selectUser = (state: RootState) => state.user.user;

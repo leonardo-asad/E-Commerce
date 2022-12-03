@@ -12,6 +12,16 @@ export const login = async (credentials: Types.UserCredentials) => {
   };
 };
 
+export const logout = async () => {
+  try {
+    const response = await API.post('/users/logout');
+    return response;
+
+  } catch (err: any) {
+    throw err.response.data;
+  };
+};
+
 export const signup = async (formData: Types.NewUserForm) => {
   try {
     const response = await API.post('/users/register', formData);
