@@ -5,7 +5,11 @@ import { products } from '../../data/products/products';
 
 export default function Home() {
   return (
-    <Grid container spacing={2}>
+    <Grid
+    container
+    direction="row"
+    alignItems="stretch"
+    >
       {products.map(product => {
         return <ProductCard {...product} key={product.id} />
       })}

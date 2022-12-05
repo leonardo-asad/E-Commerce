@@ -5,6 +5,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import CustomAvatar from '../Avatar/Avatar';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
@@ -29,7 +31,10 @@ export default function ButtonAppBar() {
     <>
       {
         isLoggedIn ?
-
+        <>
+        <CustomAvatar>
+          <ShoppingCartIcon />
+        </CustomAvatar>
         <Button
         color="inherit"
         onClick={async (event: React.MouseEvent) => {
@@ -40,7 +45,7 @@ export default function ButtonAppBar() {
         >
           Log Out
         </Button>
-
+        </>
         :
 
         <Button

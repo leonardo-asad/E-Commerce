@@ -1,0 +1,9 @@
+.ProductName {
+  text-decoration: none;
+  color: black;
+}
+
+.ProductName:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
