@@ -11,11 +11,11 @@ import './ProductCard.css'
 interface Props {
   id: number,
   name: string,
-  image: string,
+  url_image: string,
   price: string
 };
 
-export default function ProductCard({id, name, image, price}: Props) {
+export default function ProductCard({id, name, url_image, price}: Props) {
 
   return (
     <Grid
@@ -27,7 +27,7 @@ export default function ProductCard({id, name, image, price}: Props) {
 
         <CardMedia
         component="img"
-        image={image}
+        image={url_image}
         alt="Product Image"
         height='60%'
         />
