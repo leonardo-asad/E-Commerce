@@ -7,11 +7,14 @@ import Typography from '@mui/material/Typography';
 import NotFound from '../NotFound/NotFound';
 import Divider from '@mui/material/Divider';
 import AddToCartForm from '../../components/AddToCartForm/AddToCartForm';
+import { useSelector } from 'react-redux';
+import { selectProducts } from '../../store/productSlice/productSlice';
 
-import { products } from '../../data/products/products';
+//import { products } from '../../data/products/products';
 
 export default function ProductDetails() {
   const { productId } = useParams();
+  const products = useSelector(selectProducts);
 
   if (typeof productId === "undefined") {
     return null;
@@ -33,7 +36,7 @@ export default function ProductDetails() {
         <Card>
           <CardMedia
           component="img"
-          image={product.image}
+          image={product.url_image}
           alt="Product Image"
           />
         </Card>
