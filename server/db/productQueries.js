@@ -47,7 +47,10 @@ const getProductById = (request, response, next) => {
     if (error) {
       return next(error);
     }
-    response.status(200).json(results.rows);
+    if (results.rows.length > 0) {
+      return response.status(200).json(results.rows[0]);
+    }
+    return response.json({});
   });
 };
 

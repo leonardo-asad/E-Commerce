@@ -77,6 +77,7 @@ export const registerUser = createAsyncThunk(
 )
 
 const initialState = {
+  isLoadingUser: true,
   isLoggedIn: false,
   user: {},
   error: null
@@ -88,8 +89,17 @@ const userSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
+      .addCase(checkLoggedin.pending, (state, action) => {
+        state.isLoggedIn = false;
+        state.isLoadingUser = true;
+      })
+      .addCase(checkLoggedin.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        state.isLoadingUser = false;
+      })
       .addCase(checkLoggedin.fulfilled, (state, action) => {
         state.isLoggedIn = true;
+        state.isLoadingUser = false;
         state.user = action.payload;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
@@ -104,6 +114,7 @@ const userSlice = createSlice({
 });
 
 export const selectIsLoggedIn = (state: RootState) => state.user.isLoggedIn;
+export const selectIsLoadingUser = (state: RootState) => state.user.isLoadingUser;
 export const selectUser = (state: RootState) => state.user.user;
 
 export default userSlice.reducer;

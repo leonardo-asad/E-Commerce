@@ -21,3 +21,25 @@ export interface Product {
 }
 
 export type Products = Product[]
+
+export interface RequestBodyAddToCart {
+  productId: number,
+  quantity: number
+}
+
+export interface RequestBodyUpdateCartItem {
+  quantity: number
+}
+
+export interface CartProduct {
+  id: number,
+  product_id: number,
+  name: string,
+  url_image: string,
+  in_stock: number,
+  quantity_order: number,
+  price: string,
+  total_price: string
+};
+
+export type CartProducts = CartProduct[];

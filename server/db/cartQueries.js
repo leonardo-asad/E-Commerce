@@ -28,6 +28,7 @@ const getProductsByCartId = (request, response, next) => {
     carts_products.id,
     product.id as product_id,
     product.name,
+    product.url_image,
     product.quantity as in_stock,
     carts_products.quantity as quantity_order,
     product.price as price,
@@ -44,9 +45,6 @@ const getProductsByCartId = (request, response, next) => {
   (error, results) => {
     if (error) {
       return response.status(500).send("Error During DB query: Get Products By Cart Id");
-    };
-    if (results.rows.length === 0) {
-      return response.send("Empty Cart");
     };
     request.products = results.rows;
     next();

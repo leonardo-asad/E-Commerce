@@ -36,7 +36,7 @@ export default function ProductCard({id, name, url_image, price}: Props) {
           className="ProductName"
           variant="h6"
           component={Link}
-          to={`product/${id}`}
+          to={`/product/${id}`}
           >
             {name}
           </Typography>

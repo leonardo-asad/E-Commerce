@@ -5,19 +5,9 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import * as Types from '../../types/types';
 
-interface Props {
-  id: number,
-  product_id: number,
-  name: string,
-  image: string,
-  inStock: number,
-  quantity: number,
-  pricePerUnit: string,
-  totalPrice: string
-};
-
-export default function CartItem(props: Props) {
+export default function CartItem(cartProduct: Types.CartProduct) {
   return (
     <Grid
     item
@@ -27,7 +17,7 @@ export default function CartItem(props: Props) {
     >
       <CardMedia
       component="img"
-      image={props.image}
+      image={cartProduct.url_image}
       alt="Product Image"
       height="60%"
       />
@@ -36,9 +26,9 @@ export default function CartItem(props: Props) {
         className="ProductName"
         variant="h6"
         component={Link}
-        to={`product/${props.product_id}`}
+        to={`/product/${cartProduct.product_id}`}
         >
-          {props.name}
+          {cartProduct.name}
         </Typography>
       </CardContent>
     </Grid>

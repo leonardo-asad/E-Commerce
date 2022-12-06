@@ -10,6 +10,8 @@ import Home from '../routes/Home/Home';
 import ProductDetails from '../routes/ProductDetails/ProductDetails';
 import Login from '../routes/Login/Login';
 import Signup from '../routes/SIgnup/SIgnup';
+import ProtectedLayout from '../layouts/ProtectedLayout';
+import Cart from '../routes/Cart/Cart';
 import { useDispatch } from 'react-redux';
 import { checkLoggedin } from '../store/userSlice/userSlice';
 import { AppDispatch } from '../store/store';
@@ -37,6 +39,10 @@ function App() {
             <Route path="/product/:productId" element={<ProductDetails />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />
+
+            <Route element={<ProtectedLayout />}>
+              <Route path="/cart/mine" element={<Cart />} />
+            </Route>
           </Routes>
         </Box>
       </Router>
