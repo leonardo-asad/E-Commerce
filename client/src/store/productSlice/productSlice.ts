@@ -12,6 +12,15 @@ interface InitialState {
   selectedProduct: Types.Product | undefined
 }
 
+const initialState: InitialState = {
+  isLoadingProducts: true,
+  isLoadingProduct: true,
+  failedToLoadProduct: false,
+  failedToLoadProducts: false,
+  products: [],
+  selectedProduct: undefined
+}
+
 export const loadProducts = createAsyncThunk(
   'product/products',
   async (_, { rejectWithValue }) => {
@@ -45,15 +54,6 @@ export const loadProductById = createAsyncThunk(
     }
   }
 );
-
-const initialState: InitialState = {
-  isLoadingProducts: true,
-  isLoadingProduct: true,
-  failedToLoadProduct: false,
-  failedToLoadProducts: false,
-  products: [],
-  selectedProduct: undefined
-}
 
 const productSlice = createSlice({
   name: 'product',

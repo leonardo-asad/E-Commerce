@@ -46,11 +46,30 @@ const addProductToCart = (request, response, next) => {
   const cartId = request.cartId;
   const { productId, quantity } = request.body;
 
-  pool.query("INSERT INTO carts_products (cart_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING *",
+  pool.query(
+    `
+    WITH insert_query AS (
+      INSERT INTO carts_products (cart_id, product_id, quantity)
+      VALUES ($1, $2, $3)
+      RETURNING *
+    )
+    SELECT
+        insert_query.id,
+        product.id as product_id,
+        product.name,
+        product.url_image,
+        product.quantity as in_stock,
+        insert_query.quantity as quantity_order,
+        product.price as price,
+        product.price*insert_query.quantity as total_price
+    FROM insert_query
+    JOIN product
+      ON insert_query.product_id = product.id;
+    `,
   [cartId, productId, quantity],
   (error, results) => {
     if (error) {return next(error);}
-    response.status(201).send(`Added Product Id: ${productId} to cart Id: ${cartId}`);
+    response.status(201).send(results.rows[0]);
   });
 };
 

@@ -67,6 +67,7 @@ export default function ProductDetails() {
         <Divider />
           <AddToCartForm
           quantity={selectedProduct.quantity}
+          productId={selectedProduct.id}
           />
       </Grid>
     </Grid>

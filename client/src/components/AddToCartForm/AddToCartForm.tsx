@@ -4,21 +4,33 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import PrimaryButton from '../Buttons/PrimaryButton';
 import Grid from '@mui/material/Grid';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { createCartItem } from '../../store/cartSlice/cartSlice';
 
 import './AddToCartForm.css'
 
 interface Props {
   quantity: number,
+  productId: number
 }
 
-export default function AddToCartForm({ quantity }: Props) {
+export default function AddToCartForm({ quantity, productId }: Props) {
   const [productQuantity, setProductQuantity] = React.useState('');
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const onlyNums = event.target.value.replace(/[^0-9]/g, '');
     setProductQuantity(onlyNums);
   };
 
+  const handleAddToCart = async (event: React.FormEvent) => {
+    event.preventDefault();
+    await dispatch(createCartItem({
+      productId: productId,
+      quantity: parseInt(productQuantity)
+    }))
+  };
 
   return (
     <Box
@@ -26,6 +38,7 @@ export default function AddToCartForm({ quantity }: Props) {
       noValidate
       autoComplete="off"
       sx={{ mt: 2 }}
+      onSubmit={handleAddToCart}
     >
 
         <Grid

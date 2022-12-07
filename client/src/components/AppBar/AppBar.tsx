@@ -43,8 +43,7 @@ export default function ButtonAppBar() {
         <Button
         color="inherit"
         onClick={async (event: React.MouseEvent) => {
-          console.log("event")
-          //event.preventDefault();
+          event.preventDefault();
           await handleLogout();
         }}
         >

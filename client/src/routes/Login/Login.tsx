@@ -6,10 +6,11 @@ import CustomAvatar from '../../components/Avatar/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import PrimaryButton from '../../components/Buttons/PrimaryButton';
+import Error from '../../components/Messages/Error';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { loginUser } from '../../store/userSlice/userSlice';
+import { loginUser, selectErrorAuth } from '../../store/userSlice/userSlice';
 import * as Types from '../../types/types';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +19,7 @@ import './Login.css'
 export default function Login() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const errorAuth = useSelector(selectErrorAuth);
 
   const [formData, setFormData] = useState({
     "username": "",
@@ -118,6 +120,7 @@ export default function Login() {
           </Grid>
         </Grid>
       </Grid>
+      { errorAuth && <Error text={errorAuth} /> }
     </Box>
   );
 };
