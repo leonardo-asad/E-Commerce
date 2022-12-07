@@ -17,13 +17,11 @@ const updateCartItem = (request, response, next) => {
       if (results.rows.length === 0) {
         return response.status(400).send("Doesn't found a valid record to update")
       };
-      return response.send(
-        `Order Updated successfilly.
-        Cart Id: ${results.rows[0].cart_id}.
-        Product Id: ${results.rows[0].product_id}.
-        New quantity: ${results.rows[0].quantity}
-        `
-      )
+      return response.json({
+        'cart_id': results.rows[0].cart_id,
+        'product_id': results.rows[0].product_id,
+        'updated_quantity': results.rows[0].quantity
+      })
     });
 };
 
@@ -38,7 +36,9 @@ const removeProductFromCart = (request, response, next) => {
     [request.cartId, product_id],
     (error, results) => {
       if (error) {return next(error);}
-      response.status(204).send(`Product Id: ${product_id} deleted successfully`);
+      response.status(200).json({
+        product_id: product_id
+      })
     });
 };
 

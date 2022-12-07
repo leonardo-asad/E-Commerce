@@ -7,11 +7,11 @@ interface Props {
   handleOnClick?: () => void;
 }
 
-export default function PrimaryButton({ text, handleOnClick }: Props) {
+export default function DeleteButton({ text, handleOnClick }: Props) {
   return (
     <Button
-    className="PrimaryButton"
-    type="submit"
+    className="DeleteButton"
+    variant="outlined"
     onClick={handleOnClick}
     >
       {text}

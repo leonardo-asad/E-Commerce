@@ -9,3 +9,11 @@
 .PrimaryButton:hover {
   background-color: #4D0011 !important;
 }
+
+.DeleteButton {
+  border-radius: 30px !important;
+  color: #C44B4F !important;
+  border-color: #C44B4F !important;
+  margin: 15px !important;
+  width: 150px;
+}

@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import CustomAvatar from '../Avatar/Avatar';
+import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -32,9 +32,14 @@ export default function ButtonAppBar() {
       {
         isLoggedIn ?
         <>
-        <CustomAvatar>
+        <IconButton
+        sx={{color: 'white', mr: 1}}
+        aria-label="Cart"
+        component={Link}
+        to="/cart/mine"
+        >
           <ShoppingCartIcon />
-        </CustomAvatar>
+        </IconButton>
         <Button
         color="inherit"
         onClick={async (event: React.MouseEvent) => {

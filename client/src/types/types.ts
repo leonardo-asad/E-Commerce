@@ -31,6 +31,11 @@ export interface RequestBodyUpdateCartItem {
   quantity: number
 }
 
+export interface AsyncThunkUpdateCartItem {
+  productId: number,
+  requestBody: RequestBodyUpdateCartItem
+}
+
 export interface CartProduct {
   id: number,
   product_id: number,

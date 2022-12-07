@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
 
 import './ProductCard.css'
@@ -31,6 +32,7 @@ export default function ProductCard({id, name, url_image, price}: Props) {
         alt="Product Image"
         height='60%'
         />
+        <Divider sx={{mt: 2}} variant="middle" />
         <CardContent>
           <Typography
           className="ProductName"

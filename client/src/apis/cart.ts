@@ -19,18 +19,18 @@ export const addCartItem = async (requestBody: Types.RequestBodyAddToCart) => {
   }
 };
 
-export const updateCartItem = async (itemId: number, requestBody: Types.RequestBodyUpdateCartItem) => {
+export const updateCartItem = async (productId: number, requestBody: Types.RequestBodyUpdateCartItem) => {
   try {
-    const response = await API.put(`/cart/mine/${itemId}`, requestBody);
+    const response = await API.put(`/cart/mine/${productId}`, requestBody);
     return response;
   } catch (err: any) {
     throw err.response.data;
   }
 };
 
-export const deleteCartItem = async (itemId: number) => {
+export const deleteCartItem = async (productId: number) => {
   try {
-    const response = await API.delete(`/cart/mine/${itemId}`);
+    const response = await API.delete(`/cart/mine/${productId}`);
     return response;
   } catch (err: any) {
     throw err.response.data;
