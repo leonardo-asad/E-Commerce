@@ -3,7 +3,7 @@
   background-color: #C44B4F !important;
   color: white !important;
   margin: 15px !important;
-  width: 150px;
+  width: 150px !important;
 }
 
 .PrimaryButton:hover {
@@ -16,4 +16,13 @@
   border-color: #C44B4F !important;
   margin: 15px !important;
   width: 150px;
+}
+
+.UpdateButton {
+  border-radius: 30px !important;
+  background-color: #C44B4F !important;
+  color: white !important;
+  padding: 5px !important;
+  width: 150px !important;
+  font-size: 10px !important;
 }

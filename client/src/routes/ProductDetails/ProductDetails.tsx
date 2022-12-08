@@ -53,10 +53,11 @@ export default function ProductDetails() {
     <>
       <Grid
       container
-      spacing={2}
+      direction={"row"}
       justifyContent="center"
+      spacing={3}
       >
-        <Grid item xs={4}>
+        <Grid item xs={4} lg={2}>
           <Card>
             <CardMedia
             component="img"
@@ -65,8 +66,8 @@ export default function ProductDetails() {
             />
           </Card>
         </Grid>
-        <Grid item xs={8}>
-          <Typography variant="h6">
+        <Grid item xs={8} lg={6}>
+          <Typography variant="h4">
             {selectedProduct.name}
           </Typography>
           <Typography variant="h6" color="text.secondary">

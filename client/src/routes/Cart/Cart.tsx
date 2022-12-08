@@ -31,6 +31,8 @@ export default function Cart() {
       container
       direction="row"
       alignItems="stretch"
+      justifyContent="flex-start"
+      spacing={2}
       >
         {
           cartProducts.map(cartProduct => {

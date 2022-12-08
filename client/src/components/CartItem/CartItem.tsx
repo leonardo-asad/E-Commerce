@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import DeleteButton from '../Buttons/DeleteButton';
-import PrimaryButton from '../Buttons/PrimaryButton';
+import UpdateButton from '../Buttons/UpdateButton';
 import Divider from '@mui/material/Divider';
 
 import { Link } from 'react-router-dom';
@@ -37,56 +37,66 @@ export default function CartItem(cartProduct: Types.CartProduct) {
   return (
     <Grid
     item
-    xs={12} sm={6} md={4} lg={3}
-    component={Card}
-    sx={{ boxShadow: 0, height: 'auto' }}
+    xs={12} sm={4} md={3} lg={2}
     >
-      <CardMedia
-      component="img"
-      image={cartProduct.url_image}
-      alt="Product Image"
-      height="50%"
-      />
-      <Divider sx={{mt: 2}} variant="middle" />
-      <CardContent>
-        <Typography
-        className="ProductName"
-        variant="h6"
-        component={Link}
-        to={`/product/${cartProduct.product_id}`}
-        >
-          {cartProduct.name}
-        </Typography>
-        <Typography>
-          Quantity Order: {updatedQuantity}
-        </Typography>
-        <Typography>
-          In Stock: {cartProduct.in_stock}
-        </Typography>
-        <Stack direction="row" spacing={1}>
-          <IconButton
-          aria-label="Add Item"
-          onClick={() => setUpdatedQuantity(updatedQuantity + 1)}
-          >
-            <AddCircleIcon />
-          </IconButton>
-          <IconButton
-          aria-label="Remove Item"
-          onClick={() => setUpdatedQuantity(updatedQuantity - 1)}
-          >
-            <RemoveCircleIcon />
-          </IconButton>
-          <PrimaryButton
-          text="Update Quantity"
-          handleOnClick={handleEditItem}
-          />
-        </Stack>
-        <Divider sx={{mt: 2}} variant="middle" />
-        <DeleteButton
-        handleOnClick={handleRemoveItem}
-        text="Delete Item"
+      <Card style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%"
+      }}>
+        <CardMedia
+        component="img"
+        image={cartProduct.url_image}
+        alt="Product Image"
+        style={{
+          height: "50%",
+          overflow: "hidden"
+        }}
         />
-      </CardContent>
+        <Divider sx={{mt: 2}} variant="middle" />
+        <CardContent style={{ padding: 10 }}>
+          <Typography
+          className="ProductName"
+          variant="h6"
+          component={Link}
+          to={`/product/${cartProduct.product_id}`}
+          >
+            {cartProduct.name}
+          </Typography>
+          <Typography>
+            Quantity Order: {updatedQuantity}
+          </Typography>
+          <Typography>
+            In Stock: {cartProduct.in_stock}
+          </Typography>
+          <Stack direction="row" spacing={1} justifyContent="center">
+            <IconButton
+            aria-label="Add Item"
+            size='small'
+            onClick={() => setUpdatedQuantity(updatedQuantity + 1)}
+            >
+              <AddCircleIcon />
+            </IconButton>
+            <IconButton
+            aria-label="Remove Item"
+            onClick={() => setUpdatedQuantity(updatedQuantity - 1)}
+            >
+              <RemoveCircleIcon />
+            </IconButton>
+            <UpdateButton
+            text="Update Quantity"
+            handleOnClick={handleEditItem}
+            />
+          </Stack>
+          <Divider sx={{mt: 2}} variant="middle" />
+          <Stack direction={"row"} justifyContent="center">
+            <DeleteButton
+            handleOnClick={handleRemoveItem}
+            text="Delete Item"
+            />
+          </Stack>
+        </CardContent>
+      </Card>
     </Grid>
   )
 }

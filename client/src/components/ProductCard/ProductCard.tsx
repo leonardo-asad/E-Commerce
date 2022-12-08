@@ -36,7 +36,6 @@ export default function ProductCard({id, name, url_image, price}: Props) {
           overflow: "hidden"
         }}
         />
-
         <CardContent
         style={{
           height: "30%"
