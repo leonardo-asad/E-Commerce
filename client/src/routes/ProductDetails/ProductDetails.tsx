@@ -70,7 +70,7 @@ export default function ProductDetails() {
             {selectedProduct.name}
           </Typography>
           <Typography variant="h6" color="text.secondary">
-            {selectedProduct.price}
+            {selectedProduct.price} NZD
           </Typography>
           <Divider />
             <AddToCartForm

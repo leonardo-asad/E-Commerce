@@ -29,7 +29,9 @@ export default function Home() {
           <Grid
           container
           direction="row"
+          justifyContent="flex-start"
           alignItems="stretch"
+          spacing={2}
           >
             {products.map(product => {
               return <ProductCard {...product} key={product.id} />

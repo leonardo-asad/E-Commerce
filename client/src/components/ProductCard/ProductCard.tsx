@@ -4,7 +4,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
 
 import './ProductCard.css'
@@ -21,19 +20,28 @@ export default function ProductCard({id, name, url_image, price}: Props) {
   return (
     <Grid
     item
-    xs={12} sm={6} md={4} lg={3}
-    component={Card}
-    sx={{ boxShadow: 0, height: 'auto' }}
+    xs={12} sm={4} md={3} lg={2}
     >
-
+      <Card style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%"
+      }}>
         <CardMedia
         component="img"
         image={url_image}
         alt="Product Image"
-        height='60%'
+        style={{
+          height: "70%",
+          overflow: "hidden"
+        }}
         />
-        <Divider sx={{mt: 2}} variant="middle" />
-        <CardContent>
+
+        <CardContent
+        style={{
+          height: "30%"
+        }}
+        >
           <Typography
           className="ProductName"
           variant="h6"
@@ -42,10 +50,11 @@ export default function ProductCard({id, name, url_image, price}: Props) {
           >
             {name}
           </Typography>
-          <Typography variant="h6" color="text.secondary">
-            {price}
+          <Typography variant="h6" className="Price">
+            {price} NZD
           </Typography>
         </CardContent>
+      </Card>
     </Grid>
   );
 }

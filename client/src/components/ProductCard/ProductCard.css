@@ -8,3 +8,7 @@
   cursor: pointer;
 }
 
+.Price {
+  color: grey;
+  font-size: medium;
+}
