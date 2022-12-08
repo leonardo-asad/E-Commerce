@@ -1,12 +1,12 @@
+export interface User {
+  id: number,
+  username: string
+};
+
 export interface UserCredentials {
   username: string,
   password: string
-}
-
-export interface NewUserForm {
-  username: string,
-  password: string,
-}
+};
 
 export interface Product {
   id: number,
@@ -18,23 +18,9 @@ export interface Product {
   date: string,
   active: boolean,
   user_id: number
-}
+};
 
-export type Products = Product[]
-
-export interface RequestBodyAddToCart {
-  productId: number,
-  quantity: number
-}
-
-export interface RequestBodyUpdateCartItem {
-  quantity: number
-}
-
-export interface AsyncThunkUpdateCartItem {
-  productId: number,
-  requestBody: RequestBodyUpdateCartItem
-}
+export type Products = Product[];
 
 export interface CartProduct {
   id: number,
@@ -48,3 +34,17 @@ export interface CartProduct {
 };
 
 export type CartProducts = CartProduct[];
+
+export interface RequestBodyAddToCart {
+  productId: number,
+  quantity: number
+};
+
+export interface RequestBodyUpdateCartItem {
+  quantity: number
+};
+
+export interface AsyncThunkUpdateCartItem {
+  productId: number,
+  requestBody: RequestBodyUpdateCartItem
+};

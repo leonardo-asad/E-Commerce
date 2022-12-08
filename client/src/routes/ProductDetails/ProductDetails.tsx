@@ -7,18 +7,21 @@ import Typography from '@mui/material/Typography';
 import NotFound from '../NotFound/NotFound';
 import Divider from '@mui/material/Divider';
 import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterminate';
+import Success from '../../components/Messages/Success';
+import Error from '../../components/Messages/Error';
 import AddToCartForm from '../../components/AddToCartForm/AddToCartForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSelectedProduct, selectIsLoadingProduct, loadProductById } from '../../store/productSlice/productSlice';
+import { selectSuccessMessage, selectErrorMessage, cleanMessages } from '../../store/cartSlice/cartSlice';
 import { AppDispatch } from '../../store/store';
-
-//import { products } from '../../data/products/products';
 
 export default function ProductDetails() {
   const { productId } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const selectedProduct = useSelector(selectSelectedProduct);
   const isLoadingProduct = useSelector(selectIsLoadingProduct);
+  const successMessage = useSelector(selectSuccessMessage);
+  const errorMessage = useSelector(selectErrorMessage);
 
   useEffect(() => {
     async function loadProduct(id: number) {
@@ -29,6 +32,10 @@ export default function ProductDetails() {
       loadProduct(parseInt(productId));
     }
   }, [dispatch, productId]);
+
+  useEffect(() => {
+    dispatch(cleanMessages());
+  }, [dispatch])
 
   if (typeof productId === "undefined") {
     return null;
@@ -43,33 +50,37 @@ export default function ProductDetails() {
   };
 
   return (
-    <Grid
-    container
-    spacing={2}
-    justifyContent="center"
-    >
-      <Grid item xs={4}>
-        <Card>
-          <CardMedia
-          component="img"
-          image={selectedProduct.url_image}
-          alt="Product Image"
-          />
-        </Card>
+    <>
+      <Grid
+      container
+      spacing={2}
+      justifyContent="center"
+      >
+        <Grid item xs={4}>
+          <Card>
+            <CardMedia
+            component="img"
+            image={selectedProduct.url_image}
+            alt="Product Image"
+            />
+          </Card>
+        </Grid>
+        <Grid item xs={8}>
+          <Typography variant="h6">
+            {selectedProduct.name}
+          </Typography>
+          <Typography variant="h6" color="text.secondary">
+            {selectedProduct.price}
+          </Typography>
+          <Divider />
+            <AddToCartForm
+            quantity={selectedProduct.quantity}
+            productId={selectedProduct.id}
+            />
+        </Grid>
       </Grid>
-      <Grid item xs={8}>
-        <Typography variant="h6">
-          {selectedProduct.name}
-        </Typography>
-        <Typography variant="h6" color="text.secondary">
-          {selectedProduct.price}
-        </Typography>
-        <Divider />
-          <AddToCartForm
-          quantity={selectedProduct.quantity}
-          productId={selectedProduct.id}
-          />
-      </Grid>
-    </Grid>
+      { successMessage && <Success text={successMessage} /> }
+      { errorMessage && <Error text={errorMessage} /> }
+    </>
   )
 }

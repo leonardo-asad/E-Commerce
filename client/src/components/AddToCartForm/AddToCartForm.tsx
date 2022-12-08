@@ -26,10 +26,17 @@ export default function AddToCartForm({ quantity, productId }: Props) {
 
   const handleAddToCart = async (event: React.FormEvent) => {
     event.preventDefault();
-    await dispatch(createCartItem({
+    const response = await dispatch(createCartItem({
       productId: productId,
       quantity: parseInt(productQuantity)
-    }))
+    }));
+    if (
+      response.type === '/cart/createCartItem/fulfilled'
+      ||
+      response.type === '/cart/createCartItem/rejected'
+      ) {
+        setProductQuantity('');
+    }
   };
 
   return (

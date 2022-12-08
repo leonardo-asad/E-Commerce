@@ -7,25 +7,31 @@ interface InitialState {
   isLoadingCartProducts: boolean
   failedToLoadCartProducts: boolean
   products: Types.CartProducts
-}
+  successMessage: undefined | string
+  error: undefined | string
+};
 
 const initialState: InitialState = {
   isLoadingCartProducts: true,
   failedToLoadCartProducts: false,
-  products: []
-}
+  products: [],
+  successMessage: undefined,
+  error: undefined
+};
 
 export const loadCartProducts = createAsyncThunk(
   '/cart/loadProducts',
   async (_, { rejectWithValue }) => {
     try {
       const response = await getCartProducts();
+
       if (response.status === 200) {
         const data = await response.data;
         return data;
       }
       const data = await response.data;
       rejectWithValue(data);
+
     } catch (err) {
       throw err;
     }
@@ -37,12 +43,14 @@ export const createCartItem = createAsyncThunk(
   async(requestBody: Types.RequestBodyAddToCart, { rejectWithValue }) => {
     try {
       const response = await addCartItem(requestBody);
+
       if (response.status === 201) {
         const data = await response.data;
         return data;
       }
       const data = await response.data;
       return rejectWithValue(data);
+
     } catch (err) {
       throw err;
     }
@@ -54,12 +62,14 @@ export const editCartItem = createAsyncThunk(
   async({productId, requestBody}: Types.AsyncThunkUpdateCartItem, { rejectWithValue }) => {
     try {
       const response = await updateCartItem(productId, requestBody);
+
       if (response.status === 200) {
         const data = await response.data;
         return data;
       }
       const data = await response.data;
       return rejectWithValue(data);
+
     } catch (err) {
       throw err;
     }
@@ -71,12 +81,14 @@ export const removeCartItem = createAsyncThunk(
   async (product_id: number, { rejectWithValue }) => {
     try {
       const response = await deleteCartItem(product_id);
+
       if (response.status === 200) {
         const data = await response.data;
         return data;
       }
       const data = await response.data;
       return rejectWithValue(data);
+
     } catch (err) {
       throw err;
     }
@@ -87,7 +99,12 @@ export const removeCartItem = createAsyncThunk(
 const cartSlice = createSlice({
   name: 'cart',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    cleanMessages(state) {
+      state.error = undefined;
+      state.successMessage = undefined;
+    }
+  },
   extraReducers: builder => {
     builder
       .addCase(loadCartProducts.pending, (state, action) => {
@@ -103,8 +120,22 @@ const cartSlice = createSlice({
         state.failedToLoadCartProducts = false;
         state.products = action.payload;
       })
+      .addCase(createCartItem.pending, (state, action) => {
+        state.successMessage = undefined;
+        state.error = undefined;
+      })
+      .addCase(createCartItem.rejected, (state, action) => {
+        state.successMessage = undefined;
+        state.error = "Product existent in Cart";
+      })
       .addCase(createCartItem.fulfilled, (state, action) => {
         state.products.push(action.payload);
+        state.successMessage = "Product added successfully";
+        state.error = undefined;
+      })
+      .addCase(editCartItem.pending, (state, action) => {
+        state.successMessage = undefined;
+        state.error = undefined;
       })
       .addCase(editCartItem.fulfilled, (state, action) => {
         state.products = state.products.map(product => {
@@ -112,14 +143,23 @@ const cartSlice = createSlice({
             return {...product, quantity_order: action.payload.updated_quantity}
           }
           return product;
-        })
+        });
+        state.successMessage = "Quantity updated successfully";
+      })
+      .addCase(removeCartItem.pending, (state, action) => {
+        state.successMessage = undefined;
+        state.error = undefined;
       })
       .addCase(removeCartItem.fulfilled, (state, action) => {
         state.products = state.products.filter(product => product.product_id !== parseInt(action.payload.product_id));
+        state.successMessage = "Product removed successfully";
       })
   }
 });
 
 export const selectCartProducts = (state: RootState) => state.cart.products;
+export const selectSuccessMessage = (state: RootState) => state.cart.successMessage;
+export const selectErrorMessage = (state: RootState) => state.cart.error;
 
+export const { cleanMessages } = cartSlice.actions;
 export default cartSlice.reducer;

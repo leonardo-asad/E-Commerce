@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -6,21 +6,27 @@ import CustomAvatar from '../../components/Avatar/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import PrimaryButton from '../../components/Buttons/PrimaryButton';
+import Error from '../../components/Messages/Error';
+import Success from '../../components/Messages/Success';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../../store/userSlice/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser, selectErrorAuth, cleanMessages, selectSuccessMessage } from '../../store/userSlice/userSlice';
 import * as Types from '../../types/types'
 import { AppDispatch } from '../../store/store';
 
 export default function Signup() {
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
+  const errorAuth = useSelector(selectErrorAuth);
+  const successMessage = useSelector(selectSuccessMessage);
 
   const [formData, setFormData] = useState({
     "username": "",
     "password": ""
-  })
+  });
+
+  useEffect(() => {
+    dispatch(cleanMessages());
+  }, [dispatch]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -32,13 +38,20 @@ export default function Signup() {
   const handleSignUp = async (formData: Types.UserCredentials) => {
     try {
       const response = await dispatch(registerUser(formData));
-      if (response.type === '/auth/register/fulfilled') {
-        navigate('/auth/login')
+      if (
+        response.type === '/auth/register/fulfilled'
+        ||
+        response.type === '/auth/register/rejected'
+        ) {
+          setFormData({
+            "username": "",
+            "password": ""
+          });
       }
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <Box
@@ -114,6 +127,8 @@ export default function Signup() {
           </Grid>
         </Grid>
       </Grid>
+      { errorAuth && <Error text={errorAuth} /> }
+      { successMessage && <Success text={successMessage} /> }
     </Box>
   );
 };

@@ -22,7 +22,7 @@ export const logout = async () => {
   };
 };
 
-export const signup = async (formData: Types.NewUserForm) => {
+export const signup = async (formData: Types.UserCredentials) => {
   try {
     const response = await API.post('/users/register', formData);
     return response;
