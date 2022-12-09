@@ -129,8 +129,8 @@ const verifyStock = (request, response, next) => {
         return response.status(500).send("Error During DB query: Verify Stock.");
       };
       if (results.rows.length > 0) {
-        return response.json({
-          message: "The following products are Out of Stock, please update your order",
+        return response.status(400).json({
+          message: "Some of the products are Out of Stock, please update your order",
           products: results.rows
         })};
       next();
