@@ -26,17 +26,27 @@ export default function Home() {
         isLoadingProducts ?
           <CircularIndeterminate />
         :
+        <>
           <Grid
           container
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="stretch"
-          spacing={2}
+          direction={"row"}
+          justifyContent="center"
           >
-            {products.map(product => {
-              return <ProductCard {...product} key={product.id} />
-            })}
+            <Grid item xs={12} sm={11} md={10} lg={9} xl={8}>
+              <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="stretch"
+              spacing={2}
+              >
+                {products.map(product => {
+                  return <ProductCard {...product} key={product.id} />
+                })}
+              </Grid>
+            </Grid>
           </Grid>
+        </>
       }
     </>
   );

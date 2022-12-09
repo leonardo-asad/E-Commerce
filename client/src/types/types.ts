@@ -35,6 +35,18 @@ export interface CartProduct {
 
 export type CartProducts = CartProduct[];
 
+export interface Order {
+  order_id: number,
+  name: string,
+  url_image: string
+  description: string,
+  quantity: number,
+  price: string,
+  date: string
+};
+
+export type Orders = Order[];
+
 export interface RequestBodyAddToCart {
   productId: number,
   quantity: number

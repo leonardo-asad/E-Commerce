@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
@@ -31,25 +32,35 @@ export default function ButtonAppBar() {
     <>
       {
         isLoggedIn ?
-        <>
-        <IconButton
-        sx={{color: 'white', mr: 1}}
-        aria-label="Cart"
-        component={Link}
-        to="/cart/mine"
+        <Stack
+        direction={"row"}
+        spacing={1}
         >
-          <ShoppingCartIcon />
-        </IconButton>
-        <Button
-        color="inherit"
-        onClick={async (event: React.MouseEvent) => {
-          event.preventDefault();
-          await handleLogout();
-        }}
-        >
-          Log Out
-        </Button>
-        </>
+          <Button
+          color="inherit"
+          component={Link}
+          to="/orders/mine"
+          >
+            My Orders
+          </Button>
+          <IconButton
+          sx={{color: 'white'}}
+          aria-label="Cart"
+          component={Link}
+          to="/cart/mine"
+          >
+            <ShoppingCartIcon />
+          </IconButton>
+          <Button
+          color="inherit"
+          onClick={async (event: React.MouseEvent) => {
+            event.preventDefault();
+            await handleLogout();
+          }}
+          >
+            Log Out
+          </Button>
+        </Stack>
         :
 
         <Button

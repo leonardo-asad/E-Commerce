@@ -6,58 +6,62 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import ImageBox from '../ImageBox/ImageBox';
-import { Link } from 'react-router-dom';
+import { Box } from '@mui/material';
 
-import './ProductCard.css'
-
+import * as Types from '../../types/types';
 
 interface Props {
-  id: number,
-  name: string,
-  url_image: string,
-  price: string
+  order: Types.Order
 };
 
-export default function ProductCard({id, name, url_image, price}: Props) {
+export default function Order({order}: Props) {
+  const date = new Date(Date.parse(order.date)).toDateString()
 
   const image = (
     <CardMedia
     component="img"
-    image={url_image}
+    image={order.url_image}
     alt="Product Image"
     />
   );
 
   return (
     <Grid
-    item
-    xs={12} sm={4} md={3} lg={2}
+    item xs
     >
       <Card style={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         height: "100%"
       }}>
-        <ImageBox
-        image={image}
-        />
-
-        <Divider sx={{ my: 1 }} />
-        <CardContent
+        <Box
         style={{
-          height: "30%"
+          width: "30%",
+          height: "100%"
         }}
         >
+          <ImageBox
+          image={image}
+          />
+        </Box>
+        <CardContent
+        style={{
+          width: "70%"
+        }}
+        >
+          <Typography>
+            {date}
+          </Typography>
+          <Divider
+          sx={{ my: 2 }}
+          />
           <Typography
-          className="ProductName"
           variant="h6"
-          component={Link}
-          to={`/product/${id}`}
           >
-            {name}
+            {order.name}
           </Typography>
           <Typography variant="h6" className="Price">
-            {price} NZD
+            {order.price} NZD
           </Typography>
         </CardContent>
       </Card>

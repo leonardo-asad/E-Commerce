@@ -10,10 +10,14 @@ import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterm
 import Success from '../../components/Messages/Success';
 import Error from '../../components/Messages/Error';
 import AddToCartForm from '../../components/AddToCartForm/AddToCartForm';
+import ImageBox from '../../components/ImageBox/ImageBox';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSelectedProduct, selectIsLoadingProduct, loadProductById } from '../../store/productSlice/productSlice';
 import { selectSuccessMessage, selectErrorMessage, cleanMessages } from '../../store/cartSlice/cartSlice';
 import { AppDispatch } from '../../store/store';
+import { CardContent } from '@mui/material';
+
+import './ProductDetails.css'
 
 export default function ProductDetails() {
   const { productId } = useParams();
@@ -49,6 +53,14 @@ export default function ProductDetails() {
     return <NotFound />
   };
 
+  const image = (
+    <CardMedia
+    component="img"
+    image={selectedProduct.url_image}
+    alt="Product Image"
+    />
+  );
+
   return (
     <>
       <Grid
@@ -57,27 +69,28 @@ export default function ProductDetails() {
       justifyContent="center"
       spacing={3}
       >
-        <Grid item xs={4} lg={2}>
+        <Grid item xs={12} md={6}>
           <Card>
-            <CardMedia
-            component="img"
-            image={selectedProduct.url_image}
-            alt="Product Image"
+            <ImageBox
+            image={image}
             />
+            <CardContent style={{
+              display: "flex",
+              flexDirection: "column",
+            }}>
+              <Typography className="ProductInfoTitle" variant="h4">
+              {selectedProduct.name}
+              </Typography>
+              <Typography className="ProductInfoTitle" variant="h6" color="text.secondary">
+                {selectedProduct.price} NZD
+              </Typography>
+              <Divider />
+              <AddToCartForm
+              quantity={selectedProduct.quantity}
+              productId={selectedProduct.id}
+              />
+            </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={8} lg={6}>
-          <Typography variant="h4">
-            {selectedProduct.name}
-          </Typography>
-          <Typography variant="h6" color="text.secondary">
-            {selectedProduct.price} NZD
-          </Typography>
-          <Divider />
-            <AddToCartForm
-            quantity={selectedProduct.quantity}
-            productId={selectedProduct.id}
-            />
         </Grid>
       </Grid>
       { successMessage && <Success text={successMessage} /> }

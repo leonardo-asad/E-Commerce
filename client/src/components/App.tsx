@@ -12,6 +12,7 @@ import Login from '../routes/Login/Login';
 import Signup from '../routes/SIgnup/SIgnup';
 import ProtectedLayout from '../layouts/ProtectedLayout';
 import Cart from '../routes/Cart/Cart';
+import Orders from '../routes/Orders/Orders';
 import { useDispatch } from 'react-redux';
 import { checkLoggedin } from '../store/userSlice/userSlice';
 import { AppDispatch } from '../store/store';
@@ -33,7 +34,7 @@ function App() {
     <>
       <Router>
         <ButtonAppBar />
-        <Box sx={{ m: 2 }}>
+        <Box sx={{ p: 2 }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
@@ -42,6 +43,7 @@ function App() {
 
             <Route element={<ProtectedLayout />}>
               <Route path="/cart/mine" element={<Cart />} />
+              <Route path="/orders/mine" element={<Orders />} />
             </Route>
           </Routes>
         </Box>

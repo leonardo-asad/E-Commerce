@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getCartProducts, addCartItem, updateCartItem, deleteCartItem } from "../../apis/cart";
+import {
+  getCartProducts,
+  addCartItem,
+  updateCartItem,
+  deleteCartItem,
+  checkout
+} from "../../apis/cart";
 import { RootState } from "../store";
 import * as Types from '../../types/types';
 
@@ -95,6 +101,25 @@ export const removeCartItem = createAsyncThunk(
   }
 );
 
+export const submitOrder = createAsyncThunk(
+  '/cart/submitOrder',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await checkout();
+
+      if (response.status === 200) {
+        const data = await response.data;
+        return data;
+      }
+
+      const data = await response.data;
+      return rejectWithValue(data);
+    } catch (err) {
+      throw err;
+    }
+  }
+);
+
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -153,6 +178,19 @@ const cartSlice = createSlice({
       .addCase(removeCartItem.fulfilled, (state, action) => {
         state.products = state.products.filter(product => product.product_id !== parseInt(action.payload.product_id));
         state.successMessage = "Product removed successfully";
+      })
+      .addCase(submitOrder.pending, (state, action) => {
+        state.successMessage = undefined;
+        state.error = undefined;
+      })
+      .addCase(submitOrder.rejected, (state, action) => {
+        state.successMessage = undefined;
+        state.error = "Submit Order Rejected. Check product stock";
+      })
+      .addCase(submitOrder.fulfilled, (state, action) => {
+        state.successMessage = "Order Confirmed!";
+        state.error = undefined;
+        state.products = [];
       })
   }
 });

@@ -1,5 +1,6 @@
 .ProductName {
   text-decoration: none;
+  font-size: small;
   color: black;
 }
 
@@ -10,5 +11,5 @@
 
 .Price {
   color: grey;
-  font-size: medium;
+  font-size: smaller !important;
 }
