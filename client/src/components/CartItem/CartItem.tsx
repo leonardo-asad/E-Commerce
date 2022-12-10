@@ -11,6 +11,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import DeleteButton from '../Buttons/DeleteButton';
 import UpdateButton from '../Buttons/UpdateButton';
 import Divider from '@mui/material/Divider';
+import { Box } from '@mui/material';
 
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -53,15 +54,23 @@ export default function CartItem(cartProduct: Types.CartProduct) {
           height: "100%",
           boxShadow: 0
         }}>
-          <CardMedia
-          component="img"
-          image={cartProduct.url_image}
-          alt="Product Image"
+          <Box
           style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems:"center",
             width: "30%",
-            height: "auto"
+            height: "auto",
+            padding: "5px"
           }}
-          />
+          >
+            <CardMedia
+            component="img"
+            image={cartProduct.url_image}
+            alt="Product Image"
+            />
+          </Box>
           <Divider sx={{my: 5}} variant="middle" />
           <CardContent
           style={{
@@ -90,8 +99,9 @@ export default function CartItem(cartProduct: Types.CartProduct) {
             container
             direction="row"
             spacing={1}
-            justifyContent="center"
+            justifyContent="left"
             flexWrap={"wrap"}
+            marginTop={1}
             >
               <IconButton
               aria-label="Add Item"

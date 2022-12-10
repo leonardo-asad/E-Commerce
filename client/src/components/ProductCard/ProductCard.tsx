@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
+import { Box } from '@mui/material';
 
 import './ProductCard.css'
 
@@ -29,14 +30,22 @@ export default function ProductCard({id, name, url_image, price}: Props) {
         flexDirection: "column",
         height: "100%"
       }}>
-        <CardMedia
-        component="img"
-        image={url_image}
-        alt="Product Image"
-        sx={{
-          height: "70%"
+        <Box
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems:"center",
+          height: "70%",
+          padding: "5px"
         }}
-        />
+        >
+          <CardMedia
+          component="img"
+          image={url_image}
+          alt="Product Image"
+          />
+        </Box>
         <Divider sx={{ my: 1 }} />
         <CardContent
         style={{
