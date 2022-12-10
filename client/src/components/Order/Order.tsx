@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
+import { Box } from '@mui/material';
 
 import * as Types from '../../types/types';
 
@@ -24,14 +25,23 @@ export default function Order({order}: Props) {
         flexDirection: "row",
         width: "100%"
       }}>
-        <CardMedia
-        component="img"
-        image={order.url_image}
-        alt="Product Image"
+        <Box
         style={{
-          width: "30%"
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems:"center",
+          width: "30%",
+          height: "auto",
+          padding: "5px"
         }}
-        />
+        >
+          <CardMedia
+          component="img"
+          image={order.url_image}
+          alt="Product Image"
+          />
+        </Box>
         <CardContent
         style={{
           width: "70%"
