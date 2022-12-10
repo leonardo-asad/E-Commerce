@@ -10,7 +10,6 @@ import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterm
 import Success from '../../components/Messages/Success';
 import Error from '../../components/Messages/Error';
 import AddToCartForm from '../../components/AddToCartForm/AddToCartForm';
-import ImageBox from '../../components/ImageBox/ImageBox';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSelectedProduct, selectIsLoadingProduct, loadProductById } from '../../store/productSlice/productSlice';
 import { selectSuccessMessage, selectErrorMessage, cleanMessages } from '../../store/cartSlice/cartSlice';
@@ -53,14 +52,6 @@ export default function ProductDetails() {
     return <NotFound />
   };
 
-  const image = (
-    <CardMedia
-    component="img"
-    image={selectedProduct.url_image}
-    alt="Product Image"
-    />
-  );
-
   return (
     <>
       <Grid
@@ -69,10 +60,22 @@ export default function ProductDetails() {
       justifyContent="center"
       spacing={3}
       >
-        <Grid item xs={12} md={6}>
-          <Card>
-            <ImageBox
-            image={image}
+        <Grid item xs={12} sm={11} md={10} lg={9} xl={8} xxl={7} xxxl={6} xxxxl={5} xxxxxl={4} xxxxxxl={3}>
+          <Card style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            flexWrap: "wrap"
+          }}>
+            <CardMedia
+            component="img"
+            image={selectedProduct.url_image}
+            alt="Product Image"
+            style={{
+              width: "300px",
+              margin: 10
+            }}
             />
             <CardContent style={{
               display: "flex",

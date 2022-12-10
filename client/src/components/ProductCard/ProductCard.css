@@ -1,6 +1,6 @@
 .ProductName {
   text-decoration: none;
-  font-size: small;
+  font-size: smaller !important;
   color: black;
 }
 

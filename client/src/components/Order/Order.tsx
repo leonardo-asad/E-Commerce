@@ -5,8 +5,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import ImageBox from '../ImageBox/ImageBox';
-import { Box } from '@mui/material';
 
 import * as Types from '../../types/types';
 
@@ -15,15 +13,7 @@ interface Props {
 };
 
 export default function Order({order}: Props) {
-  const date = new Date(Date.parse(order.date)).toDateString()
-
-  const image = (
-    <CardMedia
-    component="img"
-    image={order.url_image}
-    alt="Product Image"
-    />
-  );
+  const date = new Date(Date.parse(order.date)).toDateString();
 
   return (
     <Grid
@@ -32,18 +22,16 @@ export default function Order({order}: Props) {
       <Card style={{
         display: "flex",
         flexDirection: "row",
-        height: "100%"
+        width: "100%"
       }}>
-        <Box
+        <CardMedia
+        component="img"
+        image={order.url_image}
+        alt="Product Image"
         style={{
-          width: "30%",
-          height: "100%"
+          width: "30%"
         }}
-        >
-          <ImageBox
-          image={image}
-          />
-        </Box>
+        />
         <CardContent
         style={{
           width: "70%"

@@ -11,8 +11,6 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import DeleteButton from '../Buttons/DeleteButton';
 import UpdateButton from '../Buttons/UpdateButton';
 import Divider from '@mui/material/Divider';
-import { Box } from '@mui/material';
-import ImageBox from '../ImageBox/ImageBox';
 
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -27,15 +25,6 @@ export default function CartItem(cartProduct: Types.CartProduct) {
   const dispatch = useDispatch<AppDispatch>();
   const isInvalidQuantity = (updatedQuantity > cartProduct.in_stock) || (updatedQuantity <= 0);
   const quantityColor = isInvalidQuantity ? "red" : "black"
-
-  const image = (
-    <CardMedia
-    component="img"
-    image={cartProduct.url_image}
-    alt="Product Image"
-
-    />
-  );
 
   const handleEditItem = async () => {
     if (isInvalidQuantity) {
@@ -52,10 +41,7 @@ export default function CartItem(cartProduct: Types.CartProduct) {
   }
 
   return (
-    <Grid
-    item
-    xs
-    >
+    <Grid item xs>
       <Card style={{
         display: "flex",
         flexDirection: "column",
@@ -67,18 +53,22 @@ export default function CartItem(cartProduct: Types.CartProduct) {
           height: "100%",
           boxShadow: 0
         }}>
-          <Box
+          <CardMedia
+          component="img"
+          image={cartProduct.url_image}
+          alt="Product Image"
           style={{
             width: "30%",
-            height: "100%"
-          }}>
-            <ImageBox
-            image={image}
-            />
-          </Box>
-
-          <Divider sx={{mt: 2}} variant="middle" />
-          <CardContent style={{ padding: 10 }}>
+            height: "auto"
+          }}
+          />
+          <Divider sx={{my: 5}} variant="middle" />
+          <CardContent
+          style={{
+            padding: 10,
+            width: "100%"
+          }}
+          >
             <Typography
             className="ProductName"
             variant="h6"
@@ -96,7 +86,13 @@ export default function CartItem(cartProduct: Types.CartProduct) {
             <Typography>
               In Stock: {cartProduct.in_stock}
             </Typography>
-            <Stack direction="row" spacing={1} justifyContent="center">
+            <Grid
+            container
+            direction="row"
+            spacing={1}
+            justifyContent="center"
+            flexWrap={"wrap"}
+            >
               <IconButton
               aria-label="Add Item"
               size='small'
@@ -114,10 +110,10 @@ export default function CartItem(cartProduct: Types.CartProduct) {
               text="Update Quantity"
               handleOnClick={handleEditItem}
               />
-            </Stack>
+            </Grid>
           </CardContent>
         </Card>
-        <Divider variant="middle" />
+        <Divider sx={{my: 1}} variant="middle" />
         <Stack direction={"row"} justifyContent="center">
           <DeleteButton
           handleOnClick={handleRemoveItem}

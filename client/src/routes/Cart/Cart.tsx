@@ -44,7 +44,7 @@ export default function Cart() {
       direction={"row"}
       justifyContent="center"
       >
-        <Grid item xs={12} md={8} lg={5}>
+        <Grid item xs={12} sm={9} md={8} lg={7} xl={6} xxl={5} xxxl={4} xxxxl={3} xxxxxl={2} xxxxxxl={1}>
           <Grid
             container
             direction={"column"}

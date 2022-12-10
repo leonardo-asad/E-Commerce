@@ -17,7 +17,7 @@ export default function Home() {
     }
 
     getProducts();
-  }, [dispatch])
+  }, [dispatch]);
 
 
   return (
@@ -26,13 +26,12 @@ export default function Home() {
         isLoadingProducts ?
           <CircularIndeterminate />
         :
-        <>
           <Grid
           container
           direction={"row"}
           justifyContent="center"
           >
-            <Grid item xs={12} sm={11} md={10} lg={9} xl={8}>
+            <Grid item xs={12} sm={11} md={10} lg={9} xl={8} xxl={7} xxxl={6} xxxxl={5} xxxxxl={4} xxxxxxl={3}>
               <Grid
               container
               direction="row"
@@ -46,7 +45,6 @@ export default function Home() {
               </Grid>
             </Grid>
           </Grid>
-        </>
       }
     </>
   );

@@ -31,8 +31,9 @@ function App() {
   }, [dispatch])
 
   return (
-    <>
+
       <Router>
+
         <ButtonAppBar />
         <Box sx={{ p: 2 }}>
           <Routes>
@@ -47,8 +48,9 @@ function App() {
             </Route>
           </Routes>
         </Box>
+
       </Router>
-    </>
+
   );
 }
 
