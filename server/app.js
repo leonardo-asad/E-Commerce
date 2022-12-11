@@ -1,6 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const express = require('express');
+const cors = require('cors')
 const logger = require('morgan');
 const session = require('express-session');
 const path = require('path');
@@ -20,6 +21,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(logger('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 
 require('./config/passport');
