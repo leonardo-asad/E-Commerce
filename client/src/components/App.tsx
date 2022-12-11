@@ -33,7 +33,6 @@ function App() {
   return (
 
       <Router>
-
         <ButtonAppBar />
         <Box>
           <Routes>
@@ -48,7 +47,6 @@ function App() {
             </Route>
           </Routes>
         </Box>
-
       </Router>
 
   );

@@ -32,7 +32,7 @@ export default function ProductCard({id, name, url_image, price}: Props) {
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "100%"
+        height: "350px"
       }}
       >
         <Box
@@ -42,13 +42,17 @@ export default function ProductCard({id, name, url_image, price}: Props) {
           justifyContent: "center",
           alignItems:"center",
           height: "70%",
-          padding: "5px"
+          padding: "5px",
         }}
         >
           <CardMedia
           component="img"
           image={url_image}
           alt="Product Image"
+          sx={{
+            maxHeight: "100%",
+            maxWidth: "100%"
+          }}
           />
         </Box>
         <Divider sx={{ my: "5%" }} />
