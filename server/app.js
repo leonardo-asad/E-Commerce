@@ -37,9 +37,9 @@ app.use(passport.session());
 const swaggerDocument = yaml.load(fs.readFileSync(path.resolve(__dirname, 'swagger.yml'), 'utf8'));
 
 // Serves Swagger API documentation to /docs url
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   if (req.user) {
     res.send(`Welcome ${req.user.username}!`)
   } else {
@@ -48,11 +48,11 @@ app.get('/', (req, res) => {
 });
 
 // Users Router
-app.use('/users', usersRouter);
-app.use('/product', productRouter);
-app.use('/cart', cartRouter);
-app.use('/order', orderRouter);
-app.use('/category', categoryRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/product', productRouter);
+app.use('/api/cart', cartRouter);
+app.use('/api/order', orderRouter);
+app.use('/api/category', categoryRouter);
 
 // Database Error Handler
 app.use((error, request, response, next) => {
