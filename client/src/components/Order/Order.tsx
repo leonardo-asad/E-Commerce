@@ -25,6 +25,7 @@ export default function Order({order}: Props) {
         display: "flex",
         flexDirection: "row",
         width: "100%",
+        height: "250px"
       }}>
         <Box
         style={{
@@ -41,6 +42,10 @@ export default function Order({order}: Props) {
           component="img"
           image={order.url_image}
           alt="Product Image"
+          sx={{
+            maxHeight: "100%",
+            maxWidth: "100%"
+          }}
           />
         </Box>
         <CardContent

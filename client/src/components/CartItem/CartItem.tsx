@@ -16,7 +16,11 @@ import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { editCartItem, removeCartItem } from '../../store/cartSlice/cartSlice';
+import {
+  editCartItem,
+  removeCartItem,
+  loadCartProducts,
+} from '../../store/cartSlice/cartSlice';
 
 import * as Types from '../../types/types';
 import './CartItem.css'
@@ -35,6 +39,8 @@ export default function CartItem(cartProduct: Types.CartProduct) {
       productId: cartProduct.product_id,
       requestBody: {quantity: updatedQuantity}
     }));
+
+    await dispatch(loadCartProducts());
   }
 
   const handleRemoveItem = async () => {
@@ -46,7 +52,7 @@ export default function CartItem(cartProduct: Types.CartProduct) {
       <Card style={{
         display: "flex",
         flexDirection: "column",
-        height: "100%"
+        height: "250px"
       }}>
         <Card sx={{
           display: "flex",

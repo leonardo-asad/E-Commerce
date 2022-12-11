@@ -196,6 +196,7 @@ const cartSlice = createSlice({
 });
 
 export const selectCartProducts = (state: RootState) => state.cart.products;
+export const selectIsLoadingCartProducts = (state: RootState) => state.cart.isLoadingCartProducts;
 export const selectSuccessMessage = (state: RootState) => state.cart.successMessage;
 export const selectErrorMessage = (state: RootState) => state.cart.error;
 

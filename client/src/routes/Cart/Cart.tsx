@@ -5,9 +5,11 @@ import CartItem from '../../components/CartItem/CartItem';
 import Success from '../../components/Messages/Success';
 import Error from '../../components/Messages/Error';
 import BottomBar from '../../components/BottomBar/BottomBar';
+import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterminate';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   loadCartProducts,
+  selectIsLoadingCartProducts,
   selectCartProducts,
   cleanMessages,
   selectErrorMessage,
@@ -19,6 +21,7 @@ import { AppDispatch } from '../../store/store';
 export default function Cart() {
   const dispatch = useDispatch<AppDispatch>();
   const cartProducts = useSelector(selectCartProducts);
+  const isLoadingCartProducts = useSelector(selectIsLoadingCartProducts);
   const error = useSelector(selectErrorMessage);
   const successMessage = useSelector(selectSuccessMessage);
 
@@ -28,7 +31,7 @@ export default function Cart() {
     };
 
     loadProducts();
-  }, [dispatch, cartProducts]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(cleanMessages());
@@ -40,30 +43,33 @@ export default function Cart() {
 
   return (
     <>
-      <Box
-      sx={{
-        display:"flex",
-        direction:"row",
-        justifyContent:"center",
-        padding:2,
-        paddingBottom:20
-      }}
-      >
-
-        <Grid
-          container
-          direction={"column"}
-          spacing={2}
-          sx={{maxWidth:"1000px"}}
-        >
-          {
-            cartProducts.map(cartProduct => {
-              return <CartItem {...cartProduct} key={cartProduct.id} />
-            })
-          }
-        </Grid>
-
-      </Box>
+      {
+        isLoadingCartProducts ?
+          <CircularIndeterminate />
+        :
+          <Box
+          sx={{
+            display:"flex",
+            direction:"row",
+            justifyContent:"center",
+            padding:2,
+            paddingBottom:20
+          }}
+          >
+            <Grid
+              container
+              direction={"column"}
+              spacing={2}
+              sx={{maxWidth:"1000px"}}
+            >
+              {
+                cartProducts.map(cartProduct => {
+                  return <CartItem {...cartProduct} key={cartProduct.id} />
+                })
+              }
+            </Grid>
+          </Box>
+      }
       { error && <Error text={error} /> }
       { successMessage && <Success text={successMessage} /> }
       <BottomBar

@@ -42,7 +42,9 @@ export default function Orders() {
             container
             direction={"column"}
             spacing={2}
-            sx={{maxWidth:"1000px"}}
+            sx={{
+              maxWidth:"1000px"
+            }}
             >
               {
                 orders.map(order => {

@@ -35,20 +35,18 @@ export default function Home() {
             padding: 2
           }}
           >
-
-              <Grid
-              container
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              spacing={2}
-              sx={{width: "1200px"}}
-              >
-                {products.map(product => {
-                  return <ProductCard {...product} key={product.id} />
-                })}
-              </Grid>
-
+            <Grid
+            container
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="stretch"
+            spacing={2}
+            sx={{width: "1200px"}}
+            >
+              {products.map(product => {
+                return <ProductCard {...product} key={product.id} />
+              })}
+            </Grid>
           </Box>
       }
     </>

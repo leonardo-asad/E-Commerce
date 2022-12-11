@@ -125,7 +125,7 @@ export default function Login() {
           direction="column"
           alignContent="center"
           >
-            <Link to="/auth/signup" className="RouterLink">
+            <Link to="/auth/signup" className="link">
               Don't have an account? Sign Up
             </Link>
           </Grid>

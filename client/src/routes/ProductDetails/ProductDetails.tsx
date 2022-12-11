@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
 import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
