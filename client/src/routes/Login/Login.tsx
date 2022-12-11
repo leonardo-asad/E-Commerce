@@ -61,6 +61,7 @@ export default function Login() {
     component="form"
     sx={{
       '& .MuiTextField-root': { m: 1, width: '25ch' },
+      padding: 2
     }}
     noValidate
     autoComplete="off"

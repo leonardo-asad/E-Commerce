@@ -8,6 +8,7 @@ import Divider from '@mui/material/Divider';
 import { Box } from '@mui/material';
 
 import * as Types from '../../types/types';
+import './Order.css'
 
 interface Props {
   order: Types.Order
@@ -23,7 +24,7 @@ export default function Order({order}: Props) {
       <Card style={{
         display: "flex",
         flexDirection: "row",
-        width: "100%"
+        width: "100%",
       }}>
         <Box
         style={{
@@ -33,7 +34,7 @@ export default function Order({order}: Props) {
           alignItems:"center",
           width: "30%",
           height: "auto",
-          padding: "5px"
+          padding: "10px"
         }}
         >
           <CardMedia
@@ -58,7 +59,7 @@ export default function Order({order}: Props) {
           >
             {order.name}
           </Typography>
-          <Typography variant="h6" className="Price">
+          <Typography className="price">
             {order.price} NZD
           </Typography>
         </CardContent>

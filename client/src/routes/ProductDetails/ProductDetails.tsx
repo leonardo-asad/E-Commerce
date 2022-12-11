@@ -58,7 +58,7 @@ export default function ProductDetails() {
       container
       direction={"row"}
       justifyContent="center"
-      spacing={3}
+      padding={2}
       >
         <Grid item xs={12} sm={11} md={10} lg={9} xl={8} xxl={7} xxxl={6} xxxxl={5} xxxxxl={4} xxxxxxl={3}>
           <Card style={{
@@ -73,7 +73,7 @@ export default function ProductDetails() {
             image={selectedProduct.url_image}
             alt="Product Image"
             style={{
-              width: "300px",
+              width: "250px",
               margin: 10
             }}
             />
@@ -81,10 +81,10 @@ export default function ProductDetails() {
               display: "flex",
               flexDirection: "column",
             }}>
-              <Typography className="ProductInfoTitle" variant="h4">
+              <Typography className="product-info-title" variant="h4">
               {selectedProduct.name}
               </Typography>
-              <Typography className="ProductInfoTitle" variant="h6" color="text.secondary">
+              <Typography className="product-info-title" variant="h6" color="text.secondary">
                 {selectedProduct.price} NZD
               </Typography>
               <Divider />

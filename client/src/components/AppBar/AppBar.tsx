@@ -37,6 +37,7 @@ export default function ButtonAppBar() {
         spacing={1}
         >
           <Button
+          className='menu-item'
           color="inherit"
           component={Link}
           to="/orders/mine"
@@ -52,6 +53,7 @@ export default function ButtonAppBar() {
             <ShoppingCartIcon />
           </IconButton>
           <Button
+          className='menu-item'
           color="inherit"
           onClick={async (event: React.MouseEvent) => {
             event.preventDefault();
@@ -76,12 +78,12 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" className="AppBar">
+      <AppBar position="static">
         <Toolbar>
           <StorefrontIcon sx={{ mr: 1 }} />
           <Typography
-          className="WebsiteName"
-          variant="h5"
+          className="app-name"
+          variant="h6"
           component={Link}
           to="/"
           >

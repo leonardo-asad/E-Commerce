@@ -35,7 +35,7 @@ function App() {
       <Router>
 
         <ButtonAppBar />
-        <Box sx={{ p: 2 }}>
+        <Box>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:productId" element={<ProductDetails />} />

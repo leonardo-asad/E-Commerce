@@ -9,7 +9,10 @@ interface Props {
 
 export default function CustomAvatar({ children }: Props) {
   return (
-    <Avatar className="LoginAvatar">
+    <Avatar
+    className="avatar"
+    sx={{ bgcolor: "primary.main" }}
+    >
       {children}
     </Avatar>
   )

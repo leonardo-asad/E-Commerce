@@ -30,6 +30,7 @@ export default function Home() {
           container
           direction={"row"}
           justifyContent="center"
+          padding={2}
           >
             <Grid item xs={12} sm={11} md={10} lg={9} xl={8} xxl={7} xxxl={6} xxxxl={5} xxxxxl={4} xxxxxxl={3}>
               <Grid

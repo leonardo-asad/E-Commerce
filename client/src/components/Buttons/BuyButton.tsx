@@ -10,7 +10,7 @@ interface Props {
 export default function BuyButton({ text, handleOnClick }: Props) {
   return (
     <Button
-    className="BuyButton"
+    className="buy-button"
     variant="outlined"
     onClick={handleOnClick}
     >

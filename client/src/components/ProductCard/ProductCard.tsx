@@ -51,10 +51,13 @@ export default function ProductCard({id, name, url_image, price}: Props) {
           alt="Product Image"
           />
         </Box>
-        <Divider sx={{ my: 1 }} />
+        <Divider sx={{ my: "5%" }} />
         <CardContent
         style={{
-          height: "30%"
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "15%"
         }}
         >
           <Typography

@@ -79,14 +79,14 @@ export default function CartItem(cartProduct: Types.CartProduct) {
           }}
           >
             <Typography
-            className="ProductName"
+            className="product-name"
             variant="h6"
             component={Link}
             to={`/product/${cartProduct.product_id}`}
             >
               {cartProduct.name}
             </Typography>
-            <Typography variant="h6" className="PriceSmall">
+            <Typography variant="h6" className="price">
               {cartProduct.total_price} NZD
             </Typography>
             <Typography sx={{ color: quantityColor }}>

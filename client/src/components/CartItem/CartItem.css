@@ -1,6 +1,11 @@
-.PriceSmall {
+.price {
   color: grey;
   font-size: medium;
   font-size:medium;
   font-weight: bold;
+}
+
+.product-name {
+  text-decoration: none;
+  font-size: large !important;
 }

@@ -1,33 +1,23 @@
-.PrimaryButton {
+.primary-button {
   border-radius: 30px !important;
-  background-color: #C44B4F !important;
-  color: white !important;
   margin: 15px !important;
   width: 150px !important;
 }
 
-.PrimaryButton:hover {
-  background-color: #4D0011 !important;
-}
-
-.DeleteButton {
+.delete-button {
   border-radius: 30px !important;
-  color: #C44B4F !important;
-  border-color: #C44B4F !important;
   margin-bottom: 10px !important;
   width: 150px;
 }
 
-.UpdateButton {
-  border-radius: 30px !important;
-  background-color: #C44B4F !important;
-  color: white !important;
+.update-button {
+  border-radius: 20px !important;
   padding: 5px !important;
   width: 150px !important;
   font-size: 10px !important;
 }
 
-.BuyButton {
+.buy-button {
   border-radius: 30px !important;
   color: white !important;
   border-color: white !important;

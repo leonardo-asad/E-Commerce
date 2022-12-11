@@ -1,10 +1,19 @@
-.AppBar {
-  background-color: #C44B4F !important;
-}
-
-.WebsiteName {
+.app-name {
   flex-grow: 1;
   color: white;
   text-decoration: none;
+}
 
+.menu-item {
+  font-size: smaller !important;
+}
+
+@media screen and (max-width: 425px) {
+  .app-name {
+    font-size: smaller !important;
+  }
+
+  .menu-item {
+    font-size:x-small !important;
+  }
 }

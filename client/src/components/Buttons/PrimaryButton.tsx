@@ -10,7 +10,8 @@ interface Props {
 export default function PrimaryButton({ text, handleOnClick }: Props) {
   return (
     <Button
-    className="PrimaryButton"
+    className="primary-button"
+    variant='contained'
     type="submit"
     onClick={handleOnClick}
     >

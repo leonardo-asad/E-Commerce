@@ -10,7 +10,7 @@ interface Props {
 export default function DeleteButton({ text, handleOnClick }: Props) {
   return (
     <Button
-    className="DeleteButton"
+    className="delete-button"
     variant="outlined"
     onClick={handleOnClick}
     >

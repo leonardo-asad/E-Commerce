@@ -10,7 +10,8 @@ interface Props {
 export default function UpdateButton({ text, handleOnClick }: Props) {
   return (
     <Button
-    className="UpdateButton"
+    className="update-button"
+    variant='contained'
     type="submit"
     onClick={handleOnClick}
     >
