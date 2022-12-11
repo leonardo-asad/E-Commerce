@@ -1,15 +1,23 @@
-.ProductName {
-  text-decoration: none;
+.product-name {
   font-size: smaller !important;
   color: black;
 }
 
-.ProductName:hover {
-  font-weight: bold;
+.product-card {
+  text-decoration: none !important;
+  transition: .2s !important;
+}
+
+.product-card:hover {
+  transform: scale(1.05) !important;
   cursor: pointer;
 }
 
-.Price {
+.product-card:hover .product-name {
+  font-weight: bold !important;
+}
+
+.price {
   color: grey;
   font-size: smaller !important;
 }

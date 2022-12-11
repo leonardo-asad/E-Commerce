@@ -25,11 +25,16 @@ export default function ProductCard({id, name, url_image, price}: Props) {
     item
     xs={12} sm={4} md={3} lg={2}
     >
-      <Card style={{
+      <Card
+      className="product-card"
+      component={Link}
+      to={`/product/${id}`}
+      style={{
         display: "flex",
         flexDirection: "column",
         height: "100%"
-      }}>
+      }}
+      >
         <Box
         style={{
           display: "flex",
@@ -53,13 +58,13 @@ export default function ProductCard({id, name, url_image, price}: Props) {
         }}
         >
           <Typography
-          className="ProductName"
-          component={Link}
-          to={`/product/${id}`}
+          className="product-name"
           >
             {name}
           </Typography>
-          <Typography variant="h6" className="Price">
+          <Typography
+          className="price"
+          >
             {price} NZD
           </Typography>
         </CardContent>
