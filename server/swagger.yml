@@ -111,7 +111,7 @@ components:
           type: string
 
 paths:
-  /users:
+  /api/users:
     get:
       tags:
         - User
@@ -123,7 +123,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserWithoutPassword'
-  /users/{id}:
+  /api/users/{id}:
     get:
       tags:
         - User
@@ -167,7 +167,7 @@ paths:
           description: Unauthorized.
         500:
           description: Server Failure Bcrypt.
-  /users/register:
+  /api/users/register:
     post:
       tags:
         - Authentication
@@ -184,7 +184,7 @@ paths:
           description: Successfully Registered
         400:
           description: Bad Request
-  /users/login:
+  /api/users/login:
     post:
       tags:
         - Authentication
@@ -201,7 +201,7 @@ paths:
           description: Successfully Authenticated
         400:
           description: Bad Request
-  /users/logout:
+  /api/users/logout:
     post:
       tags:
         - Authentication
@@ -209,7 +209,7 @@ paths:
       responses:
         200:
           description: Successfully Logged Out
-  /product:
+  /api/product:
     get:
       tags:
         - Product
@@ -252,7 +252,7 @@ paths:
           description: Error during DB query.
         400:
           description: Bad Request. The name of the product already exists.
-  /product/{id}:
+  /api/product/{id}:
     get:
       tags:
         - Product
@@ -274,7 +274,7 @@ paths:
           description: Server error
         400:
           description: Bad Request
-  /category:
+  /api/category:
     get:
       tags:
         - Categories
@@ -288,7 +288,7 @@ paths:
                 properties:
                   name:
                     type: string
-  /cart:
+  /api/cart:
     post:
       tags:
         - Cart
@@ -301,7 +301,7 @@ paths:
           description: Cart Created Successfully
         400:
           description: User's Cart has been previously created.
-  /cart/mine:
+  /api/cart/mine:
     get:
       tags:
         - Cart
@@ -337,7 +337,7 @@ paths:
           description: Bad request.
         401:
           description: Unauthorized.
-  /cart/mine/{productId}:
+  /api/cart/mine/{productId}:
     put:
       tags:
         - Cart
@@ -386,7 +386,7 @@ paths:
           description: Bad request.
         401:
           description: Unauthorized.
-  /cart/mine/checkout:
+  /api/cart/mine/checkout:
     post:
       tags:
         - Cart
@@ -402,7 +402,7 @@ paths:
           description: Unauthorized.
         500:
           description: Server Error.
-  /order/mine:
+  /api/order/mine:
     get:
       tags:
         - Order
@@ -419,7 +419,7 @@ paths:
                 $ref: '#/components/schemas/Order'
         401:
           description: Unauthorized
-  /order/mine/{id}:
+  /api/order/mine/{id}:
     get:
       tags:
         - Order
