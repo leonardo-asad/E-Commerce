@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
+import { Box } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -54,55 +55,56 @@ export default function ProductDetails() {
 
   return (
     <>
-      <Grid
-      container
-      direction={"row"}
-      justifyContent="center"
-      padding={2}
+      <Box
+      sx={{
+        display: "flex",
+        direction:"row",
+        justifyContent:"center",
+        padding: 2,
+      }}
       >
-        <Grid item xs={12} sm={9} md={8} lg={7} xl={6} xxl={5} xxxl={4} xxxxl={3} xxxxxl={2} xxxxxxl={1}>
-          <Card style={{
+        <Card style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          flexWrap: "wrap",
+          maxWidth: "1000px"
+        }}>
+          <CardMedia
+          component="img"
+          image={selectedProduct.url_image}
+          alt="Product Image"
+          style={{
+            width: "250px",
+            margin: 10
+          }}
+          />
+          <CardContent style={{
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap"
+            flexDirection: "column",
           }}>
-            <CardMedia
-            component="img"
-            image={selectedProduct.url_image}
-            alt="Product Image"
-            style={{
-              width: "250px",
-              margin: 10
-            }}
+            <Typography className="product-info-title" variant="h4">
+            {selectedProduct.name}
+            </Typography>
+            <Typography className="product-info-title" variant="h6" color="text.secondary">
+              {selectedProduct.price} NZD
+            </Typography>
+            <Divider sx={{my:2}} />
+            <Typography variant='h6'>
+              Description:
+            </Typography>
+            <Typography variant='body1'>
+              {selectedProduct.description}
+            </Typography>
+            <Divider sx={{mt:2}} />
+            <AddToCartForm
+            quantity={selectedProduct.quantity}
+            productId={selectedProduct.id}
             />
-            <CardContent style={{
-              display: "flex",
-              flexDirection: "column",
-            }}>
-              <Typography className="product-info-title" variant="h4">
-              {selectedProduct.name}
-              </Typography>
-              <Typography className="product-info-title" variant="h6" color="text.secondary">
-                {selectedProduct.price} NZD
-              </Typography>
-              <Divider sx={{my:2}} />
-              <Typography variant='h6'>
-                Description:
-              </Typography>
-              <Typography variant='body1'>
-                {selectedProduct.description}
-              </Typography>
-              <Divider sx={{mt:2}} />
-              <AddToCartForm
-              quantity={selectedProduct.quantity}
-              productId={selectedProduct.id}
-              />
-            </CardContent>
+          </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+      </Box>
       { successMessage && <Success text={successMessage} /> }
       { errorMessage && <Error text={errorMessage} /> }
     </>

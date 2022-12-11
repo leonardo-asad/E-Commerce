@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
+import { Box } from '@mui/material';
 import CartItem from '../../components/CartItem/CartItem';
 import Success from '../../components/Messages/Success';
 import Error from '../../components/Messages/Error';
@@ -39,27 +40,30 @@ export default function Cart() {
 
   return (
     <>
-      <Grid
-      container
-      direction={"row"}
-      justifyContent="center"
-      padding={2}
-      paddingBottom={20}
+      <Box
+      sx={{
+        display:"flex",
+        direction:"row",
+        justifyContent:"center",
+        padding:2,
+        paddingBottom:20
+      }}
       >
-        <Grid item xs={12} sm={9} md={8} lg={7} xl={6} xxl={5} xxxl={4} xxxxl={3} xxxxxl={2} xxxxxxl={1}>
-          <Grid
-            container
-            direction={"column"}
-            spacing={2}
-          >
-            {
-              cartProducts.map(cartProduct => {
-                return <CartItem {...cartProduct} key={cartProduct.id} />
-              })
-            }
-          </Grid>
+
+        <Grid
+          container
+          direction={"column"}
+          spacing={2}
+          sx={{maxWidth:"1000px"}}
+        >
+          {
+            cartProducts.map(cartProduct => {
+              return <CartItem {...cartProduct} key={cartProduct.id} />
+            })
+          }
         </Grid>
-      </Grid>
+
+      </Box>
       { error && <Error text={error} /> }
       { successMessage && <Success text={successMessage} /> }
       <BottomBar

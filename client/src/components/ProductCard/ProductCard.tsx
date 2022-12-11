@@ -10,7 +10,6 @@ import { Box } from '@mui/material';
 
 import './ProductCard.css'
 
-
 interface Props {
   id: number,
   name: string,
