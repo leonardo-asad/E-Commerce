@@ -50,7 +50,9 @@ export default function ButtonAppBar() {
           component={Link}
           to="/cart/mine"
           >
-            <ShoppingCartIcon />
+            <ShoppingCartIcon
+            sx={{color: "white"}}
+            />
           </IconButton>
           <Button
           className='menu-item'
@@ -66,6 +68,7 @@ export default function ButtonAppBar() {
         :
 
         <Button
+        className="menu-item"
         color="inherit"
         component={Link}
         to="/auth/login"
@@ -80,7 +83,7 @@ export default function ButtonAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <StorefrontIcon sx={{ mr: 1 }} />
+          <StorefrontIcon sx={{ mr: 1, color: "white" }} />
           <Typography
           className="app-name"
           variant="h6"

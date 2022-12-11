@@ -2,6 +2,7 @@
   border-radius: 30px !important;
   margin: 15px !important;
   width: 150px !important;
+  color: white !important;
 }
 
 .delete-button {
@@ -15,6 +16,7 @@
   padding: 5px !important;
   width: 150px !important;
   font-size: 10px !important;
+  color: white !important;
 }
 
 .buy-button {
@@ -23,4 +25,9 @@
   border-color: white !important;
   margin: 15px !important;
   width: 150px;
+  transition: 0.2s;
+}
+
+.buy-button:hover {
+  transform: scale(1.1) !important;
 }
