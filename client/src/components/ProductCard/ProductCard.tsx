@@ -41,7 +41,7 @@ export default function ProductCard({id, name, url_image, price}: Props) {
           flexDirection: "row",
           justifyContent: "center",
           alignItems:"center",
-          height: "70%",
+          height: "225px",
           padding: "5px",
         }}
         >
@@ -55,13 +55,13 @@ export default function ProductCard({id, name, url_image, price}: Props) {
           }}
           />
         </Box>
-        <Divider sx={{ my: "5%" }} />
+        <Divider/>
         <CardContent
         style={{
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          height: "15%"
+          height: "75px"
         }}
         >
           <Typography
