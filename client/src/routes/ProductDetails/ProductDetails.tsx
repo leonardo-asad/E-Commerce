@@ -60,7 +60,7 @@ export default function ProductDetails() {
       justifyContent="center"
       padding={2}
       >
-        <Grid item xs={12} sm={11} md={10} lg={9} xl={8} xxl={7} xxxl={6} xxxxl={5} xxxxxl={4} xxxxxxl={3}>
+        <Grid item xs={12} sm={9} md={8} lg={7} xl={6} xxl={5} xxxl={4} xxxxl={3} xxxxxl={2} xxxxxxl={1}>
           <Card style={{
             display: "flex",
             flexDirection: "row",
@@ -87,7 +87,14 @@ export default function ProductDetails() {
               <Typography className="product-info-title" variant="h6" color="text.secondary">
                 {selectedProduct.price} NZD
               </Typography>
-              <Divider />
+              <Divider sx={{my:2}} />
+              <Typography variant='h6'>
+                Description:
+              </Typography>
+              <Typography variant='body1'>
+                {selectedProduct.description}
+              </Typography>
+              <Divider sx={{mt:2}} />
               <AddToCartForm
               quantity={selectedProduct.quantity}
               productId={selectedProduct.id}

@@ -33,4 +33,12 @@ export const theme = createTheme({
       xxxxxxxl: 7000,
     },
   },
+  palette: {
+    primary: {
+      main: "#B34270",
+    },
+    secondary: {
+      main: "#713770",
+    },
+  },
 });
