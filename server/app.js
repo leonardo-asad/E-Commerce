@@ -19,15 +19,23 @@ const categoryRouter = require('./routes/category');
 const port = process.env.PORT || 3000;
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ["https://e-commerce-demoapp.netlify.app", "http://localhost:3000"],
+  credentials: true
+}));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
 require('./config/passport');
 
+app.set('trust proxy', 1)
 app.use(session({
   secret: process.env.SECRET,
-  cookie: {maxAge: 86400000, sameSite: 'none', httpOnly: false},
+  cookie: {
+    maxAge: 86400000,
+    sameSite: 'none',
+    secure: true,
+  },
   saveUninitialized: false,
   resave: false
 }))
