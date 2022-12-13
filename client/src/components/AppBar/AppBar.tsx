@@ -8,9 +8,11 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Stack from '@mui/material/Stack';
+import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
+import { selectCartProducts } from '../../store/cartSlice/cartSlice';
 import { useDispatch } from 'react-redux';
 import { logOutUser } from '../../store/userSlice/userSlice';
 import { AppDispatch } from '../../store/store';
@@ -22,6 +24,7 @@ export default function ButtonAppBar() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const cartProducts = useSelector(selectCartProducts).length;
 
   const handleLogout = async () => {
     await dispatch(logOutUser());
@@ -50,9 +53,11 @@ export default function ButtonAppBar() {
           component={Link}
           to="/cart/mine"
           >
-            <ShoppingCartIcon
-            sx={{color: "white"}}
-            />
+            <Badge badgeContent={cartProducts} color="secondary">
+              <ShoppingCartIcon
+              sx={{color: "white"}}
+              />
+            </Badge>
           </IconButton>
           <Button
           className='menu-item'
@@ -73,7 +78,7 @@ export default function ButtonAppBar() {
         component={Link}
         to="/auth/login"
         >
-          Login
+          Login / Sign up
         </Button>
       }
     </>
