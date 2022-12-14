@@ -75,7 +75,7 @@ export default function ProductDetails() {
           image={selectedProduct.url_image}
           alt="Product Image"
           style={{
-            width: "250px",
+            width: "400px",
             margin: 10
           }}
           />

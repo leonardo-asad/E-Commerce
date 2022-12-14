@@ -3,8 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AddToCartButton from '../Buttons/AddToCartButton';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
@@ -25,7 +24,7 @@ export default function AddToCartForm({ quantity, productId }: Props) {
   const isInvalidQuantity = (parseInt(productQuantity )< 1) || (parseInt(productQuantity) > quantity) || productQuantity === ''
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const onlyNums = event.target.value.replace(/[^1-9]/g, '');
+    const onlyNums = event.target.value.replace(/[^0-9]/g, '');
     setProductQuantity(onlyNums);
   };
 
@@ -69,14 +68,6 @@ export default function AddToCartForm({ quantity, productId }: Props) {
       justifyContent="center"
       spacing={2}
       >
-        <IconButton
-        aria-label='Add to Cart'
-        type='submit'
-        >
-          <AddShoppingCartIcon />
-        </IconButton>
-
-
         <TextField
         id="quantity"
         label="Quantity"
@@ -92,6 +83,15 @@ export default function AddToCartForm({ quantity, productId }: Props) {
           parseInt(productQuantity) > quantity &&
           <Typography variant="subtitle1" sx={{ color: "red" }}>Not enough stock. Reduce Quantity.</Typography>
         }
+      </Stack>
+      <Stack
+      direction={"row"}
+      alignItems="center"
+      justifyContent={"center"}
+      >
+        <AddToCartButton
+        text="Add to Cart"
+        />
       </Stack>
     </Box>
   )

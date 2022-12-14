@@ -36,6 +36,7 @@ export default function Orders() {
             direction:"row",
             justifyContent:"center",
             padding:2,
+            paddingBottom: 10
           }}
           >
             <Grid

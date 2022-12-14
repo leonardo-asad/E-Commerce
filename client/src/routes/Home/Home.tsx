@@ -3,9 +3,13 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/material';
 import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterminate';
+import Footer from '../../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { loadProducts, selectProducts, selectIsLoadingProducts } from '../../store/productSlice/productSlice';
+import { loadCartProducts } from '../../store/cartSlice/cartSlice';
+
+import './Home.css'
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,6 +19,7 @@ export default function Home() {
   useEffect(() => {
     async function getProducts() {
       await dispatch(loadProducts());
+      await dispatch(loadCartProducts());
     }
 
     getProducts();
@@ -27,12 +32,14 @@ export default function Home() {
         isLoadingProducts ?
           <CircularIndeterminate />
         :
+        <div className="flex-wrapper">
           <Box
           sx={{
             display: "flex",
             direction: "row",
             justifyContent: "center",
-            padding: 2
+            padding: 2,
+            paddingBottom: 5
           }}
           >
             <Grid
@@ -48,6 +55,8 @@ export default function Home() {
               })}
             </Grid>
           </Box>
+          <Footer />
+        </div>
       }
     </>
   );

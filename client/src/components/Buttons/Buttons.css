@@ -31,3 +31,12 @@
 .buy-button:hover {
   transform: scale(1.1) !important;
 }
+
+
+.addtocart-button {
+  border-radius: 30px !important;
+  margin-bottom: 10px !important;
+  width: 250px !important;
+  color: white !important;
+  margin: 15px !important;
+}

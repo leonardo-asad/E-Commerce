@@ -128,6 +128,9 @@ const cartSlice = createSlice({
     cleanMessages(state) {
       state.error = undefined;
       state.successMessage = undefined;
+    },
+    emptyCart(state) {
+      state.products = [];
     }
   },
   extraReducers: builder => {
@@ -200,5 +203,5 @@ export const selectIsLoadingCartProducts = (state: RootState) => state.cart.isLo
 export const selectSuccessMessage = (state: RootState) => state.cart.successMessage;
 export const selectErrorMessage = (state: RootState) => state.cart.error;
 
-export const { cleanMessages } = cartSlice.actions;
+export const { cleanMessages, emptyCart } = cartSlice.actions;
 export default cartSlice.reducer;

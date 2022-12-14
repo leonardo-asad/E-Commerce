@@ -12,7 +12,7 @@ import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
-import { selectCartProducts } from '../../store/cartSlice/cartSlice';
+import { selectCartProducts, emptyCart } from '../../store/cartSlice/cartSlice';
 import { useDispatch } from 'react-redux';
 import { logOutUser } from '../../store/userSlice/userSlice';
 import { AppDispatch } from '../../store/store';
@@ -28,6 +28,7 @@ export default function ButtonAppBar() {
 
   const handleLogout = async () => {
     await dispatch(logOutUser());
+    dispatch(emptyCart());
     navigate('/');
   };
 
