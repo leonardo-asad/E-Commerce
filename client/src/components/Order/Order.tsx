@@ -64,8 +64,11 @@ export default function Order({order}: Props) {
           >
             {order.name}
           </Typography>
-          <Typography className="price">
-            {order.price} NZD
+          <Typography className="secondary">
+            Quantity: {order.quantity}
+          </Typography>
+          <Typography className="secondary">
+            Price: {order.price} NZD
           </Typography>
         </CardContent>
       </Card>

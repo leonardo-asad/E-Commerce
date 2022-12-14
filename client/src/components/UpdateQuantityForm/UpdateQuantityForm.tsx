@@ -5,6 +5,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import { Box } from '@mui/material';
 import { Stack } from '@mui/material';
 import { editCartItem } from '../../store/cartSlice/cartSlice';
 import { useDispatch } from 'react-redux';
@@ -51,7 +52,7 @@ export default function UpdateQuantity({ cartItem }: Props) {
     direction={"column"}
     justifyContent="center"
     alignItems={"flex-start"}
-    spacing={1}
+    spacing={0.8}
     marginY={3}
     sx={{ width: "100%" }}
     >
@@ -85,14 +86,18 @@ export default function UpdateQuantity({ cartItem }: Props) {
         }}}
         sx={{ minWidth: "150px", maxWidth: "150px" }}
         />
+
         <Typography className='item-price'>
           {cartItem.total_price} NZD
         </Typography>
       </Stack>
-
-      <Typography className='item-qty'>
-        Available {cartItem.in_stock}
-      </Typography>
+      <Box
+      sx={{ width: "150px" }}
+      >
+        <Typography className='item-qty'>
+          Available {cartItem.in_stock}
+        </Typography>
+      </Box>
     </Stack>
   )
 }
