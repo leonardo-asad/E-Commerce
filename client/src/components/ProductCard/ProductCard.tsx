@@ -59,19 +59,19 @@ export default function ProductCard({id, name, url_image, price}: Props) {
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           height: "75px"
         }}
         >
           <Typography
-          className="product-name"
-          >
-            {name}
-          </Typography>
-          <Typography
-          className="price"
+          className="home-price"
           >
             {price} NZD
+          </Typography>
+          <Typography
+          className="home-name"
+          >
+            {name}
           </Typography>
         </CardContent>
       </Card>

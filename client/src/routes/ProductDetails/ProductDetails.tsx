@@ -70,15 +70,26 @@ export default function ProductDetails() {
           flexWrap: "wrap",
           maxWidth: "1000px"
         }}>
-          <CardMedia
-          component="img"
-          image={selectedProduct.url_image}
-          alt="Product Image"
+          <Box
           style={{
-            width: "400px",
-            margin: 10
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems:"center",
+            height: "400px",
+            padding: "10px",
           }}
-          />
+          >
+            <CardMedia
+            component="img"
+            image={selectedProduct.url_image}
+            alt="Product Image"
+            sx={{
+              maxHeight: "100%",
+              maxWidth: "100%"
+            }}
+            />
+          </Box>
           <CardContent style={{
             display: "flex",
             flexDirection: "column",

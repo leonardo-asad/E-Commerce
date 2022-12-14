@@ -168,7 +168,11 @@ const cartSlice = createSlice({
       .addCase(editCartItem.fulfilled, (state, action) => {
         state.products = state.products.map(product => {
           if (product.product_id === parseInt(action.payload.product_id)) {
-            return {...product, quantity_order: action.payload.updated_quantity}
+            return {
+              ...product,
+              quantity_order: action.payload.updated_quantity,
+              total_price: (parseInt(product.price) * action.payload.updated_quantity).toString()
+            }
           }
           return product;
         });

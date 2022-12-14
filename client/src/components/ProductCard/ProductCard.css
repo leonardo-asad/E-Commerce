@@ -1,6 +1,11 @@
-.product-name {
+.home-price {
+  font-size: larger !important;
+  color: black !important;
+}
+
+.home-name {
+  color: grey !important;
   font-size: smaller !important;
-  color: black;
 }
 
 .product-card {
@@ -13,11 +18,10 @@
   cursor: pointer;
 }
 
-.product-card:hover .product-name {
+.product-card:hover .home-name {
   font-weight: bold !important;
 }
 
-.price {
-  color: grey;
-  font-size: smaller !important;
+.product-card:hover .home-price {
+  font-weight: bold !important;
 }

@@ -1,11 +1,10 @@
-.price {
-  color: grey;
-  font-size: medium;
-  font-size:medium;
-  font-weight: bold;
+.cart-price {
+  color: grey !important;
+  font-size: small !important;
 }
 
-.product-name {
+.cart-name {
   text-decoration: none;
   font-size: large !important;
+  color: black;
 }

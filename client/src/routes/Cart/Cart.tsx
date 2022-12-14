@@ -30,6 +30,7 @@ export default function Cart() {
       await dispatch(loadCartProducts());
     };
 
+
     loadProducts();
   }, [dispatch]);
 
