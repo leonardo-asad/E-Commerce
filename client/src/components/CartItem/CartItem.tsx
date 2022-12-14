@@ -71,12 +71,11 @@ export default function CartItem(cartProduct: Types.CartProduct) {
             >
               {cartProduct.name}
             </Typography>
-            <Typography className="cart-price">
-              {cartProduct.total_price} NZD
-            </Typography>
+            <Divider sx={{ my: 2 }} />
             <UpdateQuantity
             cartItem={cartProduct}
             />
+
           </CardContent>
         </Card>
         <Divider sx={{my: 1}} variant="middle" />

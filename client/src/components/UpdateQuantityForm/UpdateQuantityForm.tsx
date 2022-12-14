@@ -50,35 +50,46 @@ export default function UpdateQuantity({ cartItem }: Props) {
     <Stack
     direction={"column"}
     justifyContent="center"
-    alignItems={"center"}
+    alignItems={"flex-start"}
     spacing={1}
-    marginY={1}
-    sx={{ width: "150px" }}
+    marginY={3}
+    sx={{ width: "100%" }}
     >
-      <TextField
-      value={cartItem.quantity_order}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position='start'>
-            <IconButton onClick={handleRemoveItem}>
-              <RemoveIcon />
-            </IconButton>
-          </InputAdornment>
-        ),
-        endAdornment: (
-          <InputAdornment position='end'>
-            <IconButton onClick={handleAddItem}>
-              <AddIcon />
-            </IconButton>
-          </InputAdornment>
-        )
-      }}
-      fullWidth
-      inputProps={{ style: {
-        textAlign: "center",
-        maxHeight: "10px"
-      }}}
-      />
+      <Stack
+      direction={"row"}
+      justifyContent="center"
+      alignItems={"center"}
+      spacing={3}
+      >
+        <TextField
+        value={cartItem.quantity_order}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position='start'>
+              <IconButton onClick={handleRemoveItem}>
+                <RemoveIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+          endAdornment: (
+            <InputAdornment position='end'>
+              <IconButton onClick={handleAddItem}>
+                <AddIcon />
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
+        inputProps={{ style: {
+          textAlign: "center",
+          maxHeight: "10px"
+        }}}
+        sx={{ minWidth: "150px", maxWidth: "150px" }}
+        />
+        <Typography className='item-price'>
+          {cartItem.total_price} NZD
+        </Typography>
+      </Stack>
+
       <Typography className='item-qty'>
         Available {cartItem.in_stock}
       </Typography>

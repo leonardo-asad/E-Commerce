@@ -1,3 +1,10 @@
 .item-qty {
-  font-size: smaller;
+  font-size: smaller !important;
+  margin-left: 45px !important;
+  text-align: center !important;
+}
+
+.item-price {
+  font-size: larger !important;
+  font-weight: bold !important;
 }
