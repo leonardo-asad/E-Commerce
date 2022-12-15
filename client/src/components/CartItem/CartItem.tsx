@@ -74,6 +74,7 @@ export default function CartItem(cartProduct: Types.CartProduct) {
             <Divider sx={{ my: 2 }} />
             <UpdateQuantity
             cartItem={cartProduct}
+            showPrice={true}
             />
 
           </CardContent>

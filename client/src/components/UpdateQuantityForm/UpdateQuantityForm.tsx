@@ -16,10 +16,12 @@ import './UpdateQuantityForm.css'
 
 interface Props {
   cartItem: Types.CartProduct
+  showPrice: boolean
 }
 
-export default function UpdateQuantity({ cartItem }: Props) {
+export default function UpdateQuantity({ cartItem, showPrice }: Props) {
   const dispatch = useDispatch<AppDispatch>();
+  const remainingStock = cartItem.in_stock - cartItem.quantity_order;
 
   const isInvalidQuantity = (updatedQuantity: number) => {
     return (updatedQuantity > cartItem.in_stock) || (updatedQuantity <= 0);
@@ -86,16 +88,18 @@ export default function UpdateQuantity({ cartItem }: Props) {
         }}}
         sx={{ minWidth: "150px", maxWidth: "150px" }}
         />
-
-        <Typography className='item-price'>
-          {cartItem.total_price} NZD
-        </Typography>
+        {
+          showPrice &&
+          <Typography className='item-price'>
+            {cartItem.total_price} NZD
+          </Typography>
+        }
       </Stack>
       <Box
       sx={{ width: "150px" }}
       >
         <Typography className='item-qty'>
-          Available {cartItem.in_stock}
+          Available {remainingStock}
         </Typography>
       </Box>
     </Stack>

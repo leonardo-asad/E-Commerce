@@ -7,7 +7,6 @@ import Footer from '../../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { loadProducts, selectProducts, selectIsLoadingProducts } from '../../store/productSlice/productSlice';
-import { loadCartProducts } from '../../store/cartSlice/cartSlice';
 
 import './Home.css'
 
@@ -19,7 +18,6 @@ export default function Home() {
   useEffect(() => {
     async function getProducts() {
       await dispatch(loadProducts());
-      await dispatch(loadCartProducts());
     }
 
     getProducts();

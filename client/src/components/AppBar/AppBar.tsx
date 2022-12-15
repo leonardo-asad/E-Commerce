@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +12,7 @@ import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
-import { selectCartProducts, emptyCart } from '../../store/cartSlice/cartSlice';
+import { selectCartProducts, emptyCart, loadCartProducts } from '../../store/cartSlice/cartSlice';
 import { useDispatch } from 'react-redux';
 import { logOutUser } from '../../store/userSlice/userSlice';
 import { AppDispatch } from '../../store/store';
@@ -25,6 +25,14 @@ export default function ButtonAppBar() {
   const navigate = useNavigate();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const cartProducts = useSelector(selectCartProducts).length;
+
+  useEffect(() => {
+    async function getProducts() {
+      await dispatch(loadCartProducts());
+    }
+
+    getProducts();
+  }, [dispatch]);
 
   const handleLogout = async () => {
     await dispatch(logOutUser());

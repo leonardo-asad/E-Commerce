@@ -4,11 +4,16 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import AddToCartButton from '../Buttons/AddToCartButton';
+import { checkCartItem, getCartQuantity, checkIsInvalidQuantity } from '../../helpers/helpers';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
 import { AppDispatch } from '../../store/store';
-import { createCartItem } from '../../store/cartSlice/cartSlice';
+import {
+  createCartItem,
+  selectCartProducts,
+  editCartItem,
+} from '../../store/cartSlice/cartSlice';
 
 import './AddToCartForm.css'
 
@@ -18,10 +23,14 @@ interface Props {
 }
 
 export default function AddToCartForm({ quantity, productId }: Props) {
-  const dispatch = useDispatch<AppDispatch>();
   const [productQuantity, setProductQuantity] = React.useState('');
+
+  const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const isInvalidQuantity = (parseInt(productQuantity )< 1) || (parseInt(productQuantity) > quantity) || productQuantity === ''
+  const cartProducts = useSelector(selectCartProducts);
+  const isInCart = checkCartItem(cartProducts, productId);
+  const cartItems = isInCart ? getCartQuantity(cartProducts, productId) : 0;
+  const remainingStock = isInCart ? quantity - cartItems : quantity;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const onlyNums = event.target.value.replace(/[^0-9]/g, '');
@@ -36,22 +45,26 @@ export default function AddToCartForm({ quantity, productId }: Props) {
       return alert("Unauthenticated. Please Login first.")
     }
 
-    if (isInvalidQuantity) {
+    const newQuantity = isInCart ? parseInt(productQuantity) + cartItems : parseInt(productQuantity)
+
+    if (checkIsInvalidQuantity(newQuantity, quantity) || productQuantity === '') {
       setProductQuantity('')
       return alert("Invalid Quantity")
     }
 
-    const response = await dispatch(createCartItem({
-      productId: productId,
-      quantity: parseInt(productQuantity)
-    }));
-    if (
-      response.type === '/cart/createCartItem/fulfilled'
-      ||
-      response.type === '/cart/createCartItem/rejected'
-      ) {
-        setProductQuantity('');
+    if (!isInCart) {
+      await dispatch(createCartItem({
+        productId: productId,
+        quantity: newQuantity
+      }));
+      return setProductQuantity('');
     }
+
+    await dispatch(editCartItem({
+      productId: productId,
+      requestBody: {quantity: newQuantity}
+    }));
+    return setProductQuantity('');
   };
 
   return (
@@ -78,9 +91,9 @@ export default function AddToCartForm({ quantity, productId }: Props) {
         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
         />
 
-        <Typography variant="subtitle1">{quantity} available</Typography>
+        <Typography variant="subtitle1">{remainingStock} available</Typography>
         {
-          parseInt(productQuantity) > quantity &&
+          parseInt(productQuantity) > remainingStock &&
           <Typography variant="subtitle1" sx={{ color: "red" }}>Not enough stock. Reduce Quantity.</Typography>
         }
       </Stack>

@@ -5,9 +5,9 @@ import { selectIsLoggedIn, selectIsLoadingUser } from '../store/userSlice/userSl
 import CircularIndeterminate from '../components/LoadingIcon/CircularIndeterminate';
 
 export default function ProtectedLayout() {
-  const outlet = useOutlet();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isLoadingUser = useSelector(selectIsLoadingUser);
+  const outlet = useOutlet();
 
   if (isLoadingUser) {
     return <CircularIndeterminate />
