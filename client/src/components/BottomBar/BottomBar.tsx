@@ -57,7 +57,7 @@ export default function BottomBar({ cartProducts, handleSubmitOrder }: Props) {
           justifyContent="center"
           >
             <BuyButton
-            text={"Buy Products"}
+            text={"Checkout"}
             handleOnClick={handleSubmitOrder}
             />
           </Stack>

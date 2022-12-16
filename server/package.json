@@ -21,6 +21,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pg": "^8.8.0",
+    "stripe": "^11.4.0",
     "swagger-ui-express": "^4.6.0"
   }
 }

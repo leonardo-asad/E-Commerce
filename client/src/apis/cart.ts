@@ -37,6 +37,15 @@ export const deleteCartItem = async (productId: number) => {
   }
 };
 
+export const checkStock = async () => {
+  try {
+    const response = await API.get('/cart/mine/verify-stock');
+    return response;
+  } catch (err: any) {
+    throw err.response.data;
+  }
+};
+
 export const checkout = async () => {
   try {
     const response = await API.post('/cart/mine/checkout');

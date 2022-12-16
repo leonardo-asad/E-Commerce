@@ -20,7 +20,7 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 app.use(cors({
-  origin: ["https://e-commerce-demoapp.netlify.app", "http://localhost:3000"],
+  origin: ["https://e-commerce-demoapp.netlify.app", "http://localhost:3001", "http://localhost:3000"],
   credentials: true
 }));
 app.use(logger('dev'));
@@ -33,8 +33,8 @@ app.use(session({
   secret: process.env.SECRET,
   cookie: {
     maxAge: 86400000,
-    sameSite: 'none',
-    secure: true,
+    // sameSite: 'none',
+    // secure: true,
   },
   saveUninitialized: false,
   resave: false

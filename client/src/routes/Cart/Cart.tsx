@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/material';
 import CartItem from '../../components/CartItem/CartItem';
@@ -6,7 +8,6 @@ import Success from '../../components/Messages/Success';
 import Error from '../../components/Messages/Error';
 import BottomBar from '../../components/BottomBar/BottomBar';
 import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterminate';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   loadCartProducts,
   selectIsLoadingCartProducts,
@@ -14,12 +15,13 @@ import {
   cleanMessages,
   selectErrorMessage,
   selectSuccessMessage,
-  submitOrder,
+  verifyStock,
 } from '../../store/cartSlice/cartSlice';
 import { AppDispatch } from '../../store/store';
 
 export default function Cart() {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const cartProducts = useSelector(selectCartProducts);
   const isLoadingCartProducts = useSelector(selectIsLoadingCartProducts);
   const error = useSelector(selectErrorMessage);
@@ -39,7 +41,10 @@ export default function Cart() {
   }, [dispatch]);
 
   const handleSubmitOrder = async () => {
-    await dispatch(submitOrder());
+    const response = await dispatch(verifyStock());
+    if (response.type === '/cart/verifyStock/fulfilled') {
+      return navigate("/cart/mine/checkout")
+    }
   }
 
   return (

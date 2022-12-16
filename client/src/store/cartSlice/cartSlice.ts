@@ -4,6 +4,7 @@ import {
   addCartItem,
   updateCartItem,
   deleteCartItem,
+  checkStock,
   checkout
 } from "../../apis/cart";
 import { RootState } from "../store";
@@ -101,8 +102,27 @@ export const removeCartItem = createAsyncThunk(
   }
 );
 
-export const submitOrder = createAsyncThunk(
-  '/cart/submitOrder',
+export const verifyStock = createAsyncThunk(
+  '/cart/verifyStock',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await checkStock();
+
+      if (response.status === 200) {
+        const data = await response.data;
+        return data;
+      }
+
+      const data = await response.data;
+      return rejectWithValue(data);
+    } catch (err) {
+      throw err;
+    }
+  }
+);
+
+export const checkoutCart = createAsyncThunk(
+  '/cart/checkoutCart',
   async (_, { rejectWithValue }) => {
     try {
       const response = await checkout();
@@ -186,16 +206,28 @@ const cartSlice = createSlice({
         state.products = state.products.filter(product => product.product_id !== parseInt(action.payload.product_id));
         state.successMessage = "Product removed successfully";
       })
-      .addCase(submitOrder.pending, (state, action) => {
+      .addCase(verifyStock.pending, (state, action) => {
         state.successMessage = undefined;
         state.error = undefined;
       })
-      .addCase(submitOrder.rejected, (state, action) => {
+      .addCase(verifyStock.rejected, (state, action) => {
         state.successMessage = undefined;
-        state.error = "Submit Order Rejected. Check product stock";
+        state.error = "Check product stock";
       })
-      .addCase(submitOrder.fulfilled, (state, action) => {
-        state.successMessage = "Order Confirmed!";
+      .addCase(verifyStock.fulfilled, (state, action) => {
+        state.successMessage = undefined;
+        state.error = undefined;
+      })
+      .addCase(checkoutCart.pending, (state, action) => {
+        state.successMessage = undefined;
+        state.error = undefined;
+      })
+      .addCase(checkoutCart.rejected, (state, action) => {
+        state.successMessage = undefined;
+        state.error = "Error during checkout";
+      })
+      .addCase(checkoutCart.fulfilled, (state, action) => {
+        state.successMessage = "Purchase Complete";
         state.error = undefined;
         state.products = [];
       })

@@ -13,6 +13,7 @@ import Signup from '../routes/SIgnup/SIgnup';
 import ProtectedLayout from '../layouts/ProtectedLayout';
 import Cart from '../routes/Cart/Cart';
 import Orders from '../routes/Orders/Orders';
+import Checkout from '../routes/Checkout/Checkout';
 import { useDispatch } from 'react-redux';
 import { checkLoggedin } from '../store/userSlice/userSlice';
 import { AppDispatch } from '../store/store';
@@ -42,6 +43,7 @@ function App() {
 
             <Route element={<ProtectedLayout />}>
               <Route path="/cart/mine" element={<Cart />} />
+              <Route path="/cart/mine/checkout" element={<Checkout />} />
               <Route path="/orders/mine" element={<Orders />} />
             </Route>
           </Routes>
