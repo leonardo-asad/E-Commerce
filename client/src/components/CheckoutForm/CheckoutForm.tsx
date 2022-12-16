@@ -8,6 +8,8 @@ import {
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { checkoutCart } from "../../store/cartSlice/cartSlice";
+import Typography from '@mui/material/Typography';
+import { Stack } from "@mui/material";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -81,14 +83,17 @@ export default function CheckoutForm() {
   }
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="pay-button">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
-      </button>
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <Stack direction={"column"} spacing={1}>
+      <Typography sx={{ textAlign:"center", color: "red" }}>Only for testing purposes. Do not use real Card numbers</Typography>
+      <form id="payment-form" onSubmit={handleSubmit}>
+        <PaymentElement id="payment-element" options={paymentElementOptions} />
+        <button disabled={isLoading || !stripe || !elements} id="pay-button">
+          <span id="button-text">
+            {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          </span>
+        </button>
+        {message && <div id="payment-message">{message}</div>}
+      </form>
+    </Stack>
   );
 }

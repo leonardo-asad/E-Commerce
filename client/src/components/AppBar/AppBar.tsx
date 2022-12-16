@@ -31,8 +31,10 @@ export default function ButtonAppBar() {
       await dispatch(loadCartProducts());
     }
 
-    getProducts();
-  }, [dispatch]);
+    if (isLoggedIn) {
+      getProducts();
+    }
+  }, [dispatch, isLoggedIn]);
 
   const handleLogout = async () => {
     await dispatch(logOutUser());
