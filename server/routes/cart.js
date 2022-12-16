@@ -4,7 +4,8 @@ const dbCartsProducts = require('../db/cartsProductsQueries');
 const dbOrder = require('../db/orderQueries');
 const dbProduct = require('../db/productQueries');
 const userPermissions = require('../permissions/userPermissions');
-const stripe = require('stripe')('sk_test_xLhH7sntJEJFllhPZwbGU0Sj');
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // Create Cart
 cartRouter.post('/',
