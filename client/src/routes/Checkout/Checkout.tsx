@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Appearance, loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
+import {
+  Appearance,
+  loadStripe,
+  StripeElementsOptions
+} from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { createPaymentIntent } from "../../apis/stripe";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
