@@ -7,10 +7,11 @@ import {
 import { Elements } from "@stripe/react-stripe-js";
 import { createPaymentIntent } from "../../apis/stripe";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
+import CircularIndeterminate from "../../components/LoadingIcon/CircularIndeterminate";
 
 import './Checkout.css';
 
-const stripePromise = loadStripe("pk_test_bxJuE0fpBxauHmThIvNnWtDt");
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE || "pk_test_bxJuE0fpBxauHmThIvNnWtDt");
 
 export default function Checkout() {
   const [clientSecret, setClientSecret] = useState("");
@@ -18,7 +19,7 @@ export default function Checkout() {
   useEffect(() => {
     async function paymentIntent() {
       try {
-        const data = await createPaymentIntent(200);
+        const data = await createPaymentIntent();
         setClientSecret(data.clientSecret)
       } catch (err) {
         throw err;
@@ -38,11 +39,15 @@ export default function Checkout() {
 
   return (
     <div className="form-body">
-      {clientSecret && (
+      {!clientSecret ?
+      <CircularIndeterminate />
+      :
+      (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
-      )}
+      )
+      }
     </div>
   )
 }
