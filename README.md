@@ -1,5 +1,5 @@
 # E-Commerce
-E-Commerce demo app. Browse different products, create an account, add products to your cart, submit an order.
+E-Commerce website, where users can browse their favorite products, add them to their carts, see their previous orders, and simulate the checkout flow.
 # Deployed App
 [Live App](https://e-commerce-demoapp.netlify.app/)
 # Stack
