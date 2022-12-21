@@ -35,7 +35,7 @@ export default function Order({order}: Props) {
           alignItems:"center",
           width: "30%",
           height: "auto",
-          padding: "10px"
+          paddingInline: "25px"
         }}
         >
           <CardMedia
