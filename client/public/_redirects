@@ -1,1 +1,2 @@
+/api/*  https://e-commerce-api.fly.dev/api/:splat  200
 /*    /index.html  200
