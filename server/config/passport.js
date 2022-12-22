@@ -9,7 +9,7 @@ passport.use(new LocalStrategy(db.verifyUser));
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/api/users/oauth2/redirect/google',
+  callbackURL: `${process.env.BACKEND_URL}/api/users/oauth2/redirect/google`,
   scope: [ 'profile' ],
   // state: true,
   proxy: true,
