@@ -70,6 +70,15 @@ usersRouter.post('/login',
   }
 );
 
+usersRouter.get('/login/google', passport.authenticate('google'));
+
+usersRouter.get('/oauth2/redirect/google',
+  passport.authenticate('google', {
+    successRedirect: process.env.FRONTEND_URL,
+    failureRedirect: `${process.env.FRONTEND_URL}/auth/login`
+  })
+);
+
 usersRouter.post('/logout', (request, response, next) => {
   request.logout(error => {
     if (error) { return next(error); }

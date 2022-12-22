@@ -14,6 +14,7 @@ import { AppDispatch } from '../../store/store';
 import { loginUser, selectErrorAuth, cleanMessages, selectSuccessMessage } from '../../store/userSlice/userSlice';
 import * as Types from '../../types/types';
 import { useNavigate } from 'react-router-dom';
+import GoogleLoginButton from '../../components/Buttons/GoogleLogin';
 
 import './Login.css'
 
@@ -55,7 +56,6 @@ export default function Login() {
     }
   };
 
-
   return (
     <Box
     component="form"
@@ -74,6 +74,7 @@ export default function Login() {
       container
       direction="column"
       alignContent="center"
+      alignItems="center"
       >
         <Grid item xs>
           <Grid
@@ -113,10 +114,12 @@ export default function Login() {
         <Grid item xs>
           <Grid
           container
-          direction="column"
-          alignContent="center"
+          direction="row"
+          justifyContent={"center"}
+          alignItems="center"
           >
             <PrimaryButton text="Login" />
+            <GoogleLoginButton />
           </Grid>
         </Grid>
         <Grid item xs>

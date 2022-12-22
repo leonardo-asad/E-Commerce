@@ -96,6 +96,41 @@ const verifyUser = (username, password, cb) => {
   });
 };
 
+const googleAuth = (accessToken, refreshToken, profile, cb) => {
+  pool.query('SELECT * FROM federated_credentials WHERE provider = $1 AND subject = $2', [
+    'https://accounts.google.com',
+    profile.id
+  ], (error, result) => {
+    if (error) { return cb(error); }
+    if (result.rows.length === 0) {
+      pool.query('INSERT INTO users (username) VALUES ($1) RETURNING *', [
+        profile.displayName
+      ], (error, result) => {
+        if (error) { return cb(error); }
+        var id = result.rows[0].id;
+        pool.query('INSERT INTO federated_credentials (user_id, provider, subject) VALUES ($1, $2, $3)', [
+          id,
+          'https://accounts.google.com',
+          profile.id
+        ], (error) => {
+          if (error) { return cb(error); }
+          var user = {
+            id: id,
+            username: profile.displayName
+          };
+          return cb(null, user);
+        });
+      });
+    } else {
+      pool.query('SELECT * FROM users WHERE id = $1', [ result.rows[0].user_id ], (error, result) => {
+        if (error) { return cb(error); }
+        if (!result) { return cb(null, false); }
+        return cb(null, result.rows[0]);
+      });
+    }
+  });
+}
+
 module.exports = {
   getUsers,
   getUserById,
@@ -104,4 +139,5 @@ module.exports = {
   deleteUser,
   checkUserId,
   verifyUser,
+  googleAuth,
 }

@@ -23,10 +23,12 @@ app.use(cors({
   origin: [
     "https://e-commerce-demoapp.netlify.app",
     "http://localhost:3001",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://accounts.google.com",
   ],
   credentials: true
 }));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
@@ -69,7 +71,6 @@ app.use('/api/category', categoryRouter);
 
 // Database Error Handler
 app.use((error, request, response, next) => {
-  //console.log(error)
   if (error.code === "23505") {
     if (error.constraint === "unique_username") {
       response.status(400).send("The username already exists");
