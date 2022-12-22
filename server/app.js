@@ -19,28 +19,42 @@ const categoryRouter = require('./routes/category');
 const port = process.env.PORT || 3000;
 
 const app = express();
-app.use(cors({
-  origin: [
-    "https://e-commerce-demoapp.netlify.app",
-    "http://localhost:3001",
-    "http://localhost:3000",
-    "http://accounts.google.com",
-  ],
-  credentials: true
-}));
+
+app.use(express.static('public'));
+
+// app.use(cors({
+//   origin: [
+//     "https://e-commerce-demoapp.netlify.app",
+//     "http://localhost:3001",
+//     "http://localhost:3000",
+//     "http://accounts.google.com",
+//   ],
+//   credentials: true
+// }));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
 require('./config/passport');
 
-app.set('trust proxy', 1)
+// app.set('trust proxy', 1)
+// app.use(session({
+//   secret: process.env.SECRET,
+//   cookie: {
+//     maxAge: 86400000,
+//     sameSite: 'none',
+//     secure: true,
+//   },
+//   saveUninitialized: false,
+//   resave: false
+// }))
+
 app.use(session({
   secret: process.env.SECRET,
   cookie: {
     maxAge: 86400000,
-    sameSite: 'none',
-    secure: true,
+    sameSite: 'strict',
+    //secure: true,
   },
   saveUninitialized: false,
   resave: false
