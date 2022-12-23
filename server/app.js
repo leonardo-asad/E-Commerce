@@ -16,11 +16,11 @@ const cartRouter = require('./routes/cart');
 const orderRouter = require('./routes/order');
 const categoryRouter = require('./routes/category');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 const app = express();
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 // app.use(cors({
 //   origin: [

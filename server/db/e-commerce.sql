@@ -1,7 +1,7 @@
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username varchar(20) NOT NULL,
-  password text NOT NULL
+  password text
 );
 
 CREATE TABLE cart (
@@ -11,9 +11,9 @@ CREATE TABLE cart (
 
 CREATE TABLE product (
   id SERIAL PRIMARY KEY,
-  name varchar(40) UNIQUE NOT NULL,
+  name varchar(20) UNIQUE NOT NULL,
   description text,
-  url_image varchar(80),
+  url_image text,
   quantity integer NOT NULL,
   price decimal NOT NULL,
   date timestamptz,
@@ -43,7 +43,13 @@ CREATE TABLE category (
 );
 
 CREATE TABLE products_categories (
-   product_name varchar(40) REFERENCES product(name),
-   category_name varchar(20) REFERENCES category(name),
+   product_name varchar(20) REFERENCES product(name),
+   category_name varchar(40) REFERENCES category(name),
    PRIMARY KEY (product_name, category_name)
 );
+
+CREATE TABLE IF NOT EXISTS federated_credentials (
+    user_id INTEGER NOT NULL,
+    provider TEXT NOT NULL,
+    subject TEXT NOT NULL,
+    PRIMARY KEY (provider, subject));
