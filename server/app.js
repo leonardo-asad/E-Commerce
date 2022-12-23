@@ -1,6 +1,6 @@
 require('dotenv').config();
-const fs = require('fs');
 const express = require('express');
+const fs = require('fs');
 const cors = require('cors')
 const logger = require('morgan');
 const session = require('express-session');
@@ -16,11 +16,11 @@ const cartRouter = require('./routes/cart');
 const orderRouter = require('./routes/order');
 const categoryRouter = require('./routes/category');
 
-const port = process.env.PORT || 8080;
-
 const app = express();
 
-// app.use(express.static('public'));
+const port = process.env.PORT || 3000;
+
+app.use(express.static('public'));
 
 // app.use(cors({
 //   origin: [
@@ -100,6 +100,6 @@ app.use((error, request, response, next) => {
   }
 })
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, '0.0.0.0' , () => {
   console.log(`E-commerce app listening port ${port}`);
 })
