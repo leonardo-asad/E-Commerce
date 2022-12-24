@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   BrowserRouter as Router,
+  HashRouter
 } from "react-router-dom";
 import Box from '@mui/material/Box';
 import ButtonAppBar from './AppBar/AppBar';
@@ -32,7 +33,7 @@ function App() {
   }, [dispatch])
 
   return (
-      <Router>
+      <HashRouter>
         <ButtonAppBar />
         <Box>
           <Routes>
@@ -48,7 +49,7 @@ function App() {
             </Route>
           </Routes>
         </Box>
-      </Router>
+      </HashRouter>
 
   );
 }

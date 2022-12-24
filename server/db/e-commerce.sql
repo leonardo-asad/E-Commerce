@@ -53,3 +53,20 @@ CREATE TABLE IF NOT EXISTS federated_credentials (
     provider TEXT NOT NULL,
     subject TEXT NOT NULL,
     PRIMARY KEY (provider, subject));
+
+
+CREATE OR REPLACE FUNCTION create_cart() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    INSERT INTO cart(user_id)
+    VALUES (new.id);
+
+    RETURN new;
+END;
+$BODY$
+language plpgsql;
+
+CREATE TRIGGER trigger_create_cart
+     AFTER INSERT ON users
+     FOR EACH ROW
+     EXECUTE PROCEDURE create_cart();
