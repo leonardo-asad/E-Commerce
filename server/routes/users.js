@@ -75,7 +75,7 @@ usersRouter.get('/login/google', passport.authenticate('google'));
 usersRouter.get('/oauth2/redirect/google',
   passport.authenticate('google', {
     successRedirect: process.env.FRONTEND_URL,
-    failureRedirect: `${process.env.FRONTEND_URL}/auth/login`
+    failureRedirect: `${process.env.FRONTEND_URL}/#/auth/login`
   })
 );
 
