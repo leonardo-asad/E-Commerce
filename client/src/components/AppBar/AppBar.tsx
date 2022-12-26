@@ -106,11 +106,11 @@ export default function ButtonAppBar() {
           <StorefrontIcon sx={{ mr: 1, color: "white" }} />
           <Typography
           className="app-name"
-          variant="h6"
+          variant="h5"
           component={Link}
           to="/"
           >
-            E-Commerce
+            Free Market
           </Typography>
           { !isLoadingUser && button}
         </Toolbar>

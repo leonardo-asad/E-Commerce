@@ -2,6 +2,8 @@
   flex-grow: 1;
   color: white;
   text-decoration: none;
+  font-family: Georgia !important;
+  font-variant: small-caps;
 }
 
 .menu-item {
@@ -11,7 +13,7 @@
 
 @media screen and (max-width: 425px) {
   .app-name {
-    font-size: smaller !important;
+    font-size: small !important;
   }
 
   .menu-item {
