@@ -11,7 +11,10 @@ import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
+import {
+  selectIsLoggedIn,
+  selectIsLoadingUser
+} from '../../store/userSlice/userSlice';
 import { selectCartProducts, emptyCart, loadCartProducts } from '../../store/cartSlice/cartSlice';
 import { useDispatch } from 'react-redux';
 import { logOutUser } from '../../store/userSlice/userSlice';
@@ -23,6 +26,7 @@ import './AppBar.css';
 export default function ButtonAppBar() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const isLoadingUser = useSelector(selectIsLoadingUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const cartProducts = useSelector(selectCartProducts).length;
 
@@ -108,7 +112,7 @@ export default function ButtonAppBar() {
           >
             E-Commerce
           </Typography>
-          {button}
+          { !isLoadingUser && button}
         </Toolbar>
       </AppBar>
     </Box>

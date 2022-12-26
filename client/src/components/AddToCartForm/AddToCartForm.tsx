@@ -47,7 +47,11 @@ export default function AddToCartForm({ quantity, productId }: Props) {
 
     const newQuantity = isInCart ? parseInt(productQuantity) + cartItems : parseInt(productQuantity)
 
-    if (checkIsInvalidQuantity(newQuantity, quantity) || productQuantity === '') {
+    if (
+      checkIsInvalidQuantity(parseInt(productQuantity), quantity) ||
+      checkIsInvalidQuantity(newQuantity, quantity) ||
+      productQuantity === ''
+      ) {
       setProductQuantity('')
       return alert("Invalid Quantity")
     }

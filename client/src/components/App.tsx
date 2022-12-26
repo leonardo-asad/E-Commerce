@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import {
   Routes,
   Route,
-  BrowserRouter as Router,
   HashRouter
 } from "react-router-dom";
 import Box from '@mui/material/Box';

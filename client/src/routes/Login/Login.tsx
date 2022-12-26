@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import PrimaryButton from '../../components/Buttons/PrimaryButton';
 import Error from '../../components/Messages/Error';
 import Success from '../../components/Messages/Success';
+import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
@@ -114,11 +115,12 @@ export default function Login() {
         <Grid item xs>
           <Grid
           container
-          direction="row"
+          direction="column"
           justifyContent={"center"}
           alignItems="center"
           >
             <PrimaryButton text="Login" />
+            <Divider sx={{width: '100%'}}>or</Divider>
             <GoogleLoginButton />
           </Grid>
         </Grid>
