@@ -10,7 +10,7 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: `${process.env.BACKEND_URL}/users/oauth2/redirect/google`,
   scope: [ 'profile' ],
-  state: true,
+  //state: true,
   proxy: true,
   },
   db.googleAuth
