@@ -17,12 +17,16 @@ passport.use(new GoogleStrategy({
 ));
 
 passport.serializeUser((user, cb) => {
-  return cb(null, {
-    id: user.id,
-    username: user.username
-  });
+  process.nextTick(() => {
+    return cb(null, {
+      id: user.id,
+      username: user.username
+    });
+  })
 });
 
 passport.deserializeUser((user, cb) => {
-  return cb(null, user);
+  process.nextTick(() => {
+    return cb(null, user);
+  })
 });

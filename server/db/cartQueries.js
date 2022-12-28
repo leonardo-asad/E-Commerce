@@ -1,6 +1,7 @@
 const pool = require('./dbConfig').pool;
 
 const getCartId = (request, response, next) => {
+
   const userId = request.user.id;
 
   pool.query(

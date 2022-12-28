@@ -13,8 +13,7 @@ usersRouter.get(
   userPermissions.isLoggedIn,
   (request, response) => {
   response.status(200).send(request.user);
-}
-);
+});
 
 usersRouter.get('/:id', db.getUserById);
 
@@ -55,9 +54,17 @@ usersRouter.post('/register', async (request, response, next) => {
       next();
     } catch (error) {
       response.status(500).send(error.message || "Server Failure: Bcrypt")
+    }},
+    // Save User in DB
+    db.createUser,
+    // Authenticate after registration
+    passport.authenticate('local'),
+    (request, response) => {
+      response.status(200).json({
+        id: request.user.id,
+        username: request.user.username
+      });
     }
-  },
-  db.createUser
   );
 
 usersRouter.post('/login',

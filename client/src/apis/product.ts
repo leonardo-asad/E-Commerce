@@ -5,7 +5,7 @@ export const getAllProducts = async () => {
     const response = await API.get('/product', { params: { active: true } });
     return response;
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   }
 };
 
@@ -14,6 +14,6 @@ export const getProductById = async (id: number) => {
     const response = await API.get(`/product/${id}`);
     return response;
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   }
 };

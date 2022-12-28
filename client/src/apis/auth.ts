@@ -8,7 +8,7 @@ export const login = async (credentials: Types.UserCredentials) => {
     return response;
 
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   };
 };
 
@@ -18,7 +18,7 @@ export const logout = async () => {
     return response;
 
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   };
 };
 
@@ -28,7 +28,7 @@ export const signup = async (formData: Types.UserCredentials) => {
     return response;
 
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   };
 };
 
@@ -38,6 +38,6 @@ export const checkUserStatus: () => Promise<AxiosResponse> = async () => {
     return response;
 
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   };
 };

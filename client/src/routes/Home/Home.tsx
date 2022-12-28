@@ -6,7 +6,13 @@ import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterm
 import Footer from '../../components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { loadProducts, selectProducts, selectIsLoadingProducts } from '../../store/productSlice/productSlice';
+import {
+  loadProducts,
+  selectProducts,
+  selectIsLoadingProducts
+} from '../../store/productSlice/productSlice';
+import { selectSuccessMessage } from '../../store/userSlice/userSlice';
+import Success from '../../components/Messages/Success';
 
 import './Home.css'
 
@@ -14,6 +20,7 @@ export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const isLoadingProducts = useSelector(selectIsLoadingProducts);
   const products = useSelector(selectProducts);
+  const successMessage = useSelector(selectSuccessMessage);
 
   useEffect(() => {
     async function getProducts() {
@@ -53,6 +60,7 @@ export default function Home() {
               })}
             </Grid>
           </Box>
+          { successMessage && <Success text={successMessage} /> }
           <Footer />
         </div>
       }

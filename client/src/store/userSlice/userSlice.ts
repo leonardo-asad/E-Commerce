@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { checkUserStatus, login, logout, signup } from "../../apis/auth";
 import * as Types from '../../types/types'
 import { RootState } from "../store";
+import { isAxiosError } from 'axios';
 
 export interface InitialState {
   isLoadingUser: boolean,
@@ -21,7 +22,7 @@ const initialState: InitialState = {
 
 export const checkLoggedin = createAsyncThunk(
   '/auth/checkUserStatus',
-  async (_, { rejectWithValue }) => {
+  async () => {
     try {
       const response = await checkUserStatus();
 
@@ -29,16 +30,20 @@ export const checkLoggedin = createAsyncThunk(
         const data = await response.data;
         return data;
       }
-      const data = await response.data;
-      rejectWithValue(data);
 
-    } catch (err: any) {
+    } catch (err) {
       throw err;
     }
   }
 );
 
-export const loginUser = createAsyncThunk(
+export const loginUser = createAsyncThunk<
+  Types.User,
+  Types.UserCredentials,
+  {
+    rejectValue: string
+  }
+  >(
   '/auth/login',
   async (credentials: Types.UserCredentials, { rejectWithValue }) => {
     try {
@@ -48,11 +53,13 @@ export const loginUser = createAsyncThunk(
         const data = await response.data;
         return data;
       }
-      const data = await response.data;
-      return rejectWithValue(data);
 
-    } catch (err: any) {
-      throw err;
+    } catch (err) {
+      if (isAxiosError(err)) {
+        return rejectWithValue(err.response?.data);
+      } else {
+        throw err;
+      }
     }
   }
 );
@@ -70,13 +77,19 @@ export const logOutUser = createAsyncThunk(
       const data = await response.data;
       rejectWithValue(data);
 
-    } catch (err: any) {
+    } catch (err) {
       throw err;
     }
   }
 );
 
-export const registerUser = createAsyncThunk(
+export const registerUser = createAsyncThunk<
+  Types.User,
+  Types.UserCredentials,
+  {
+    rejectValue: string
+  }
+  >(
   '/auth/register',
   async (newUserForm: Types.UserCredentials, { rejectWithValue }) => {
     try {
@@ -86,10 +99,11 @@ export const registerUser = createAsyncThunk(
         const data = await response.data;
         return data;
       }
-      const data = await response.data;
-      rejectWithValue(data);
 
-    } catch (err: any) {
+    } catch (err) {
+      if (isAxiosError(err)) {
+        return rejectWithValue(err.response?.data);
+      }
       throw err;
     }
   }
@@ -125,12 +139,12 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoggedIn = false;
-        state.error = "Wrong Username or Password";
+        state.error = action.payload;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoggedIn = true;
-        state.user = action.payload;
         state.error = undefined;
+        state.user = action.payload;
       })
       .addCase(registerUser.pending, (state, action) => {
         state.isLoggedIn = false;
@@ -139,13 +153,14 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoggedIn = false;
-        state.error = "Selected username already exists";
+        state.error = action.payload;
         state.successMessage = undefined;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.isLoggedIn = false;
+        state.isLoggedIn = true;
         state.error = undefined;
-        state.successMessage = "User registered Successfully. Please Login";
+        state.successMessage = "User registered Successfully";
+        state.user = action.payload;
       })
       .addCase(logOutUser.fulfilled, (state, action) => {
         state.isLoggedIn = false;

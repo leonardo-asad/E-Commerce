@@ -6,7 +6,7 @@ export const getCartProducts = async () => {
     const response = await API.get('/cart/mine');
     return response;
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   }
 };
 
@@ -15,7 +15,7 @@ export const addCartItem = async (requestBody: Types.RequestBodyAddToCart) => {
     const response = await API.post('/cart/mine', requestBody);
     return response;
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   }
 };
 
@@ -24,7 +24,7 @@ export const updateCartItem = async (productId: number, requestBody: Types.Reque
     const response = await API.put(`/cart/mine/${productId}`, requestBody);
     return response;
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   }
 };
 
@@ -33,7 +33,7 @@ export const deleteCartItem = async (productId: number) => {
     const response = await API.delete(`/cart/mine/${productId}`);
     return response;
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   }
 };
 
@@ -42,7 +42,7 @@ export const checkStock = async () => {
     const response = await API.get('/cart/mine/verify-stock');
     return response;
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   }
 };
 
@@ -51,6 +51,6 @@ export const checkout = async () => {
     const response = await API.post('/cart/mine/checkout');
     return response;
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   }
 };

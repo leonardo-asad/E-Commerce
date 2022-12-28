@@ -45,10 +45,7 @@ const createUser = (request, response, next) => {
       if (error) {
         return next(error);
       }
-      response.status(201).json({
-        id: results.rows[0].id,
-        username: results.rows[0].username
-      });
+      next();
     });
 };
 

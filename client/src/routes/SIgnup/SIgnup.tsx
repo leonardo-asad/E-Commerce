@@ -10,12 +10,19 @@ import Error from '../../components/Messages/Error';
 import Success from '../../components/Messages/Success';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser, selectErrorAuth, cleanMessages, selectSuccessMessage } from '../../store/userSlice/userSlice';
+import { useNavigate } from 'react-router-dom';
+import {
+  registerUser,
+  selectErrorAuth,
+  cleanMessages,
+  selectSuccessMessage
+} from '../../store/userSlice/userSlice';
 import * as Types from '../../types/types'
 import { AppDispatch } from '../../store/store';
 
 export default function Signup() {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const errorAuth = useSelector(selectErrorAuth);
   const successMessage = useSelector(selectSuccessMessage);
 
@@ -37,19 +44,15 @@ export default function Signup() {
 
   const handleSignUp = async (formData: Types.UserCredentials) => {
     try {
-      const response = await dispatch(registerUser(formData));
-      if (
-        response.type === '/auth/register/fulfilled'
-        ||
-        response.type === '/auth/register/rejected'
-        ) {
-          setFormData({
-            "username": "",
-            "password": ""
-          });
-      }
-    } catch (err) {
-      console.log(err);
+      await dispatch(registerUser(formData)).unwrap();
+      return navigate('/');
+
+    } catch (rejectedValueOrSerializedError) {
+      console.log(rejectedValueOrSerializedError);
+      setFormData({
+        "username": "",
+        "password": ""
+      });
     }
   };
 

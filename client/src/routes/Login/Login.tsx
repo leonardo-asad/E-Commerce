@@ -43,17 +43,14 @@ export default function Login() {
 
   const handleLogin = async (formData: Types.UserCredentials) => {
     try {
-      const response = await dispatch(loginUser(formData));
-      if (response.type === '/auth/login/fulfilled') {
-        return navigate('/')
-      } else if (response.type === '/auth/login/rejected') {
-        setFormData({
-          "username": "",
-          "password": ""
-        });
-      }
-    } catch (err) {
-      console.log(err);
+      await dispatch(loginUser(formData)).unwrap();
+        return navigate('/');
+    } catch (rejectedValueOrSerializedError) {
+      console.log(rejectedValueOrSerializedError);
+      setFormData({
+        "username": "",
+        "password": ""
+      });
     }
   };
 

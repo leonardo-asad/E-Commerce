@@ -5,6 +5,6 @@ export const getAllOrders = async () => {
     const response = await API.get('/order/mine');
     return response;
   } catch (err: any) {
-    throw err.response.data;
+    throw err;
   }
 };
