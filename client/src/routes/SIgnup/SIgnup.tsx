@@ -45,7 +45,11 @@ export default function Signup() {
   const handleSignUp = async (formData: Types.UserCredentials) => {
     try {
       await dispatch(registerUser(formData)).unwrap();
-      return navigate('/');
+      return navigate('/', {
+        state: {
+          message: 'User Registered Successfully'
+        }
+      });
 
     } catch (rejectedValueOrSerializedError) {
       console.log(rejectedValueOrSerializedError);

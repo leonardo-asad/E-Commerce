@@ -44,7 +44,11 @@ export default function Login() {
   const handleLogin = async (formData: Types.UserCredentials) => {
     try {
       await dispatch(loginUser(formData)).unwrap();
-        return navigate('/');
+        return navigate('/', {
+          state: {
+            message: 'User Logged In Successfully'
+          }
+        });
     } catch (rejectedValueOrSerializedError) {
       console.log(rejectedValueOrSerializedError);
       setFormData({

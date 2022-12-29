@@ -53,7 +53,7 @@ usersRouter.post('/register', async (request, response, next) => {
       request.newUser = { username: username, password: hashedPassword };
       next();
     } catch (error) {
-      response.status(500).send(error.message || "Server Failure: Bcrypt")
+      return response.status(500).send(error.message || "Server Failure: Bcrypt")
     }},
     // Save User in DB
     db.createUser,
