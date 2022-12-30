@@ -1,99 +1,75 @@
-import React, { useEffect, useState } from "react";
-import { StripePaymentElementOptions } from "@stripe/stripe-js";
-import {
-  PaymentElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
-import { checkoutCart } from "../../store/cartSlice/cartSlice";
-import Typography from '@mui/material/Typography';
-import { Stack } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
+import { createPaymentIntent } from '../../apis/stripe';
+import PrimaryButton from '../Buttons/PrimaryButton';
+import { Stack } from '@mui/material';
+
+import CardSection from '../CardSection/CardSection';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-  const dispatch = useDispatch<AppDispatch>();
-
-  const [message, setMessage] = useState<undefined | string>(undefined);
-  const [isLoading, setIsLoading] = useState(false);
+  const cardElement = elements ? elements.getElement(CardElement) : null;
+  const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    if (!stripe) {
+    async function paymentIntent() {
+      try {
+        const data = await createPaymentIntent();
+        setClientSecret(data.clientSecret)
+      } catch (err) {
+        throw err;
+      }
+    }
+
+    paymentIntent();
+  }, []);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    // We don't want to let default form submission happen here,
+    // which would refresh the page.
+    event.preventDefault();
+
+    console.log(cardElement)
+
+    if (!stripe || !elements || !cardElement) {
+      // Stripe.js has not yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
-    );
-
-    if (!clientSecret) {
-      return;
-    }
-
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      if (paymentIntent) {
-        switch (paymentIntent.status) {
-          case "succeeded":
-            setMessage("Payment succeeded!");
-            dispatch(checkoutCart());
-            break;
-          case "processing":
-            setMessage("Your payment is processing.");
-            break;
-          case "requires_payment_method":
-            setMessage("Your payment was not successful, please try again.");
-            break;
-          default:
-            setMessage("Something went wrong.");
-            break;
-        }
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: cardElement,
       }
     });
-  }, [stripe, dispatch]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!stripe || !elements) {
-      return;
-    }
-
-    setIsLoading(true);
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: window.location.href,
-      },
-    });
-
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
+    if (result.error) {
+      // Show error to your customer (for example, insufficient funds)
+      console.log(result.error.message);
     } else {
-      setMessage("An unexpected error occurred.");
+      // The payment has been processed!
+      if (result.paymentIntent.status === 'succeeded') {
+        // Show a success message to your customer
+        // There's a risk of the customer closing the window before callback
+        // execution. Set up a webhook or plugin to listen for the
+        // payment_intent.succeeded event that handles any business critical
+        // post-payment actions.
+        console.log("Payment succeeded!")
+      }
     }
-
-    setIsLoading(false);
   };
 
-  const paymentElementOptions: StripePaymentElementOptions = {
-    layout: "tabs"
-  }
-
   return (
-    <Stack direction={"column"} spacing={1}>
-      <Typography sx={{ textAlign:"center", color: "red" }}>Only for testing purposes. Do not use real Card numbers</Typography>
-      <form id="payment-form" onSubmit={handleSubmit}>
-        <PaymentElement id="payment-element" options={paymentElementOptions} />
-        <button disabled={isLoading || !stripe || !elements} id="pay-button">
-          <span id="button-text">
-            {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-          </span>
-        </button>
-        {message && <div id="payment-message">{message}</div>}
-      </form>
-    </Stack>
+    <form onSubmit={handleSubmit}>
+      <Stack
+      direction={"column"}
+      justifyContent="center"
+      alignItems={"center"}
+      >
+        <CardSection />
+        <PrimaryButton disabled={!stripe} text={"Confirm order"} />
+      </Stack>
+    </form>
   );
 }
