@@ -25,37 +25,10 @@ const CARD_ELEMENT_OPTIONS = {
 
 function CardSection() {
   return (
-    <>
-      <h1>Test the integration</h1>
-      <h2>Test Cards</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Number</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>4242 4242 4242 4242</td>
-            <td>Succeeds and immediately processes the payment.</td>
-          </tr>
-          <tr>
-            <td>4000 0000 0000 9995</td>
-            <td>Always fails with a decline code of insufficient_funds.</td>
-          </tr>
-          <tr>
-            <td>4000 0025 0000 3155</td>
-            <td>Requires authentication.</td>
-          </tr>
-        </tbody>
-      </table>
-      <label>
-        <h2>Card details</h2>
-        <CardElement options={CARD_ELEMENT_OPTIONS} />
-      </label>
-    </>
-
+    <label>
+      <h2>Card details</h2>
+      <CardElement options={CARD_ELEMENT_OPTIONS} />
+    </label>
   );
 };
 

@@ -3,6 +3,11 @@ import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
 import { createPaymentIntent } from '../../apis/stripe';
 import PrimaryButton from '../Buttons/PrimaryButton';
 import { Stack } from '@mui/material';
+import Success from '../Messages/Success';
+import Error from '../Messages/Error';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { checkoutCart } from '../../store/cartSlice/cartSlice';
 
 import CardSection from '../CardSection/CardSection';
 
@@ -11,6 +16,9 @@ export default function CheckoutForm() {
   const elements = useElements();
   const cardElement = elements ? elements.getElement(CardElement) : null;
   const [clientSecret, setClientSecret] = useState("");
+  const [successMessage, setSuccessMessage] = useState<undefined | string>(undefined);
+  const [error, setError] = useState<undefined | string>(undefined);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     async function paymentIntent() {
@@ -47,6 +55,7 @@ export default function CheckoutForm() {
     if (result.error) {
       // Show error to your customer (for example, insufficient funds)
       console.log(result.error.message);
+      setError(result.error.message);
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === 'succeeded') {
@@ -56,20 +65,28 @@ export default function CheckoutForm() {
         // payment_intent.succeeded event that handles any business critical
         // post-payment actions.
         console.log("Payment succeeded!")
+        setSuccessMessage("Payment succeeded!");
+        dispatch(checkoutCart());
       }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Stack
-      direction={"column"}
-      justifyContent="center"
-      alignItems={"center"}
-      >
-        <CardSection />
-        <PrimaryButton disabled={!stripe} text={"Confirm order"} />
-      </Stack>
-    </form>
+    <>
+      <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+        <Stack
+        direction={"column"}
+        justifyContent="center"
+        alignItems={"center"}
+        sx={{ width: '100%' }}
+        >
+          <CardSection />
+          <PrimaryButton disabled={!stripe} text={"Confirm order"} />
+        </Stack>
+      </form>
+      { successMessage && <Success text={successMessage} /> }
+      { error && <Error text={error} /> }
+    </>
+
   );
 }

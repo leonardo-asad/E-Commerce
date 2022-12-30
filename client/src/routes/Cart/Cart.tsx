@@ -41,6 +41,10 @@ export default function Cart() {
   }, [dispatch]);
 
   const handleSubmitOrder = async () => {
+    if (cartProducts.length === 0) {
+      return alert("Invalid Request: Empty Cart");
+    }
+
     const response = await dispatch(verifyStock());
     if (response.type === '/cart/verifyStock/fulfilled') {
       return navigate("/cart/mine/checkout")

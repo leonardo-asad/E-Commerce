@@ -9,7 +9,7 @@
 .StripeElement {
   height: 40px;
   padding: 10px 12px;
-  width: 500px;
+  width: 680px;
   color: #32325d;
   background-color: white;
   border: 1px solid transparent;
@@ -30,22 +30,4 @@
 
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
-}
-
-th {
-  font-size: x-small;
-  text-align: left;
-}
-
-td {
-  font-size: xx-small;
-  text-align: left;
-}
-
-table {
-  width: fit-content;
-}
-
-h2 {
-  text-align: left;
 }

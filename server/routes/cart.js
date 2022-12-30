@@ -79,6 +79,10 @@ cartRouter.post('/mine/create-payment-intent',
   async (request, response) => {
   const amount = request.totalPay;
 
+  if (!amount) {
+    return response.status(400).send("Invalid Request: Empty Cart");
+  }
+
   const paymentIntent = await stripe.paymentIntents.create({
     amount: amount,
     currency: "nzd",
