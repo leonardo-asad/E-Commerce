@@ -110,7 +110,7 @@ export default function ButtonAppBar() {
           component={Link}
           to="/"
           >
-            Free Market
+            Online Market
           </Typography>
           { !isLoadingUser && button}
         </Toolbar>
