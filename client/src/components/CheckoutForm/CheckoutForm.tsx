@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
 import { createPaymentIntent } from '../../apis/stripe';
-import PrimaryButton from '../Buttons/PrimaryButton';
+import ButtonLoading from '../Buttons/LoadingButton';
 import { Stack } from '@mui/material';
 import Success from '../Messages/Success';
 import Error from '../Messages/Error';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { checkoutCart } from '../../store/cartSlice/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 import CardSection from '../CardSection/CardSection';
 
@@ -16,9 +17,11 @@ export default function CheckoutForm() {
   const elements = useElements();
   const cardElement = elements ? elements.getElement(CardElement) : null;
   const [clientSecret, setClientSecret] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState<undefined | string>(undefined);
   const [error, setError] = useState<undefined | string>(undefined);
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function paymentIntent() {
@@ -38,13 +41,13 @@ export default function CheckoutForm() {
     // which would refresh the page.
     event.preventDefault();
 
-    console.log(cardElement)
-
     if (!stripe || !elements || !cardElement) {
       // Stripe.js has not yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
+
+    setIsLoading(true);
 
     const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -67,8 +70,15 @@ export default function CheckoutForm() {
         console.log("Payment succeeded!")
         setSuccessMessage("Payment succeeded!");
         dispatch(checkoutCart());
+        return navigate('/', {
+          state: {
+            message: 'Payment succeeded!'
+          }
+        });
       }
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -81,7 +91,7 @@ export default function CheckoutForm() {
         sx={{ width: '100%' }}
         >
           <CardSection />
-          <PrimaryButton disabled={!stripe} text={"Confirm order"} />
+          <ButtonLoading disabled={!stripe} text={"Confirm order"} isLoading={isLoading} />
         </Stack>
       </form>
       { successMessage && <Success text={successMessage} /> }
