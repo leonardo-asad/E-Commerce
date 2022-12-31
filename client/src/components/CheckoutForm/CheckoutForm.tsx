@@ -48,6 +48,8 @@ export default function CheckoutForm() {
     }
 
     setIsLoading(true);
+    setSuccessMessage(undefined);
+    setError(undefined);
 
     const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
