@@ -220,6 +220,11 @@ paths:
           in: query
           required: true
           type: boolean
+        - name: page
+          description: Page Number
+          in: query
+          required: true
+          type: number
         - name: category
           description: Filter products by category
           in: query
@@ -410,6 +415,12 @@ paths:
       description: >
         Only Authenticated Users
         Only User Orders
+      parameters:
+        - name: page
+          description: Page Number
+          in: query
+          required: true
+          type: integer
       responses:
         200:
           description: An array of Orders

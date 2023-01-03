@@ -1,6 +1,20 @@
 const pool = require('./dbConfig').pool;
+require('dotenv').config();
+
+// Pagination: Page Size
+const size = process.env.PAGE_SIZE || 20;
 
 const getUserOrders = (request, response, next) => {
+  if (!request.query.hasOwnProperty('page')) {
+    return response.status(400).send("Missing Query Parameter: page");
+  }
+
+  const { page } = request.query;
+
+  if (page < 1) {
+    return response.status(400).send("Page Number can not be negative or cero");
+  }
+
   pool.query(
     `
     SELECT users_orders.id as order_id, product.name, product.url_image, product.description, users_orders.quantity, users_orders.price, users_orders.date
@@ -8,9 +22,11 @@ const getUserOrders = (request, response, next) => {
     JOIN product
       ON users_orders.product_id = product.id
     WHERE users_orders.user_id = $1
-    ORDER BY users_orders.date DESC;
+    ORDER BY users_orders.date DESC
+    LIMIT $3
+    OFFSET (($2 - 1) * $3);
     `,
-    [request.user.id],
+    [request.user.id, page, size],
     (error, results) => {
       if (error) {return next(error);}
       response.status(200).json(results.rows);

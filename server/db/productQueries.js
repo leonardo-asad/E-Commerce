@@ -1,18 +1,41 @@
 const pool = require('./dbConfig').pool;
+require('dotenv').config();
+
+// Pagination: Page Size
+const size = process.env.PAGE_SIZE || 20;
 
 const getProducts = (request, response, next) => {
   if (!request.query.hasOwnProperty('active')) {
-    return response.status(400).send("Missing Query Parameter: active")
+    return response.status(400).send("Missing Query Parameter: active");
+  }
+
+  if (!request.query.hasOwnProperty('page')) {
+    return response.status(400).send("Missing Query Parameter: page");
+  }
+
+  const { page } = request.query;
+
+  if (page < 1) {
+    return response.status(400).send("Page Number can not be negative or cero");
   }
 
   if (request.query.hasOwnProperty('category')) {
     request.category = request.query.category;
     request.active = request.query.active;
+    request.page = page;
     return next();
   }
 
-  pool.query("SELECT * FROM product WHERE active = $1 ORDER BY id ASC",
-    [request.query.active],
+  pool.query(
+    `
+    SELECT *
+    FROM product
+    WHERE active = $1
+    ORDER BY id ASC
+    LIMIT $3
+    OFFSET (($2 - 1) * $3);
+    `,
+    [request.query.active, page, size],
     (error, results) => {
       if (error) {
         return next(error);
@@ -30,9 +53,11 @@ const getProductsByCategory = (request, response, next) => {
     ON
       product.name = products_categories.product_name
     WHERE category_name = $1 AND active = $2
-    ORDER BY product.id ASC;
+    ORDER BY product.id ASC
+    LIMIT $4
+    OFFSET (($3 - 1) * $4);
     `,
-    [request.category, request.active],
+    [request.category, request.active, request.page, size],
     (error, results) => {
       if (error) {return next(error);}
       response.status(200).json(results.rows);
