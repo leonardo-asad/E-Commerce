@@ -52,6 +52,17 @@ components:
         user_id:
           type: integer
 
+    ProductPage:
+      properties:
+        currentPage:
+          type: number
+        lastPage:
+          type: number
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+
     NewProduct:
       properties:
         name:
@@ -236,7 +247,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Product'
+                $ref: '#/components/schemas/ProductPage'
     post:
       tags:
         - Product
