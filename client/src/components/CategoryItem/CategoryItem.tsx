@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/material';
+import { useSearchParams } from "react-router-dom";
+
 
 interface Props {
   name: string
@@ -13,12 +15,15 @@ interface Props {
 }
 
 export default function CategoryItem({ name, image }: Props) {
+  let [, setSearchParams] = useSearchParams();
+
   return (
     <Grid
     item
-    xs={3} sm={2} md={2} lg={1}
+    xs={4} sm={2} md={1.5} lg={1}
     >
       <Card
+      onClick={() => setSearchParams({category: name})}
       style={{
         display: "flex",
         flexDirection: "column",

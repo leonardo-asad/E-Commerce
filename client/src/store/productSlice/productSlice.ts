@@ -25,11 +25,16 @@ const initialState: InitialState = {
   lastPage: undefined,
 }
 
+interface LoadProductsParams {
+  page: number
+  category?: string
+}
+
 export const loadProducts = createAsyncThunk(
   'product/products',
-  async (page: number, { rejectWithValue }) => {
+  async (params: LoadProductsParams, { rejectWithValue }) => {
     try {
-      const response = await getAllProducts(page);
+      const response = await getAllProducts(params.page, params.category);
       if (response.status === 200) {
         const data = await response.data;
         return data;

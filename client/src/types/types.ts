@@ -60,3 +60,10 @@ export interface AsyncThunkUpdateCartItem {
   productId: number,
   requestBody: RequestBodyUpdateCartItem
 };
+
+export interface Category {
+  name: string,
+  image_url: string
+}
+
+export type Categories = Category[];

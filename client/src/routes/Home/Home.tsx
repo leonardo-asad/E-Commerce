@@ -15,6 +15,7 @@ import {
   selectLastPage,
 } from '../../store/productSlice/productSlice';
 import Pagination from '@mui/material/Pagination';
+import { useSearchParams } from "react-router-dom";
 
 import './Home.css'
 
@@ -24,16 +25,19 @@ export default function Home() {
   const lastPage = useSelector(selectLastPage);
   const isLoadingProducts = useSelector(selectIsLoadingProducts);
   const products = useSelector(selectProducts);
-  let message = window.history.state.usr ? window.history.state.usr.message : null;
+  const [searchParams,] = useSearchParams();
+  const category = searchParams.get('category') || undefined;
 
+  const message = window.history.state ? (window.history.state.usr ? window.history.state.usr.message : null) : null;
 
   useEffect(() => {
-    async function getProducts() {
-      await dispatch(loadProducts(page));
+    async function getProducts(page: number, category?: string) {
+      const params = category ? {page, category}: {page};
+      await dispatch(loadProducts(params));
     }
 
-    getProducts();
-  }, [dispatch, page]);
+    getProducts(page, category);
+  }, [dispatch, page, category]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
