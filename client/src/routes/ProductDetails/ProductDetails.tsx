@@ -13,6 +13,7 @@ import AddToCartForm from '../../components/AddToCartForm/AddToCartForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSelectedProduct, selectIsLoadingProduct, loadProductById } from '../../store/productSlice/productSlice';
 import { selectSuccessMessage, selectErrorMessage, cleanMessages } from '../../store/cartSlice/cartSlice';
+import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
 import { AppDispatch } from '../../store/store';
 import { CardContent } from '@mui/material';
 
@@ -25,6 +26,7 @@ export default function ProductDetails() {
   const isLoadingProduct = useSelector(selectIsLoadingProduct);
   const successMessage = useSelector(selectSuccessMessage);
   const errorMessage = useSelector(selectErrorMessage);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
     async function loadProduct(id: number) {
@@ -107,11 +109,17 @@ export default function ProductDetails() {
             <Typography variant='body1'>
               {selectedProduct.description}
             </Typography>
-            <Divider sx={{mt:2}} />
-            <AddToCartForm
-            quantity={selectedProduct.quantity}
-            productId={selectedProduct.id}
-            />
+            {
+              isLoggedIn &&
+              <>
+                <Divider sx={{mt:2}} />
+                <AddToCartForm
+                quantity={selectedProduct.quantity}
+                productId={selectedProduct.id}
+                />
+              </>
+            }
+
           </CardContent>
           </Card>
       </Box>

@@ -7,7 +7,6 @@ import AddToCartButton from '../Buttons/AddToCartButton';
 import { checkCartItem, getCartQuantity, checkIsInvalidQuantity } from '../../helpers/helpers';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
 import { AppDispatch } from '../../store/store';
 import {
   createCartItem,
@@ -26,7 +25,6 @@ export default function AddToCartForm({ quantity, productId }: Props) {
   const [productQuantity, setProductQuantity] = React.useState('');
 
   const dispatch = useDispatch<AppDispatch>();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
   const cartProducts = useSelector(selectCartProducts);
   const isInCart = checkCartItem(cartProducts, productId);
   const cartItems = isInCart ? getCartQuantity(cartProducts, productId) : 0;
@@ -39,11 +37,6 @@ export default function AddToCartForm({ quantity, productId }: Props) {
 
   const handleAddToCart = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    if (!isLoggedIn) {
-      setProductQuantity('')
-      return alert("Unauthenticated. Please Login first.")
-    }
 
     const newQuantity = isInCart ? parseInt(productQuantity) + cartItems : parseInt(productQuantity)
 
