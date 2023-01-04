@@ -10,6 +10,8 @@ interface InitialState {
   failedToLoadProduct: boolean,
   products: Types.Products
   selectedProduct: Types.Product | undefined
+  currentPage: number | undefined,
+  lastPage: number | undefined,
 }
 
 const initialState: InitialState = {
@@ -18,14 +20,16 @@ const initialState: InitialState = {
   failedToLoadProduct: false,
   failedToLoadProducts: false,
   products: [],
-  selectedProduct: undefined
+  selectedProduct: undefined,
+  currentPage: undefined,
+  lastPage: undefined,
 }
 
 export const loadProducts = createAsyncThunk(
   'product/products',
-  async (_, { rejectWithValue }) => {
+  async (page: number, { rejectWithValue }) => {
     try {
-      const response = await getAllProducts();
+      const response = await getAllProducts(page);
       if (response.status === 200) {
         const data = await response.data;
         return data;
@@ -70,7 +74,9 @@ const productSlice = createSlice({
         state.failedToLoadProducts = true;
       })
       .addCase(loadProducts.fulfilled, (state, action) => {
-        state.products = action.payload;
+        state.products = action.payload.products;
+        state.currentPage = action.payload.currentPage;
+        state.lastPage = action.payload.lastPage;
         state.isLoadingProducts = false;
       })
       .addCase(loadProductById.pending, (state, action) => {
@@ -90,6 +96,8 @@ const productSlice = createSlice({
 });
 
 export const selectProducts = (state: RootState) => state.product.products;
+export const selectCurrentPage = (state: RootState) => state.product.currentPage;
+export const selectLastPage = (state: RootState) => state.product.lastPage;
 export const selectIsLoadingProducts = (state: RootState) => state.product.isLoadingProducts;
 export const selectSelectedProduct = (state: RootState) => state.product.selectedProduct;
 export const selectIsLoadingProduct = (state: RootState) => state.product.isLoadingProduct;
