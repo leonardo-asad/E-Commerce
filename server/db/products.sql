@@ -38,4 +38,4 @@ VALUES
   ('Samsung 32-Inch QLED', 'Electronics & photography'),
   ('6-Speed Mixer', 'Home & living'),
   ('Car Seat', 'Baby Gear'),
-  ('Citizen BL5550', 'Jewllery & watches'),
+  ('Citizen BL5550', 'Jewllery & watches');

@@ -13,7 +13,7 @@ import {
   selectProducts,
   selectIsLoadingProducts
 } from '../../store/productSlice/productSlice';
-
+import PaginationControlled from '../../components/PaginationControlled/PaginationControlled';
 
 import './Home.css'
 
@@ -63,6 +63,7 @@ export default function Home() {
             </Grid>
           </Box>
           { message && <Success text={message} /> }
+          <PaginationControlled />
           <Footer />
         </div>
       }

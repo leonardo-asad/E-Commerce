@@ -4,25 +4,66 @@ require('dotenv').config();
 // Pagination: Page Size
 const size = process.env.PAGE_SIZE || 20;
 
-const getProducts = (request, response, next) => {
+const countProducts = (request, response, next) => {
   if (!request.query.hasOwnProperty('active')) {
     return response.status(400).send("Missing Query Parameter: active");
   }
 
-  if (!request.query.hasOwnProperty('page')) {
-    return response.status(400).send("Missing Query Parameter: page");
+  request.active = request.query.active;
+
+  if (request.query.hasOwnProperty('category')) {
+    request.category = request.query.category;
+    return next();
   }
 
-  const { page } = request.query;
+  pool.query(
+    `
+    SELECT COUNT(*) as count
+    FROM product
+    WHERE active = $1;
+    `,
+    [request.active],
+    (error, result) => {
+      if (error) { return next(error); }
+      request.countProducts = result.rows[0].count;
+      next();
+    }
+  )
+};
+
+const countProductsByCategory = (request, response, next) => {
+  if (!request.category) {
+    return next();
+  }
+
+  pool.query(
+    `
+    SELECT COUNT(*) as count
+    FROM product
+    JOIN products_categories
+    ON
+      product.name = products_categories.product_name
+    WHERE category_name = $1 AND active = $2
+    `,
+    [request.category, request.active],
+    (error, result) => {
+      if (error) { return next(error); }
+      request.countProducts = result.rows[0].count;
+      next();
+    }
+  )
+};
+
+const getProducts = (request, response, next) => {
+
+  const page = parseInt(request.query.page) || 1;
+  request.page = page;
 
   if (page < 1) {
     return response.status(400).send("Page Number can not be negative or cero");
   }
 
   if (request.query.hasOwnProperty('category')) {
-    request.category = request.query.category;
-    request.active = request.query.active;
-    request.page = page;
     return next();
   }
 
@@ -40,7 +81,11 @@ const getProducts = (request, response, next) => {
       if (error) {
         return next(error);
       }
-      response.status(200).json(results.rows);
+      response.status(200).json({
+        currentPage: request.page,
+        lastPage: Math.ceil(request.countProducts / size),
+        products: results.rows
+      });
     });
 };
 
@@ -60,7 +105,11 @@ const getProductsByCategory = (request, response, next) => {
     [request.category, request.active, request.page, size],
     (error, results) => {
       if (error) {return next(error);}
-      response.status(200).json(results.rows);
+      response.status(200).json({
+        currentPage: request.page,
+        lastPage: Math.ceil(request.countProducts / size),
+        products: results.rows
+      });
     }
   );
 };
@@ -160,4 +209,6 @@ module.exports = {
   associateCategory,
   getProductsByCategory,
   updateProductStock,
+  countProducts,
+  countProductsByCategory,
 }

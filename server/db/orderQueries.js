@@ -5,11 +5,7 @@ require('dotenv').config();
 const size = process.env.PAGE_SIZE || 20;
 
 const getUserOrders = (request, response, next) => {
-  if (!request.query.hasOwnProperty('page')) {
-    return response.status(400).send("Missing Query Parameter: page");
-  }
-
-  const { page } = request.query;
+  const page = request.query.page || 1;
 
   if (page < 1) {
     return response.status(400).send("Page Number can not be negative or cero");
