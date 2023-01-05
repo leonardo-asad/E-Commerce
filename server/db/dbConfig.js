@@ -24,6 +24,5 @@ if (process.env.DATABASE_ENV === "local_development") {
 
   module.exports = {
     pool,
-    size,
   };
 };
