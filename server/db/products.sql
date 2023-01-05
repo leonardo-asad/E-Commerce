@@ -20,25 +20,25 @@ VALUES
   ('Inflatable Pool', 'A brand-new, unused, unopened, undamaged item in its original packaging (where packaging is applicable).', 'https://i.ebayimg.com/images/g/k~QAAOSwgkBi4Oq4/s-l1600.jpg', 1000, 1000, '2022-11-15 09:39:49.866+13', true, 2);
 
 
-INSERT INTO category (name)
+INSERT INTO category (name, image_url)
 VALUES
-	('Antiques & Collectables'),
-  ('Baby Gear'),
-  ('Books'),
-  ('Building & Renovation'),
-  ('Business, farming & industry'),
-  ('Clothing & Fashion'),
-  ('Computers'),
-  ('Electronics & photography'),
-  ('Gaming'),
-  ('Health & Beauty'),
-  ('Home & living'),
-  ('Jewllery & watches'),
-  ('Mobile phones'),
-  ('Music & instruments'),
-  ('Pets & animals'),
-  ('Sports'),
-  ('Toys & models');
+	('Antiques & Collectables', 'https://www.liveabout.com/thmb/9y6Mh-GXPTBA3PNpfdvURKPEzHs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/old-clocks-670829828-5aea5f5aff1b780036cb9cce.jpg'),
+  ('Baby Gear', 'https://media.istockphoto.com/id/625379326/photo/organic-cosmetic-children-for-bath-on-wooden-bakground-close-up.jpg?b=1&s=170667a&w=0&k=20&c=Zsrhv2BInxdUvtgXg8PFo6ZxRbc5GZd5A4G-8F_3zfk='),
+  ('Books', 'https://images.pexels.com/photos/1148399/pexels-photo-1148399.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+  ('Building & Renovation', 'https://cdn.technologyadvice.com/wp-content/uploads/2017/08/Fotolia_98303431_Subscription_Monthly_M-699x408.jpg'),
+  ('Business, farming & industry', 'https://portalmaquinasagricolas.com.br/wp-content/uploads/2020/08/embrapa_2.jpg'),
+  ('Clothing & Fashion', 'https://img.freepik.com/free-photo/interior-kids-room-decoration-with-clothes_23-2149096035.jpg?w=2000'),
+  ('Computers', 'https://consumer.huawei.com/content/dam/huawei-cbg-site/south-pacific/my/mkt/plp/laptops/matebook-x-series/matebook-x-pro-2022.jpg'),
+  ('Electronics & photography', 'https://birdsofpreycentre.co.uk/wp-content/uploads/2016/03/Photography-Camera-HD-Wallpaper1-640x400.jpg'),
+  ('Gaming', 'https://img.freepik.com/free-psd/vr-video-game-composition_1419-2358.jpg?w=826&t=st=1672867935~exp=1672868535~hmac=2b69d5c3cefba40c3424e608de94ae00cc231e8bdc6809b7bf2d6abdd919dca7'),
+  ('Health & Beauty', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq-_ht8S5hXPARTRMUmsVNqgkvlBiOP2rdPA&usqp=CAU'),
+  ('Home & living', 'https://houseandhome.com/wp-content/uploads/2020/12/feature-LivingRoom-091_TREES_HH_AP20_40.jpg'),
+  ('Jewllery & watches', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_my02nMpJOwWj3lhjf6C7S4oqS5MwLYo71v_xi_NK24n7JqnPgQc2loGn5Pzr8T705qg&usqp=CAU'),
+  ('Mobile phones', 'https://news.bizleadershub.com/wp-content/uploads/2021/11/mobile-1.jpg'),
+  ('Music & instruments', 'https://images.pexels.com/photos/34221/violin-musical-instrument-music-sound.jpg?auto=compress&cs=tinysrgb&w=1600'),
+  ('Pets & animals', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZHdk5h_DhcIblaYyvQJBt8kbJZ2DZgCAB85-aaSkr0Ii4boj_LTwBoKQT2RFgrXRGCUo&usqp=CAU'),
+  ('Sports', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnxZettb4XPz6a3LkBRpCZviIOFrlJ9n80K4CQT04jcH2k32cuo7s-qgyBi3YZZt9gHkM&usqp=CAU'),
+  ('Toys & models', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQDK9D_IwrlRYFSGgJz9zjbnq05h27EdsXVA&usqp=CAU');
 
 INSERT INTO products_categories (product_name, category_name)
 VALUES
