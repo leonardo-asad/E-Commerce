@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterminate';
 import Footer from '../../components/Footer/Footer';
 import Success from '../../components/Messages/Success';
-import CategoriesStack from '../../components/CategoriesStack/CategoriesStack';
+import CategoryCarousel from '../../components/Carousel/Carousel';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import {
@@ -54,7 +54,7 @@ export default function Home() {
         <div className="flex-wrapper">
 
           <Box>
-            <CategoriesStack />
+            <CategoryCarousel />
             {
               products.length > 0 &&
               <>
