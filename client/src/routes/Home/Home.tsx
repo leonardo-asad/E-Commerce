@@ -16,6 +16,7 @@ import {
 } from '../../store/productSlice/productSlice';
 import Pagination from '@mui/material/Pagination';
 import { useSearchParams } from "react-router-dom";
+import Typography from '@mui/material/Typography';
 
 import './Home.css'
 
@@ -54,46 +55,72 @@ export default function Home() {
 
           <Box>
             <CategoriesStack />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: 2,
-              }}
-              >
-                <Grid
-                container
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="stretch"
-                spacing={2}
-                sx={{width: "1200px"}}
-                >
-                  {products.map(product => {
-                    return <ProductCard {...product} key={product.id} />
-                  })}
-                </Grid>
-              </Box>
-              <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                alignItems: "center",
-              }}
-              >
-                <Pagination
-                variant='outlined'
-                count={lastPage}
-                page={page}
-                onChange={handleChange}
+            {
+              products.length > 0 &&
+              <>
+                <Box
                 sx={{
-                  marginY: 2
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-                />
-              </Box>
+                >
+                  <Typography
+                  sx={{
+                    width: "1200px",
+                    marginTop: 2,
+                    marginLeft: 2,
+                    fontFamily: 'Proxima Nova',
+                    fontSize: '20px',
+                    color: '#666'
+                  }}
+                  >
+                    Products
+                  </Typography>
+                </Box>
+                <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: 2,
+                }}
+                >
+                  <Grid
+                  container
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="stretch"
+                  spacing={2}
+                  sx={{width: "1200px"}}
+                  >
+                    {products.map(product => {
+                      return <ProductCard {...product} key={product.id} />
+                    })}
+                  </Grid>
+                </Box>
+                <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                }}
+                >
+                  <Pagination
+                  variant='outlined'
+                  count={lastPage}
+                  page={page}
+                  onChange={handleChange}
+                  sx={{
+                    marginY: 2
+                  }}
+                  />
+                </Box>
+              </>
+            }
           </Box>
           { message && <Success text={message} /> }
           <Footer />

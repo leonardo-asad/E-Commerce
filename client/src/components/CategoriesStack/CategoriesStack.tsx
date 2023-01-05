@@ -6,6 +6,7 @@ import CircularIndeterminate from '../LoadingIcon/CircularIndeterminate';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoadingCategories, selectCategories, loadCategories } from '../../store/categorySlice/categorySlice';
 import { AppDispatch } from '../../store/store';
+import Typography from '@mui/material/Typography';
 
 export default function CategoriesStack() {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,6 +22,29 @@ export default function CategoriesStack() {
   }, [dispatch]);
 
   return (
+    <>
+    <Box
+    sx={{
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+    >
+      <Typography
+      sx={{
+        width: "1200px",
+        marginTop: 2,
+        marginLeft: 2,
+        fontFamily: 'Proxima Nova',
+        fontSize: '20px',
+        color: '#666'
+      }}
+      >
+        Categories
+      </Typography>
+    </Box>
+
     <Box
     sx={{
       display: "flex",
@@ -55,5 +79,7 @@ export default function CategoriesStack() {
         </Grid>
       }
     </Box>
+    </>
+
   );
 }
