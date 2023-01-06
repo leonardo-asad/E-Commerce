@@ -1,8 +1,8 @@
 import API from './client';
 
-export const getAllProducts = async (page: number = 1, category?: string) => {
+export const getAllProducts = async (page?: number, category?: string) => {
   try {
-    let params = category ? {active: true, page, category} : {active: true, page};
+    let params = {active: true, page, category};
     const response = await API.get('/product', { params });
     return response;
   } catch (err: any) {

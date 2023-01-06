@@ -46,7 +46,7 @@ export default function CategoryItem({ name, image }: Props) {
               objectPosition: "50% 50%"
             }}
             image={image}
-            alt="green iguana"
+            alt={name}
           />
         </Box>
         <CardContent

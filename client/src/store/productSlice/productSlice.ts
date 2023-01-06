@@ -26,7 +26,7 @@ const initialState: InitialState = {
 }
 
 interface LoadProductsParams {
-  page: number
+  page?: number
   category?: string
 }
 
