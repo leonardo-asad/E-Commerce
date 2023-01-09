@@ -5,7 +5,7 @@ import './Buttons.css';
 
 
 export default function GoogleLoginButton() {
-  const route = `${process.env.REACT_APP_API_URL}/users/login/google`
+  const route = process.env.NODE_ENV === 'development' ? `http://localhost:3000/api/users/login/google` : `${process.env.REACT_APP_API_URL}/users/login/google`
 
   return (
     <Button
