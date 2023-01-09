@@ -28,8 +28,10 @@ This is a sample application that demostrates an E-Commerce website using the PE
 ![Screenshot from 2023-01-09 17-01-55](https://user-images.githubusercontent.com/64209661/211239213-d6fa9399-9d94-4b8c-9d34-fc5be6755f4e.png)
 
 **Visit the deployed website with this [link](https://e-commerce-demo-yxsr.onrender.com/)**
+
 # Stack
-![E-Commerce Stack](https://user-images.githubusercontent.com/64209661/207155008-f7c94a2b-c4b5-4359-95b1-dc38d53ec840.png)
+![Screenshot from 2023-01-09 17-06-08](https://user-images.githubusercontent.com/64209661/211239533-24d13c60-bb39-426a-b592-e5eaafbab042.png)
+
 # Run locally
 To run the application you need to install separately the backend and the frontend apps (server and client folders respectively).
 1. Download a copy of this repository on your local drive running this commands on your terminal:
