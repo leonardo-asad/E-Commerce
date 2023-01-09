@@ -1,5 +1,19 @@
 # E-Commerce
-E-Commerce website, where users can browse their favorite products, add them to their carts, see their previous orders, and simulate the checkout flow.
+This is a sample application that demostrates an E-Commerce website using the PERN stack (PostgreSQL, Express.js, React.js, Node.js)
+
+# Features
+:heavy_check_mark: Browse Products 
+:heavy_check_mark: See product details
+:heavy_check_mark: Register
+:heavy_check_mark: Login with username and password
+:heavy_check_mark: Loging Using your Google Account with OAuth 2.0.
+:heavy_check_mark: Logout
+:heavy_check_mark: Add products to your Cart
+:heavy_check_mark: Remove products from your Cart
+:heavy_check_mark: Edit products in Cart
+:heavy_check_mark: Test Checkout process with Stripe (Credit Card Numbers for testing are provided)
+:heavy_check_mark: See your Previous Orders
+
 # Deployed App
 [Live App](https://e-commerce-demo-yxsr.onrender.com/)
 # Stack
