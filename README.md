@@ -5,8 +5,8 @@ E-Commerce website, where users can browse their favorite products, add them to 
 # Stack
 ![E-Commerce Stack](https://user-images.githubusercontent.com/64209661/207155008-f7c94a2b-c4b5-4359-95b1-dc38d53ec840.png)
 # Run locally
-To run the application you need to install separately the backend and the frontend apps located in the folders named server and client respectively.
-1.0. Download a copy of this repository on your local drive running this commands on your terminal:
+To run the application you need to install separately the backend and the frontend apps (server and client folders respectively).
+1. Download a copy of this repository on your local drive running this commands on your terminal:
 ```
 mkdir <name of the app>
 cd <name of the app>
@@ -17,8 +17,10 @@ git clone git@github.com:leonardo-asad/E-Commerce.git
 cd E-Commerce/server
 npm install
 ```
-2.2 Create a .env file inside the server folder with the following variables:
+2.2. Create a .env file inside the server folder with the following variables.
+
 2.2.1. This app uses OAuth 2.0 to authenticate Users with their Google account. Once you've registered your application, the strategy needs to be configured with your application's client ID and secret, along with its OAuth 2.0 redirect endpoint.
+Read the documentation [here](https://www.passportjs.org/packages/passport-google-oauth2/)
 
 ```
 GOOGLE_CLIENT_ID="id"
@@ -51,9 +53,22 @@ STRIPE_SECRET_KEY="secret_key"
 cd E-Commerce/client
 npm install
 ```
-3.2. Create a .env file inside the client folder with the following variables:
+3.2. Create a .env file inside the client folder with the following variables.
+
 3.2.1. Axios Base URL config:
 ```
 REACT_APP_API_URL="/api"
 ```
-3.2.2. 
+3.2.2. Stripe Publishable API Key
+```
+REACT_APP_STRIPE="your_own_publishable_key"
+```
+4. Run server app (port 3000)
+```
+npm run start
+```
+5. Run React app (port 3001)
+```
+npm run start
+```
+6. Go to http://localhost:3001 on your browser and start using the app.
