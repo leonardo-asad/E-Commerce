@@ -6,7 +6,7 @@ E-Commerce website, where users can browse their favorite products, add them to 
 ![E-Commerce Stack](https://user-images.githubusercontent.com/64209661/207155008-f7c94a2b-c4b5-4359-95b1-dc38d53ec840.png)
 # Run locally
 To run the application you need to install separately the backend and the frontend apps located in the folders named server and client respectively.
-1. Download a copy of this repository on your local drive running this commands on your terminal:
+1.0. Download a copy of this repository on your local drive running this commands on your terminal:
 ```
 mkdir <name of the app>
 cd <name of the app>
