@@ -2,20 +2,32 @@
 This is a sample application that demostrates an E-Commerce website using the PERN stack (PostgreSQL, Express.js, React.js, Node.js)
 
 # Features
-:heavy_check_mark: Browse Products 
+:heavy_check_mark: Browse Products
+
 :heavy_check_mark: See product details
+
 :heavy_check_mark: Register
+
 :heavy_check_mark: Login with username and password
+
 :heavy_check_mark: Loging Using your Google Account with OAuth 2.0.
+
 :heavy_check_mark: Logout
+
 :heavy_check_mark: Add products to your Cart
+
 :heavy_check_mark: Remove products from your Cart
+
 :heavy_check_mark: Edit products in Cart
+
 :heavy_check_mark: Test Checkout process with Stripe (Credit Card Numbers for testing are provided)
+
 :heavy_check_mark: See your Previous Orders
 
-# Deployed App
-[Live App](https://e-commerce-demo-yxsr.onrender.com/)
+# Demo on Render
+![Screenshot from 2023-01-09 17-01-55](https://user-images.githubusercontent.com/64209661/211239213-d6fa9399-9d94-4b8c-9d34-fc5be6755f4e.png)
+
+**Visit the deployed website with this [link](https://e-commerce-demo-yxsr.onrender.com/)**
 # Stack
 ![E-Commerce Stack](https://user-images.githubusercontent.com/64209661/207155008-f7c94a2b-c4b5-4359-95b1-dc38d53ec840.png)
 # Run locally
