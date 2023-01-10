@@ -5,7 +5,7 @@ import {
   HashRouter
 } from "react-router-dom";
 import Box from '@mui/material/Box';
-import ButtonAppBar from './AppBar/AppBar';
+import CustomAppBar from './AppBar/AppBar';
 import Home from '../routes/Home/Home';
 import ProductDetails from '../routes/ProductDetails/ProductDetails';
 import Login from '../routes/Login/Login';
@@ -33,7 +33,7 @@ function App() {
 
   return (
       <HashRouter>
-        <ButtonAppBar />
+        <CustomAppBar />
         <Box>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -49,7 +49,6 @@ function App() {
           </Routes>
         </Box>
       </HashRouter>
-
   );
 }
 

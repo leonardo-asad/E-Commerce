@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom';
 
 import './AppBar.css';
 
-export default function ButtonAppBar() {
+export default function CustomAppBar() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const isLoadingUser = useSelector(selectIsLoadingUser);
@@ -31,12 +31,12 @@ export default function ButtonAppBar() {
   const cartProducts = useSelector(selectCartProducts).length;
 
   useEffect(() => {
-    async function getProducts() {
+    async function getCartProducts() {
       await dispatch(loadCartProducts());
     }
 
     if (isLoggedIn) {
-      getProducts();
+      getCartProducts();
     }
   }, [dispatch, isLoggedIn]);
 
@@ -46,7 +46,7 @@ export default function ButtonAppBar() {
     navigate('/');
   };
 
-  const button = (
+  const buttons = (
     <>
       {
         isLoggedIn ?
@@ -56,29 +56,25 @@ export default function ButtonAppBar() {
         >
           <Button
           className='menu-item'
-          color="inherit"
           component={Link}
           to="/orders/mine"
           >
             My Orders
           </Button>
           <IconButton
-          sx={{color: 'white'}}
           aria-label="Cart"
           component={Link}
           to="/cart/mine"
           >
             <Badge badgeContent={cartProducts} color="secondary">
               <ShoppingCartIcon
-              sx={{color: "white"}}
+              className='menu-icon'
               />
             </Badge>
           </IconButton>
           <Button
           className='menu-item'
-          color="inherit"
           onClick={async (event: React.MouseEvent) => {
-            event.preventDefault();
             await handleLogout();
           }}
           >
@@ -86,7 +82,6 @@ export default function ButtonAppBar() {
           </Button>
         </Stack>
         :
-
         <Button
         className="menu-item"
         color="inherit"
@@ -105,14 +100,13 @@ export default function ButtonAppBar() {
         <Toolbar>
           <StorefrontIcon sx={{ mr: 1, color: "white" }} />
           <Typography
-          className="app-name"
-          variant="h5"
           component={Link}
           to="/"
+          id='app-name'
           >
             Online Market
           </Typography>
-          { !isLoadingUser && button}
+          { !isLoadingUser && buttons}
         </Toolbar>
       </AppBar>
     </Box>

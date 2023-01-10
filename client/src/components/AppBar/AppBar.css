@@ -1,9 +1,10 @@
-.app-name {
+#app-name {
   flex-grow: 1;
   color: white;
   text-decoration: none;
-  font-family: Georgia !important;
+  font-family: Georgia;
   font-variant: small-caps;
+  font-size: x-large;
 }
 
 .menu-item {
@@ -11,9 +12,13 @@
   color: white !important;
 }
 
+.menu-icon {
+  color: white;
+}
+
 @media screen and (max-width: 425px) {
-  .app-name {
-    font-size: small !important;
+  #app-name {
+    font-size: medium;
   }
 
   .menu-item {
