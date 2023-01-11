@@ -1,4 +1,7 @@
+// React imports
 import React, { useEffect } from 'react';
+
+// Import Elements and Components
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,18 +12,33 @@ import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+
+// Redux Imports
+import {
+  useSelector,
+  useDispatch
+} from 'react-redux';
+
+// Import State selectors and Async Thunk Functions
 import {
   selectIsLoggedIn,
-  selectIsLoadingUser
+  selectIsLoadingUser,
+  logOutUser
 } from '../../store/userSlice/userSlice';
-import { selectCartProducts, emptyCart, loadCartProducts } from '../../store/cartSlice/cartSlice';
-import { useDispatch } from 'react-redux';
-import { logOutUser } from '../../store/userSlice/userSlice';
-import { AppDispatch } from '../../store/store';
-import { useNavigate } from 'react-router-dom';
 
+import {
+  selectCartProducts,
+  emptyCart,
+  loadCartProducts
+} from '../../store/cartSlice/cartSlice';
+
+// Import Dispatch Type
+import { AppDispatch } from '../../store/store';
+
+// Import React Router
+import { useNavigate, Link } from 'react-router-dom';
+
+// Import Style sheet
 import './AppBar.css';
 
 export default function CustomAppBar() {
@@ -31,6 +49,7 @@ export default function CustomAppBar() {
   const cartProducts = useSelector(selectCartProducts).length;
 
   useEffect(() => {
+    // Load Cart products to show amount in badge element
     async function getCartProducts() {
       await dispatch(loadCartProducts());
     }
@@ -46,6 +65,7 @@ export default function CustomAppBar() {
     navigate('/');
   };
 
+  // App Bar buttons change depending if user is logged in or not
   const buttons = (
     <>
       {

@@ -108,7 +108,6 @@ export default function AddToCartForm({ quantity, productId }: Props) {
         value={productQuantity}
         onChange={handleChange}
         />
-
         <Typography variant="subtitle1">{remainingStock} available</Typography>
         {
           parseInt(productQuantity) > remainingStock &&
