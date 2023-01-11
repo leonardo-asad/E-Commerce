@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import CustomAvatar from '../../components/Avatar/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import PrimaryButton from '../../components/Buttons/PrimaryButton';
+import GoogleIcon from '@mui/icons-material/Google';
 import Error from '../../components/Messages/Error';
 import Success from '../../components/Messages/Success';
 import Divider from '@mui/material/Divider';
@@ -15,7 +15,7 @@ import { AppDispatch } from '../../store/store';
 import { loginUser, selectErrorAuth, cleanMessages, selectSuccessMessage } from '../../store/userSlice/userSlice';
 import * as Types from '../../types/types';
 import { useNavigate } from 'react-router-dom';
-import GoogleLoginButton from '../../components/Buttons/GoogleLogin';
+import CustomButton from '../../components/Buttons/CustomButton';
 
 import './Login.css'
 
@@ -24,6 +24,7 @@ export default function Login() {
   const navigate = useNavigate();
   const errorAuth = useSelector(selectErrorAuth);
   const successMessage = useSelector(selectSuccessMessage);
+  const route = process.env.NODE_ENV === 'development' ? `http://localhost:3000/api/users/login/google` : `${process.env.REACT_APP_API_URL}/users/login/google`
 
   const [formData, setFormData] = useState({
     "username": "",
@@ -120,9 +121,22 @@ export default function Login() {
           justifyContent={"center"}
           alignItems="center"
           >
-            <PrimaryButton text="Login" />
+            <CustomButton
+            className="primary-button"
+            variant='contained'
+            type="submit"
+            >
+              Login
+            </CustomButton>
             <Divider sx={{width: '100%'}}>or</Divider>
-            <GoogleLoginButton />
+            <CustomButton
+            className="primary-button"
+            variant='contained'
+            startIcon={<GoogleIcon />}
+            href={route}
+            >
+              Login with Google
+            </CustomButton>
           </Grid>
         </Grid>
         <Grid item xs>

@@ -1,6 +1,8 @@
+// Import react library
 import React from 'react';
+// Import Avatar Component
 import Avatar from '@mui/material/Avatar';
-
+// Import Style Sheet
 import './Avatar.css';
 
 interface Props {

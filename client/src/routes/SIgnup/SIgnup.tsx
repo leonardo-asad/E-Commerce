@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import CustomAvatar from '../../components/Avatar/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import PrimaryButton from '../../components/Buttons/PrimaryButton';
+import CustomButton from '../../components/Buttons/CustomButton';
 import Error from '../../components/Messages/Error';
 import Success from '../../components/Messages/Success';
 import { Link } from 'react-router-dom';
@@ -120,7 +120,13 @@ export default function Signup() {
           direction="column"
           alignContent="center"
           >
-            <PrimaryButton text="Sign Up"/>
+            <CustomButton
+            className="primary-button"
+            variant='contained'
+            type="submit"
+            >
+              Sign Up
+            </CustomButton>
           </Grid>
         </Grid>
         <Grid item xs>

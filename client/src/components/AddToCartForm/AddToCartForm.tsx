@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import AddToCartButton from '../Buttons/AddToCartButton';
+import CustomButton from '../Buttons/CustomButton';
 
 // Import helper functions
 import {
@@ -119,9 +119,13 @@ export default function AddToCartForm({ quantity, productId }: Props) {
       alignItems="center"
       justifyContent={"center"}
       >
-        <AddToCartButton
-        text="Add to Cart"
-        />
+        <CustomButton
+        className="addtocart-button"
+        variant="contained"
+        type="submit"
+        >
+          Add to Cart
+        </CustomButton>
       </Stack>
     </Box>
   )

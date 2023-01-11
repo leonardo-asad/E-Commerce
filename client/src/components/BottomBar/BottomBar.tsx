@@ -1,10 +1,15 @@
+// Import React Library
 import React from 'react';
+
+// Import Components
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-import BuyButton from '../Buttons/BuyButton';
+import CustomButton from '../Buttons/CustomButton';
+
+// Import types and Style sheet
 import * as Types from '../../types/types';
 import './BottomBar.css'
 
@@ -13,6 +18,7 @@ interface Props {
   handleSubmitOrder: () => void
 };
 
+// Helper Functions
 const getProductsQuantity = (cartProducts:Types.CartProducts) => {
   return cartProducts.length;
 };
@@ -50,19 +56,20 @@ export default function BottomBar({ cartProducts, handleSubmitOrder }: Props) {
           <Divider sx={{borderColor: 'white', my: '5px'}} />
           <Typography className='total-value'>Total Value: {totalValue} NZD</Typography>
         </Grid>
-
         <Grid item xs={4}>
           <Stack
           direction="column"
           justifyContent="center"
           >
-            <BuyButton
-            text={"Checkout"}
+            <CustomButton
             handleOnClick={handleSubmitOrder}
-            />
+            className="buy-button"
+            variant="outlined"
+            >
+              Checkout
+            </CustomButton>
           </Stack>
         </Grid>
-
       </Grid>
     </Paper>
   )

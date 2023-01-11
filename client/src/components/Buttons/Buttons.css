@@ -6,26 +6,10 @@
   color: white !important;
 }
 
-.google-button {
-  border-radius: 30px !important;
-  margin: 15px !important;
-  padding: 10px !important;
-  width: 220px !important;
-  color: white !important;
-}
-
 .delete-button {
   border-radius: 30px !important;
   margin-bottom: 10px !important;
   width: 220px;
-}
-
-.update-button {
-  border-radius: 20px !important;
-  padding: 10px !important;
-  width: 220px !important;
-  font-size: 10px !important;
-  color: white !important;
 }
 
 .buy-button {

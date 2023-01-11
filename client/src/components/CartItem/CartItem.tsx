@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import DeleteButton from '../Buttons/DeleteButton';
+import CustomButton from '../Buttons/CustomButton';
 import Divider from '@mui/material/Divider';
 import { Box } from '@mui/material';
 import UpdateQuantity from '../UpdateQuantityForm/UpdateQuantityForm';
@@ -81,10 +81,13 @@ export default function CartItem(cartProduct: Types.CartProduct) {
         </Card>
         <Divider sx={{my: 1}} variant="middle" />
         <Stack direction={"row"} justifyContent="center">
-          <DeleteButton
+          <CustomButton
           handleOnClick={handleRemoveItem}
-          text="Delete Item"
-          />
+          className="delete-button"
+          variant="outlined"
+          >
+            Delete Item
+          </CustomButton>
         </Stack>
       </Card>
     </Grid>

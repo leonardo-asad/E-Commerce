@@ -10,8 +10,6 @@ interface Props {
 }
 
 export default function ButtonLoading({ text, handleOnClick, disabled, isLoading }: Props) {
-
-
   return (
     <LoadingButton
     className="primary-button"
