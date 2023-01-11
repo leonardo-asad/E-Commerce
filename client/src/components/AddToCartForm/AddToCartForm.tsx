@@ -1,20 +1,34 @@
 import React from 'react';
+
+// Import Elements and Components
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import AddToCartButton from '../Buttons/AddToCartButton';
-import { checkCartItem, getCartQuantity, checkIsInvalidQuantity } from '../../helpers/helpers';
 
-import { useDispatch, useSelector } from 'react-redux';
+// Import helper functions
+import {
+  checkCartItem,
+  getCartQuantity,
+  checkIsInvalidQuantity
+} from '../../helpers/helpers';
+
+// Redux imports
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
+
+// Redux: Dispatch Types
 import { AppDispatch } from '../../store/store';
+
+// Import Async Thunks and Selectors
 import {
   createCartItem,
   selectCartProducts,
   editCartItem,
 } from '../../store/cartSlice/cartSlice';
-
-import './AddToCartForm.css'
 
 interface Props {
   quantity: number,
@@ -25,12 +39,17 @@ export default function AddToCartForm({ quantity, productId }: Props) {
   const [productQuantity, setProductQuantity] = React.useState('');
 
   const dispatch = useDispatch<AppDispatch>();
+
+  // Checks whether the product is in cart or not
   const cartProducts = useSelector(selectCartProducts);
   const isInCart = checkCartItem(cartProducts, productId);
+
+  // Calculates the remaining stock
   const cartItems = isInCart ? getCartQuantity(cartProducts, productId) : 0;
-  const remainingStock = isInCart ? quantity - cartItems : quantity;
+  const remainingStock = quantity - cartItems;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Restrict input to only numbers
     const onlyNums = event.target.value.replace(/[^0-9]/g, '');
     setProductQuantity(onlyNums);
   };
@@ -40,6 +59,7 @@ export default function AddToCartForm({ quantity, productId }: Props) {
 
     const newQuantity = isInCart ? parseInt(productQuantity) + cartItems : parseInt(productQuantity)
 
+    // Checks whether the new quantity is valid (less or equal than stock, etc)
     if (
       checkIsInvalidQuantity(parseInt(productQuantity), quantity) ||
       checkIsInvalidQuantity(newQuantity, quantity) ||
@@ -49,6 +69,7 @@ export default function AddToCartForm({ quantity, productId }: Props) {
       return alert("Invalid Quantity")
     }
 
+    // If product is not in cart, createCartItem action is dispatched
     if (!isInCart) {
       await dispatch(createCartItem({
         productId: productId,
@@ -57,6 +78,7 @@ export default function AddToCartForm({ quantity, productId }: Props) {
       return setProductQuantity('');
     }
 
+    // If product is in cart, we edit the cart item
     await dispatch(editCartItem({
       productId: productId,
       requestBody: {quantity: newQuantity}
@@ -85,7 +107,6 @@ export default function AddToCartForm({ quantity, productId }: Props) {
         size="small"
         value={productQuantity}
         onChange={handleChange}
-        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
         />
 
         <Typography variant="subtitle1">{remainingStock} available</Typography>
