@@ -1,4 +1,7 @@
+// Import React
 import * as React from 'react';
+
+// Import MUI Styles and Components
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';

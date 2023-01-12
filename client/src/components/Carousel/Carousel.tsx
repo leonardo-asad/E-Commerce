@@ -1,13 +1,21 @@
+// Import React library
 import React from 'react';
+
+// Import Components
 import Carousel from "react-multi-carousel";
-import CategoryItem from '../CategoryItem/CategoryItem';
-import "react-multi-carousel/lib/styles.css";
-import "./Carousel.css"
-import { useSelector } from "react-redux";
-import { selectCategories } from "../../store/categorySlice/categorySlice";
 import { Box } from '@mui/material';
+import CategoryItem from '../CategoryItem/CategoryItem';
 import Typography from '@mui/material/Typography';
 
+// Redux Imports
+import { useSelector } from "react-redux";
+import { selectCategories } from "../../store/categorySlice/categorySlice";
+
+// Import Style sheets
+import "react-multi-carousel/lib/styles.css";
+import "./Carousel.css"
+
+// Responsive Configuration
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.

@@ -1,27 +1,37 @@
+// Import React Library
 import React, { useState, useEffect } from 'react';
+
+// Stripe Imports
 import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
+
+// Import API functions
 import { createPaymentIntent } from '../../apis/stripe';
+
+// Import Components
 import ButtonLoading from '../Buttons/LoadingButton';
-import { Stack } from '@mui/material';
-import Success from '../Messages/Success';
-import Error from '../Messages/Error';
+import Stack from '@mui/material/Stack';
+import CustomAlert from '../Messages/CustomAlert';
+import CardSection from '../CardSection/CardSection';
+
+// Redux Imports
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import { checkoutCart } from '../../store/cartSlice/cartSlice';
+
+// React Router Imports
 import { useNavigate } from 'react-router-dom';
 
-import CardSection from '../CardSection/CardSection';
-
 export default function CheckoutForm() {
-  const stripe = useStripe();
-  const elements = useElements();
-  const cardElement = elements ? elements.getElement(CardElement) : null;
   const [clientSecret, setClientSecret] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState<undefined | string>(undefined);
   const [error, setError] = useState<undefined | string>(undefined);
-  const dispatch = useDispatch<AppDispatch>();
+
+  const stripe = useStripe();
+  const elements = useElements();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const cardElement = elements ? elements.getElement(CardElement) : null;
 
   useEffect(() => {
     async function paymentIntent() {
@@ -65,13 +75,11 @@ export default function CheckoutForm() {
       // The payment has been processed!
       if (result.paymentIntent.status === 'succeeded') {
         // Show a success message to your customer
-        // There's a risk of the customer closing the window before callback
-        // execution. Set up a webhook or plugin to listen for the
-        // payment_intent.succeeded event that handles any business critical
-        // post-payment actions.
         console.log("Payment succeeded!")
         setSuccessMessage("Payment succeeded!");
+        // Dispatch Checkout action
         dispatch(checkoutCart());
+        // Return to Home Page and deliver Success message
         return navigate('/', {
           state: {
             message: 'Payment succeeded!'
@@ -79,7 +87,6 @@ export default function CheckoutForm() {
         });
       }
     }
-
     setIsLoading(false);
   };
 
@@ -96,9 +103,8 @@ export default function CheckoutForm() {
           <ButtonLoading disabled={!stripe} text={"Confirm order"} isLoading={isLoading} />
         </Stack>
       </form>
-      { successMessage && <Success text={successMessage} /> }
-      { error && <Error text={error} /> }
+      { successMessage && <CustomAlert severity='success'>{successMessage}</CustomAlert> }
+      { error && <CustomAlert severity='error'>{error}</CustomAlert> }
     </>
-
   );
 }

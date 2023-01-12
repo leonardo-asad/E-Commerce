@@ -1,4 +1,7 @@
+// Import React Library
 import * as React from 'react';
+
+// Import Components
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';

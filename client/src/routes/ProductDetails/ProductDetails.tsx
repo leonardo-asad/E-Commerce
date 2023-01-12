@@ -1,22 +1,37 @@
+// Import React
 import React, { useEffect } from 'react';
+
+// React Router
 import { useParams } from 'react-router-dom';
-import { Box } from '@mui/material';
+
+// Import Components
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import NotFound from '../NotFound/NotFound';
 import Divider from '@mui/material/Divider';
 import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterminate';
-import Success from '../../components/Messages/Success';
-import Error from '../../components/Messages/Error';
+import CustomAlert from '../../components/Messages/CustomAlert';
 import AddToCartForm from '../../components/AddToCartForm/AddToCartForm';
+import CardContent from '@mui/material/CardContent';
+
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { selectSelectedProduct, selectIsLoadingProduct, loadProductById } from '../../store/productSlice/productSlice';
-import { selectSuccessMessage, selectErrorMessage, cleanMessages } from '../../store/cartSlice/cartSlice';
+import {
+  selectSelectedProduct,
+  selectIsLoadingProduct,
+  loadProductById
+} from '../../store/productSlice/productSlice';
+import {
+  selectSuccessMessage,
+  selectErrorMessage,
+  cleanMessages
+} from '../../store/cartSlice/cartSlice';
 import { selectIsLoggedIn } from '../../store/userSlice/userSlice';
 import { AppDispatch } from '../../store/store';
-import { CardContent } from '@mui/material';
 
+// Import Syle Sheet
 import './ProductDetails.css'
 
 export default function ProductDetails() {
@@ -123,8 +138,8 @@ export default function ProductDetails() {
           </CardContent>
           </Card>
       </Box>
-      { successMessage && <Success text={successMessage} /> }
-      { errorMessage && <Error text={errorMessage} /> }
+      { successMessage && <CustomAlert severity='success'>{successMessage}</CustomAlert> }
+      { errorMessage && <CustomAlert severity='error'>{errorMessage}</CustomAlert> }
     </>
   )
 }

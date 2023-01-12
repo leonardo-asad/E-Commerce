@@ -1,8 +1,13 @@
+// Import React
 import React, { useEffect } from 'react';
+
+// Import Components
 import Grid from '@mui/material/Grid';
 import Order from '../../components/Order/Order';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterminate';
+
+// Redux Imports
 import { useSelector, useDispatch } from 'react-redux';
 import {
   loadOrders,

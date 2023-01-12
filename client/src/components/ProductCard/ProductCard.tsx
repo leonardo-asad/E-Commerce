@@ -1,13 +1,19 @@
+// Import React Library
 import * as React from 'react';
+
+// Import Components
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import { Link } from 'react-router-dom';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 
+// Import React Router Component
+import { Link } from 'react-router-dom';
+
+// Import Style sheet
 import './ProductCard.css'
 
 interface Props {
@@ -18,7 +24,6 @@ interface Props {
 };
 
 export default function ProductCard({id, name, url_image, price}: Props) {
-
   return (
     <Grid
     item

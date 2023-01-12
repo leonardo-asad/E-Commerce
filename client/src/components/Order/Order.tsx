@@ -1,12 +1,16 @@
+// Import React library
 import * as React from 'react';
+
+// Import Components
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 
+// Import Types and Style sheet
 import * as Types from '../../types/types';
 import './Order.css'
 

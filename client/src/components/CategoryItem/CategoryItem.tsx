@@ -1,12 +1,16 @@
+// Import React library
 import * as React from 'react';
+
+// Import Components
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import { Box } from '@mui/material';
-import { useSearchParams } from "react-router-dom";
+import CardActionArea from '@mui/material/CardActionArea';
+import Box from '@mui/material/Box';
 
+// React Router Imports
+import { useSearchParams } from "react-router-dom";
 
 interface Props {
   name: string

@@ -1,11 +1,18 @@
+// Import React
 import React, { useEffect} from 'react';
+
+// Import Components
 import ProductCard from '../../components/ProductCard/ProductCard';
 import Grid from '@mui/material/Grid';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterminate';
 import Footer from '../../components/Footer/Footer';
-import Success from '../../components/Messages/Success';
+import CustomAlert from '../../components/Messages/CustomAlert';
 import CategoryCarousel from '../../components/Carousel/Carousel';
+import Pagination from '@mui/material/Pagination';
+import Typography from '@mui/material/Typography';
+
+// Redux Imports
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 import {
@@ -18,10 +25,11 @@ import {
   loadCategories,
   selectIsLoadingCategories
 } from '../../store/categorySlice/categorySlice';
-import Pagination from '@mui/material/Pagination';
-import { useSearchParams } from "react-router-dom";
-import Typography from '@mui/material/Typography';
 
+// React Router
+import { useSearchParams } from "react-router-dom";
+
+// Style sheet
 import './Home.css'
 
 export default function Home() {
@@ -38,7 +46,7 @@ export default function Home() {
   const isLoadingCategories = useSelector(selectIsLoadingCategories);
   const products = useSelector(selectProducts);
 
-  // Messages to User are stored in the Browser's history object
+  // Messages to the User are stored in the Browser's history object
   const message = window.history.state ? (window.history.state.usr ? window.history.state.usr.message : null) : null;
 
   useEffect(() => {
@@ -47,7 +55,7 @@ export default function Home() {
       await dispatch(loadProducts(params));
     }
 
-    // Load products every time page or category changes
+    // Load products every time the page or category changes
     getProducts(page, category);
   }, [dispatch, page, category]);
 
@@ -151,7 +159,7 @@ export default function Home() {
           }
         </>
       </Box>
-      { message && <Success text={message} /> }
+      { message && <CustomAlert severity='success'>{message}</CustomAlert> }
       <Footer />
     </div>
   );

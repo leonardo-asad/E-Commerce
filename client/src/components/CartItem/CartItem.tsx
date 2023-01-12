@@ -1,4 +1,7 @@
+// Import React Library
 import React from 'react';
+
+// Import Components
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,16 +10,18 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import CustomButton from '../Buttons/CustomButton';
 import Divider from '@mui/material/Divider';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import UpdateQuantity from '../UpdateQuantityForm/UpdateQuantityForm';
 
+// Import React Router
 import { Link } from 'react-router-dom';
+
+// Redux Imports
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import {
-  removeCartItem,
-} from '../../store/cartSlice/cartSlice';
+import { removeCartItem } from '../../store/cartSlice/cartSlice';
 
+// Import Types and Style sheets
 import * as Types from '../../types/types';
 import './CartItem.css'
 

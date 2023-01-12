@@ -1,4 +1,7 @@
+// Import React
 import React, { useState, useEffect } from 'react';
+
+// Import Components
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -6,17 +9,26 @@ import CustomAvatar from '../../components/Avatar/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import GoogleIcon from '@mui/icons-material/Google';
-import Error from '../../components/Messages/Error';
-import Success from '../../components/Messages/Success';
+import CustomAlert from '../../components/Messages/CustomAlert';
 import Divider from '@mui/material/Divider';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../store/store';
-import { loginUser, selectErrorAuth, cleanMessages, selectSuccessMessage } from '../../store/userSlice/userSlice';
-import * as Types from '../../types/types';
-import { useNavigate } from 'react-router-dom';
 import CustomButton from '../../components/Buttons/CustomButton';
 
+// React Router Imports
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+// Redux Imports
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import {
+  loginUser,
+  selectErrorAuth,
+  cleanMessages,
+  selectSuccessMessage
+} from '../../store/userSlice/userSlice';
+
+// Import Types and Style sheet
+import * as Types from '../../types/types';
 import './Login.css'
 
 export default function Login() {
@@ -151,8 +163,8 @@ export default function Login() {
           </Grid>
         </Grid>
       </Grid>
-      { errorAuth && <Error text={errorAuth} /> }
-      { successMessage && <Success text={successMessage} /> }
+      { errorAuth && <CustomAlert severity='error'>{errorAuth}</CustomAlert> }
+      { successMessage && <CustomAlert severity='success'>{successMessage}</CustomAlert> }
     </Box>
   );
 };

@@ -1,16 +1,22 @@
+// Import React
 import React from 'react';
+
+// Import Components
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import { Box } from '@mui/material';
-import { Stack } from '@mui/material';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+
+// Import Redux and Reducers
 import { editCartItem } from '../../store/cartSlice/cartSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
 
+// Import Types and Style sheet
 import * as Types from '../../types/types';
 import './UpdateQuantityForm.css'
 

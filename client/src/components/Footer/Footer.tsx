@@ -1,13 +1,15 @@
+// Import React library
 import React from 'react';
+
+// Import Components
 import Paper from '@mui/material/Paper';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import Stack from '@mui/material/Stack';
 
+// Import Style sheets
 import './Footer.css'
 
-
 export default function Footer() {
-
   return (
     <Paper
     sx={{

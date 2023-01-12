@@ -1,9 +1,14 @@
+// Import React
 import React, { useEffect } from 'react';
+
+// React Router Imports
 import {
   Routes,
   Route,
   HashRouter
 } from "react-router-dom";
+
+// Import Components
 import Box from '@mui/material/Box';
 import CustomAppBar from './AppBar/AppBar';
 import Home from '../routes/Home/Home';
@@ -14,11 +19,11 @@ import ProtectedLayout from '../layouts/ProtectedLayout';
 import Cart from '../routes/Cart/Cart';
 import Orders from '../routes/Orders/Orders';
 import Checkout from '../routes/Checkout/Checkout';
+
+// Redux Imports
 import { useDispatch } from 'react-redux';
 import { checkLoggedin } from '../store/userSlice/userSlice';
 import { AppDispatch } from '../store/store';
-
-import './App.css';
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();

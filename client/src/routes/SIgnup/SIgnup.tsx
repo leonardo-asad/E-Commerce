@@ -1,4 +1,7 @@
+// Import React
 import React, { useState, useEffect } from 'react';
+
+// Import Components
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
@@ -6,19 +9,23 @@ import CustomAvatar from '../../components/Avatar/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import CustomButton from '../../components/Buttons/CustomButton';
-import Error from '../../components/Messages/Error';
-import Success from '../../components/Messages/Success';
-import { Link } from 'react-router-dom';
+import CustomAlert from '../../components/Messages/CustomAlert';
+
+// React Router imports
+import { Link, useNavigate } from 'react-router-dom';
+
+// Redux Imports
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import {
   registerUser,
   selectErrorAuth,
   cleanMessages,
   selectSuccessMessage
 } from '../../store/userSlice/userSlice';
-import * as Types from '../../types/types'
 import { AppDispatch } from '../../store/store';
+
+// Import Types
+import * as Types from '../../types/types'
 
 export default function Signup() {
   const dispatch = useDispatch<AppDispatch>();
@@ -141,8 +148,8 @@ export default function Signup() {
           </Grid>
         </Grid>
       </Grid>
-      { errorAuth && <Error text={errorAuth} /> }
-      { successMessage && <Success text={successMessage} /> }
+      { errorAuth && <CustomAlert severity='error'>{errorAuth}</CustomAlert> }
+      { successMessage && <CustomAlert severity='success'>{successMessage}</CustomAlert> }
     </Box>
   );
 };
