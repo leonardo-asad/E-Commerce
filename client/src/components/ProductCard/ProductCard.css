@@ -1,27 +1,27 @@
-.home-price {
-  font-size: larger !important;
-  color: black !important;
+#home-price {
+  font-size: larger;
+  color: black;
 }
 
-.home-name {
-  color: grey !important;
-  font-size: smaller !important;
+#home-name {
+  color: grey;
+  font-size: smaller;
 }
 
-.product-card {
-  text-decoration: none !important;
-  transition: .2s !important;
+#product-card {
+  text-decoration: none;
+  transition: .2s;
 }
 
-.product-card:hover {
-  transform: scale(1.05) !important;
+#product-card:hover {
+  transform: scale(1.05);
   cursor: pointer;
 }
 
-.product-card:hover .home-name {
-  font-weight: bold !important;
+#product-card:hover #home-name {
+  font-weight: bold;
 }
 
-.product-card:hover .home-price {
-  font-weight: bold !important;
+#product-card:hover #home-price {
+  font-weight: bold;
 }

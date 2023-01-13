@@ -120,7 +120,7 @@ export default function AddToCartForm({ quantity, productId }: Props) {
       justifyContent={"center"}
       >
         <CustomButton
-        className="addtocart-button"
+        className="button primary-button"
         variant="contained"
         type="submit"
         >

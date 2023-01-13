@@ -1,9 +1,9 @@
-.item-qty {
-  font-size: smaller !important;
-  text-align: center !important;
+#item-qty {
+  font-size: smaller;
+  text-align: center;
 }
 
-.item-price {
-  font-size: larger !important;
-  font-weight: bold !important;
+#item-price {
+  font-size: larger;
+  font-weight: bold;
 }

@@ -70,7 +70,7 @@ export default function CartItem(cartProduct: Types.CartProduct) {
           }}
           >
             <Typography
-            className="cart-name"
+            id="cart-name"
             component={Link}
             to={`/product/${cartProduct.product_id}`}
             >
@@ -88,7 +88,7 @@ export default function CartItem(cartProduct: Types.CartProduct) {
         <Stack direction={"row"} justifyContent="center">
           <CustomButton
           handleOnClick={handleRemoveItem}
-          className="delete-button"
+          className="button delete-button"
           variant="outlined"
           >
             Delete Item

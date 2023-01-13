@@ -96,7 +96,7 @@ export default function UpdateQuantity({ cartItem, showPrice }: Props) {
         />
         {
           showPrice &&
-          <Typography className='item-price'>
+          <Typography id='item-price'>
             {cartItem.total_price} NZD
           </Typography>
         }
@@ -104,7 +104,7 @@ export default function UpdateQuantity({ cartItem, showPrice }: Props) {
       <Box
       sx={{ width: "150px" }}
       >
-        <Typography className='item-qty'>
+        <Typography id='item-qty'>
           Available {remainingStock}
         </Typography>
       </Box>

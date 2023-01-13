@@ -30,7 +30,7 @@ export default function ProductCard({id, name, url_image, price}: Props) {
     xs={12} sm={4} md={3} lg={2}
     >
       <Card
-      className="product-card"
+      id="product-card"
       component={Link}
       to={`/product/${id}`}
       style={{
@@ -69,12 +69,12 @@ export default function ProductCard({id, name, url_image, price}: Props) {
         }}
         >
           <Typography
-          className="home-price"
+          id="home-price"
           >
             {price} NZD
           </Typography>
           <Typography
-          className="home-name"
+          id="home-name"
           >
             {name}
           </Typography>

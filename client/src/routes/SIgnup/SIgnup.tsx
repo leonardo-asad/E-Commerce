@@ -128,7 +128,7 @@ export default function Signup() {
           alignContent="center"
           >
             <CustomButton
-            className="primary-button"
+            className="button primary-button"
             variant='contained'
             type="submit"
             >

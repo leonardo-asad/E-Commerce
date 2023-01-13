@@ -1,37 +1,24 @@
-.primary-button {
-  border-radius: 30px !important;
-  margin: 15px !important;
-  padding: 10px !important;
-  width: 220px !important;
-  color: white !important;
+div .primary-button {
+  margin: 15px;
 }
 
-.delete-button {
-  border-radius: 30px !important;
-  margin-bottom: 10px !important;
+div .button {
   width: 220px;
+  border-radius: 30px;
+  padding: 10px;
 }
 
-.buy-button {
-  border-radius: 30px !important;
-  color: white !important;
-  border-color: white !important;
-  margin: 15px !important;
-  padding: 10px !important;
-  width: 220px;
+div .delete-button {
+  margin-bottom: 10px;
+}
+
+div .buy-button {
+  color: white;
+  border-color: white;
   transition: 0.2s;
 }
 
-.buy-button:hover {
-  transform: scale(1.1) !important;
-}
-
-
-.addtocart-button {
-  border-radius: 30px !important;
-  margin-bottom: 10px !important;
-  width: 220px !important;
-  color: white !important;
-  margin: 15px !important;
-  padding: 10px !important;
+div .buy-button:hover {
+  border-color: white;
+  transform: scale(1.1);
 }

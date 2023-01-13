@@ -63,7 +63,7 @@ export default function BottomBar({ cartProducts, handleSubmitOrder }: Props) {
           >
             <CustomButton
             handleOnClick={handleSubmitOrder}
-            className="buy-button"
+            className="button primary-button buy-button"
             variant="outlined"
             >
               Checkout

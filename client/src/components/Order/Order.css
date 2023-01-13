@@ -1,4 +1,4 @@
-.secondary {
-  font-size: smaller !important;
-  color: grey !important;
+div .secondary {
+  font-size: smaller;
+  color: grey;
 }

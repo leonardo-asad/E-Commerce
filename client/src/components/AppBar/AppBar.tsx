@@ -67,7 +67,7 @@ export default function CustomAppBar() {
 
   // App Bar buttons change depending if user is logged in or not
   const buttons = (
-    <>
+    <div className='menu'>
       {
         isLoggedIn ?
         <Stack
@@ -104,14 +104,13 @@ export default function CustomAppBar() {
         :
         <Button
         className="menu-item"
-        color="inherit"
         component={Link}
         to="/auth/login"
         >
           Login / Sign up
         </Button>
       }
-    </>
+    </div>
   );
 
   return (

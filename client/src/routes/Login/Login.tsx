@@ -134,15 +134,15 @@ export default function Login() {
           alignItems="center"
           >
             <CustomButton
-            className="primary-button"
-            variant='contained'
+            className="button primary-button"
             type="submit"
+            variant='contained'
             >
               Login
             </CustomButton>
             <Divider sx={{width: '100%'}}>or</Divider>
             <CustomButton
-            className="primary-button"
+            className="button primary-button"
             variant='contained'
             startIcon={<GoogleIcon />}
             href={route}
