@@ -4,13 +4,11 @@ import React from 'react';
 // Import Components
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import CustomButton from '../Buttons/CustomButton';
 import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
 import UpdateQuantity from '../UpdateQuantityForm/UpdateQuantityForm';
 
 // Import React Router
@@ -45,23 +43,9 @@ export default function CartItem(cartProduct: Types.CartProduct) {
           height: "100%",
           boxShadow: 0
         }}>
-          <Box
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems:"center",
-            width: "30%",
-            height: "auto",
-            padding: "5px"
-          }}
-          >
-            <CardMedia
-            component="img"
-            image={cartProduct.url_image}
-            alt="Product Image"
-            />
-          </Box>
+          <div className='cart-image'>
+            <img src={cartProduct.url_image} alt={cartProduct.name} className='contain' />
+          </div>
           <Divider sx={{my: 5}} variant="middle" />
           <CardContent
           style={{

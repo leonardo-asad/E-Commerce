@@ -25,3 +25,17 @@
 #product-card:hover #home-price {
   font-weight: bold;
 }
+
+.product-item {
+  height: 225px;
+  padding: 10px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.contain {
+  object-fit: contain;
+}

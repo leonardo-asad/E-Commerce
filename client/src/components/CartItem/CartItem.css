@@ -3,3 +3,17 @@
   font-size: x-large;
   color: black;
 }
+
+.cart-image {
+  width: 30%;
+  padding: 10px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.contain {
+  object-fit: contain;
+}

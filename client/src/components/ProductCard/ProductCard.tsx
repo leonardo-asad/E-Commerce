@@ -4,11 +4,9 @@ import * as React from 'react';
 // Import Components
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
 
 // Import React Router Component
 import { Link } from 'react-router-dom';
@@ -39,26 +37,9 @@ export default function ProductCard({id, name, url_image, price}: Props) {
         height: "350px"
       }}
       >
-        <Box
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems:"center",
-          height: "225px",
-          padding: "5px",
-        }}
-        >
-          <CardMedia
-          component="img"
-          image={url_image}
-          alt="Product Image"
-          sx={{
-            maxHeight: "100%",
-            maxWidth: "100%"
-          }}
-          />
-        </Box>
+        <div className='product-item'>
+          <img src={url_image} alt={name} className='contain' />
+        </div>
         <Divider/>
         <CardContent
         style={{

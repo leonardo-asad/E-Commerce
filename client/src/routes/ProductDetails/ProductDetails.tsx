@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 // Import Components
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import NotFound from '../NotFound/NotFound';
 import Divider from '@mui/material/Divider';
@@ -87,29 +86,13 @@ export default function ProductDetails() {
           flexWrap: "wrap",
           maxWidth: "1000px"
         }}>
-          <Box
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems:"center",
-            height: "400px",
-            padding: "10px",
-          }}
-          >
-            <CardMedia
-            component="img"
-            image={selectedProduct.url_image}
-            alt="Product Image"
-            sx={{
-              maxHeight: "100%",
-              maxWidth: "100%"
-            }}
-            />
-          </Box>
+          <div className='product-detail-image'>
+            <img src={selectedProduct.url_image} alt={selectedProduct.name} className='contain' />
+          </div>
           <CardContent style={{
             display: "flex",
             flexDirection: "column",
+            width: '100%',
           }}>
             <Typography className="product-info-title" variant="h4">
             {selectedProduct.name}
@@ -136,7 +119,7 @@ export default function ProductDetails() {
             }
 
           </CardContent>
-          </Card>
+        </Card>
       </Box>
       { successMessage && <CustomAlert severity='success'>{successMessage}</CustomAlert> }
       { errorMessage && <CustomAlert severity='error'>{errorMessage}</CustomAlert> }

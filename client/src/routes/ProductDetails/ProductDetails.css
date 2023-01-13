@@ -1,3 +1,18 @@
 div .product-info-title {
-  text-align: right;
+  text-align: left;
+}
+
+.product-detail-image {
+  height: 400px;
+  width: 100%;
+  padding: 20px;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.contain {
+  object-fit: contain;
 }
