@@ -3,7 +3,6 @@ import React from 'react';
 
 // Import Components
 import Carousel from "react-multi-carousel";
-import { Box } from '@mui/material';
 import CategoryItem from '../CategoryItem/CategoryItem';
 import Typography from '@mui/material/Typography';
 
@@ -41,19 +40,9 @@ export default function CategoryCarousel() {
 
   return (
     <>
-      <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      >
+      <div className='center home'>
         <Typography
         sx={{
-          width: "1200px",
-          marginY: 2,
-          marginLeft: 2,
           fontFamily: 'Proxima Nova',
           fontSize: '20px',
           color: '#666'
@@ -61,15 +50,8 @@ export default function CategoryCarousel() {
         >
           Categories
         </Typography>
-      </Box>
-      <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      >
+      </div>
+      <div className='center home'>
         <Carousel
         responsive={responsive}
         containerClass="carousel-container"
@@ -86,7 +68,7 @@ export default function CategoryCarousel() {
             })
           }
         </Carousel>
-      </Box>
+      </div>
     </>
   )
 };

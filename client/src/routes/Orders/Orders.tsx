@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 // Import Components
 import Grid from '@mui/material/Grid';
 import Order from '../../components/Order/Order';
-import Box from '@mui/material/Box';
 import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterminate';
 
 // Redux Imports
@@ -33,32 +32,24 @@ export default function Orders() {
     <>
       {
         isLoadingOrders ?
-          <CircularIndeterminate />
-          :
-          <Box
+        <CircularIndeterminate />
+        :
+        <div className='center home'>
+          <Grid
+          container
+          direction={"column"}
+          spacing={2}
           sx={{
-            display: "flex",
-            direction:"row",
-            justifyContent:"center",
-            padding:2,
-            paddingBottom: 10
+            width:"100%"
           }}
           >
-            <Grid
-            container
-            direction={"column"}
-            spacing={2}
-            sx={{
-              maxWidth:"1000px"
-            }}
-            >
-              {
-                orders.map(order => {
-                  return <Order order={order} key={order.order_id} />
-                })
-              }
-            </Grid>
-          </Box>
+            {
+              orders.map(order => {
+                return <Order order={order} key={order.order_id} />
+              })
+            }
+          </Grid>
+        </div>
       }
     </>
   )

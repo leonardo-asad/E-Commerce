@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 // Import Components
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import CartItem from '../../components/CartItem/CartItem';
 import CustomAlert from '../../components/Messages/CustomAlert';
 import BottomBar from '../../components/BottomBar/BottomBar';
@@ -24,6 +23,9 @@ import {
 } from '../../store/cartSlice/cartSlice';
 import { AppDispatch } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
+
+// Import Style sheet
+import './Cart.css'
 
 export default function Cart() {
   const dispatch = useDispatch<AppDispatch>();
@@ -61,20 +63,12 @@ export default function Cart() {
         isLoadingCartProducts ?
         <CircularIndeterminate />
         :
-        <Box
-        sx={{
-          display:"flex",
-          direction:"row",
-          justifyContent:"center",
-          padding:2,
-          paddingBottom:20
-        }}
-        >
+        <div className='center home cart-bottom'>
           <Grid
             container
             direction={"column"}
             spacing={2}
-            sx={{maxWidth:"1000px"}}
+            sx={{width:"100%"}}
           >
             {
               cartProducts.map(cartProduct => {
@@ -82,7 +76,7 @@ export default function Cart() {
               })
             }
           </Grid>
-        </Box>
+        </div>
       }
       { error && <CustomAlert severity='error'>{error}</CustomAlert> }
       { successMessage && <CustomAlert severity='success'>{successMessage}</CustomAlert> }
@@ -91,6 +85,5 @@ export default function Cart() {
       handleSubmitOrder={handleSubmitOrder}
       />
     </>
-
   )
 }

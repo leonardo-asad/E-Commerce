@@ -4,3 +4,17 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.center {
+  margin: 10px auto;
+}
+
+.home {
+  max-width: 1200px;
+}
+
+#pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
