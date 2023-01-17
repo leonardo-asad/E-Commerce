@@ -10,6 +10,7 @@ import CustomAlert from '../../components/Messages/CustomAlert';
 import CategoryCarousel from '../../components/Carousel/Carousel';
 import Pagination from '@mui/material/Pagination';
 import Typography from '@mui/material/Typography';
+import EmptyProductsMessage from '../../components/EmptyProducts/EmptyProducts';
 
 // Redux Imports
 import { useDispatch, useSelector } from 'react-redux';
@@ -88,7 +89,7 @@ export default function Home() {
           :
           <>
             {
-              products.length > 0 &&
+              products.length > 0 ?
               <>
                 <div className='center home'>
                   <Typography
@@ -126,6 +127,10 @@ export default function Home() {
                   />
                 </div>
               </>
+              :
+              <EmptyProductsMessage imageUrl='/images/empty-product.svg'>
+                Products not available at this moment
+              </EmptyProductsMessage>
             }
           </>
         }

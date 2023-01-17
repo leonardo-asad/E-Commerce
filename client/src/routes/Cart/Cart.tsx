@@ -10,6 +10,7 @@ import CartItem from '../../components/CartItem/CartItem';
 import CustomAlert from '../../components/Messages/CustomAlert';
 import BottomBar from '../../components/BottomBar/BottomBar';
 import CircularIndeterminate from '../../components/LoadingIcon/CircularIndeterminate';
+import EmptyProductsMessage from '../../components/EmptyProducts/EmptyProducts';
 
 // Redux Imports
 import {
@@ -63,20 +64,29 @@ export default function Cart() {
         isLoadingCartProducts ?
         <CircularIndeterminate />
         :
-        <div className='center home cart-bottom'>
-          <Grid
-            container
-            direction={"column"}
-            spacing={2}
-            sx={{width:"100%"}}
-          >
-            {
-              cartProducts.map(cartProduct => {
-                return <CartItem {...cartProduct} key={cartProduct.id} />
-              })
-            }
-          </Grid>
-        </div>
+        <>
+          {
+            cartProducts.length > 0 ?
+            <div className='center home cart-bottom'>
+              <Grid
+              container
+              direction={"column"}
+              spacing={2}
+              sx={{width:"100%"}}
+              >
+                {
+                  cartProducts.map(cartProduct => {
+                    return <CartItem {...cartProduct} key={cartProduct.id} />
+                  })
+                }
+              </Grid>
+            </div>
+            :
+            <EmptyProductsMessage imageUrl='/images/empty-cart.png'>
+              Your Cart is empty
+            </EmptyProductsMessage>
+          }
+        </>
       }
       { error && <CustomAlert severity='error'>{error}</CustomAlert> }
       { successMessage && <CustomAlert severity='success'>{successMessage}</CustomAlert> }

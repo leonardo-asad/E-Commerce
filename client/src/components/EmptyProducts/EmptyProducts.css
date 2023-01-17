@@ -1,0 +1,11 @@
+#alert-image {
+  width: 400px;
+  margin: 50px
+}
+
+#empty-products-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
